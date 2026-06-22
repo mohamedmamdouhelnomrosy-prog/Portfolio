@@ -31,7 +31,8 @@ class CustomButtonWidget extends StatelessWidget {
       this.borderColor,
       this.titleColor,
       this.borderRadius,
-      this.titleStyle, this.boxShadow});
+      this.titleStyle,
+      this.boxShadow});
 
   const CustomButtonWidget.outLined(
       {super.key,
@@ -45,7 +46,7 @@ class CustomButtonWidget extends StatelessWidget {
       this.borderRadiusValue,
       this.isLoading = false,
       this.borderColor,
-        this.boxShadow,
+      this.boxShadow,
       this.borderRadius,
       this.titleColor})
       : btnColor = Colors.transparent;
@@ -71,7 +72,7 @@ class CustomButtonWidget extends StatelessWidget {
           borderRadius:
               borderRadius ?? BorderRadius.circular(borderRadiusValue ?? 100.0),
           color: btnColor ?? colors.secondary,
-          boxShadow:boxShadow ==null?null :[boxShadow!],
+          boxShadow: boxShadow == null ? null : [boxShadow!],
           border: Border.all(color: borderColor ?? Colors.transparent),
         ),
         child: isLoading

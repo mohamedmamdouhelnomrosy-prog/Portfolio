@@ -15,35 +15,28 @@ class ThemeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final size =!context.isSmall?40.0:32.0;
-    return BlocBuilder<ThemeCubit,ThemeState>(
-      buildWhen: (c,p)=>c.isDark !=p.isDark,
-      builder: (context, s) {
-        return CustomButtonWidget(
-          onPressed: () {
-            context.read<ThemeCubit>().changeTheme();
-          },
-          width: size,
-          height: size,
-          boxShadow:
-          BoxShadow(
-              color: colors.border,
-              blurRadius: 4,
-              spreadRadius: 2,
-              offset: const Offset(0, 4)
-          )
-          ,
-          borderRadiusValue: size/4,
-          btnColor: s.isDark ? colors.secondary: colors.surface,
-          borderColor: s.isDark ? colors.secondary: colors.border,
-          child: Icon(
-            Portfolio.theme,
-          color: s.isDark ? Colors.white: colors.text2,
-          size: size/2,
-          ),
-
-        );
-      }
-    );
+    final size = !context.isSmall ? 40.0 : 32.0;
+    return BlocBuilder<ThemeCubit, ThemeState>(
+        buildWhen: (c, p) => c.isDark != p.isDark,
+        builder: (context, s) {
+          return CustomButtonWidget(
+            onPressed: () {
+              context.read<ThemeCubit>().changeTheme();
+            },
+            width: size,
+            height: double.infinity,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(size / 4),
+              bottomRight: Radius.circular(size / 4),
+            ),
+            btnColor: s.isDark ? colors.secondary : colors.secondary25,
+            borderColor: s.isDark ? colors.secondary : colors.secondary25,
+            child: Icon(
+              Portfolio.theme,
+              color: Colors.white,
+              size: size / 2,
+            ),
+          );
+        });
   }
 }

@@ -15,8 +15,7 @@ class HomeSummarySection extends StatelessWidget {
   final ProfileEntity? profile;
   final int projectsNumber, certNumber;
   final double hozPadding;
-  final double size,height;
-
+  final double size, height;
 
   const HomeSummarySection({
     super.key,
@@ -25,89 +24,79 @@ class HomeSummarySection extends StatelessWidget {
     required this.profile,
     required this.projectsNumber,
     required this.certNumber,
-    this.height=400,
-
+    this.height = 400,
   });
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
     return AnimatedBackground(
-      height: height,
-      child: Padding(
-        padding: EdgeInsets.only(left: hozPadding, right: hozPadding, top: 32 ,bottom: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if(context.isLarge)
-            _TagBadge(),
-
-            const SizedBox(height: 32),
-            Row(
-              spacing: 24,
-              children: [
-              ProfileImage(
-              width: size,
-              height: size,
-              image: profile?.image??"",
-            ),
-
-        _Headline(titleStyle: AppTextStyles.headline(context:context,color: colors.text1)),
-
-
-              ],
-            ),
-            const SizedBox(height: 16),
-            Text(
-              "${profile?.firstName ?? ""}${profile?.lastName ?? ""} | ${profile?.jobTitle ?? ""}",
-              style: AppTextStyles.title(
-                context: context,
-                color: colors.text2,
+        height: height,
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: hozPadding, right: hozPadding, top: 32, bottom: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              64.0.heightBox,
+              Row(
+                spacing: 24,
+                children: [
+                  ProfileImage(
+                    width: size,
+                    height: size,
+                    image: profile?.image ?? "",
+                  ),
+                  _Headline(
+                      titleStyle: AppTextStyles.headline(
+                          context: context, color: colors.text1)),
+                ],
               ),
-            ),
-
-
-            const SizedBox(height: 8),
-
-            Text(
-              profile?.summary ?? "",
-              style: AppTextStyles.summaryBody(
-                context: context,
-                color: colors.text3,
+              const SizedBox(height: 16),
+              Text(
+                "${profile?.firstName ?? ""}${profile?.lastName ?? ""} | ${profile?.jobTitle ?? ""}",
+                style: AppTextStyles.title(
+                  context: context,
+                  color: colors.text2,
+                ),
               ),
-            ),
-
-            const SizedBox(height: 32),
-            StatsRow(
-              numStyle: AppTextStyles.summaryNumberLarge(context: context),
-              titleStyle: AppTextStyles.summaryNumberMedium(context: context),
-              items: [
-                Stat(
-                  value: projectsNumber,
-                  name: 'Projects Tested',
+              const SizedBox(height: 8),
+              Text(
+                profile?.summary ?? "",
+                style: AppTextStyles.summaryBody(
+                  context: context,
+                  color: colors.text3,
                 ),
-                Stat(
-                  value: certNumber,
-                  name: 'Certifications',
-                ),
-                const Stat(
-                  value: 2,
-                  name: 'Testing Tracks',
-                ),
-                const Stat(
-                  value: 100,
-                  subTitle: '%',
-                  name: 'Attention to Detail',
-                ),
-              ],
-            )
-          ],
-        ),
-      )
-    );
+              ),
+              const SizedBox(height: 32),
+              StatsRow(
+                numStyle: AppTextStyles.summaryNumberLarge(context: context),
+                titleStyle: AppTextStyles.summaryNumberMedium(context: context),
+                items: [
+                  Stat(
+                    value: projectsNumber,
+                    name: 'Projects Tested',
+                  ),
+                  Stat(
+                    value: certNumber,
+                    name: 'Certifications',
+                  ),
+                  const Stat(
+                    value: 2,
+                    name: 'Testing Tracks',
+                  ),
+                  const Stat(
+                    value: 100,
+                    subTitle: '%',
+                    name: 'Attention to Detail',
+                  ),
+                ],
+              )
+            ],
+          ),
+        ));
   }
-
 }
 
 // ──────────────────────────────────────────
@@ -154,7 +143,8 @@ class _Headline extends StatelessWidget {
               ).createShader(bounds),
               child: Text(
                 'One Test Case at a Time.',
-                style: (titleStyle ?? AppTextStyles.semiBold28()).copyWith(color: colors.text3),
+                style: (titleStyle ?? AppTextStyles.semiBold28())
+                    .copyWith(color: colors.text3),
               ),
             ),
           ),

@@ -18,7 +18,7 @@ class HomeAppBarItem extends StatefulWidget {
     required this.title,
     required this.icon,
     this.titleStyle,
-    this.selected=false,
+    this.selected = false,
   });
 
   @override
@@ -32,41 +32,38 @@ class _HomeAppBarItemState extends State<HomeAppBarItem> {
   Widget build(BuildContext context) {
     final colors = context.colors;
     bool active = widget.selected || _isHovered;
-    final size =context.isLarge?lThemeButtonSize:context.isMedium?mThemeButtonSize:sThemeButtonSize;
+    final size = context.isLarge
+        ? lThemeButtonSize
+        : context.isMedium
+            ? mThemeButtonSize
+            : sThemeButtonSize;
 
     return InkWell(
       hoverColor: Colors.transparent,
       onTap: widget.onTap,
-
       child: MouseRegion(
         onEnter: (_) => setState(() => _isHovered = true),
         onExit: (_) => setState(() => _isHovered = false),
-
-
-
-        child:
-            Row(
-              spacing: 4,
-              children: [
-                Icon(widget.icon,
-                    size: size/2,  color:active?colors.secondary:colors.text2),
-                if(context.isLarge)
-                Text(
-                  widget.title,
-
-                  style: AppTextStyles.titleCardSmall(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(widget.title,
+                style: AppTextStyles.titleSmall(
                     context: context,
-                      color:active?colors.secondary:colors.text2).copyWith(
-                    height: 1.5,
-                    decorationColor: colors.secondary,
-                    decoration:active? TextDecoration.underline:null,
-                    decorationThickness: 2
-                  ),
-                ),
-              ],
-            ),
-
-
+                    color: active ? colors.secondary : colors.text2)),
+            AnimatedSize(
+              duration: const Duration(milliseconds: 300),
+              child: active
+                  ? SizedBox(
+                      width: 80,
+                      child: DividerWidget(
+                        color: colors.secondary,
+                        thickness: 1,
+                      ))
+                  : SizedBox.shrink(),
+            )
+          ],
+        ),
       ),
     );
   }
