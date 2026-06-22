@@ -43,7 +43,6 @@ class MediumHomeView extends StatelessWidget {
           child: 16.0.heightBox,
         ),
 
-
         SliverToBoxAdapter(
           child: BlocBuilder<PortfolioCubit, PortfolioState>(
               buildWhen: (c, p) => c.data?.education != p.data?.education,
@@ -53,9 +52,10 @@ class MediumHomeView extends StatelessWidget {
                     education: state.data?.education ?? []);
               }),
         ),
-        const SliverToBoxAdapter(
-          child: SpacerWidget(),
+        SliverToBoxAdapter(
+          child: mediumSpacing.heightBox,
         ),
+
         /// Skills
         SliverToBoxAdapter(
             child: BlocBuilder<PortfolioCubit, PortfolioState>(
@@ -67,12 +67,11 @@ class MediumHomeView extends StatelessWidget {
                     iconSize: 22,
                     countPerRow: 2,
                     height: 144,
-
                   );
                 })),
 
-        const SliverToBoxAdapter(
-          child: SpacerWidget(),
+        SliverToBoxAdapter(
+          child: mediumSpacing.heightBox,
         ),
 
         /// Experince
@@ -86,9 +85,7 @@ class MediumHomeView extends StatelessWidget {
                   );
                 })),
 
-
-
-        const SliverToBoxAdapter(child: SpacerWidget()),
+        SliverToBoxAdapter(child: mediumSpacing.heightBox),
 
         SliverToBoxAdapter(
           child: BlocBuilder<PortfolioCubit, PortfolioState>(
@@ -99,12 +96,11 @@ class MediumHomeView extends StatelessWidget {
                   hozPadding: tabletHozPadding,
                   height: 220,
                   countPerRow: 2,
-
                 );
               }),
         ),
-        const SliverToBoxAdapter(
-          child: SpacerWidget(),
+        SliverToBoxAdapter(
+          child: mediumSpacing.heightBox,
         ),
 
         SliverToBoxAdapter(
@@ -116,11 +112,14 @@ class MediumHomeView extends StatelessWidget {
                     data: state.data?.certificates ?? []);
               }),
         ),
-        const SliverToBoxAdapter(child: SpacerWidget()),
+        SliverToBoxAdapter(child: mediumSpacing.heightBox),
         const SliverToBoxAdapter(child: DividerWidget()),
-        const SliverToBoxAdapter(child: SpacerWidget()),        const SliverToBoxAdapter(child: ContactWidget()),
-        const SliverToBoxAdapter(child: SizedBox(height: 16,)),
-
+        SliverToBoxAdapter(child: mediumSpacing.heightBox),
+        const SliverToBoxAdapter(child: ContactWidget()),
+        const SliverToBoxAdapter(
+            child: SizedBox(
+          height: 16,
+        )),
       ],
     );
   }

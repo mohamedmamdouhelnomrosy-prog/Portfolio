@@ -8,6 +8,7 @@ import 'package:portfolio/Widgets/sections_title_widget.dart';
 
 import '../../../../../Utilities/Constants/global_keys.dart';
 import '../../../../../Utilities/Constants/strings.dart';
+import '../../../../../Widgets/Custom/animated_list.dart';
 import 'certification_card.dart';
 
 class CertificationSection extends StatelessWidget {
@@ -19,7 +20,7 @@ class CertificationSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors =context.colors;
+    final colors = context.colors;
     return Column(
       spacing: 16,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,20 +31,14 @@ class CertificationSection extends StatelessWidget {
           subtitle: '${data.length} Certifications',
           key: GlobalKeys.certification,
         ),
-        ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: data.length,
-          separatorBuilder: (c, i) => 8.0.heightBox,
-          itemBuilder: (context, index) {
-            return CertificationCard(
-              item: data[index],
-              imageHeight: 40,
-              imageWidth: 64,
-              index: index+1,
-            );
-          },
-        ),
+        AnimatedListView<CertificateEntity>(
+            items: data,
+            buildChild: (index) => CertificationCard(
+                  item: data[index],
+                  imageHeight: 40,
+                  imageWidth: 64,
+                  index: index + 1,
+                )),
       ],
     ).paddingSymmetric(horizontal: hozPadding);
   }

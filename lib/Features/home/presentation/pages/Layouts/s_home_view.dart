@@ -41,18 +41,17 @@ class SmallHomeView extends StatelessWidget {
           child: 16.0.heightBox,
         ),
 
-
         SliverToBoxAdapter(
           child: BlocBuilder<PortfolioCubit, PortfolioState>(
               buildWhen: (c, p) => c.data?.education != p.data?.education,
               builder: (context, state) {
                 return EducationSection(
-                  padding: mobileHozPadding,
+                    padding: mobileHozPadding,
                     education: state.data?.education ?? []);
               }),
         ),
-        const SliverToBoxAdapter(
-          child: SpacerWidget(),
+        SliverToBoxAdapter(
+          child: smallSpacing.heightBox,
         ),
 
         /// Skills
@@ -66,12 +65,11 @@ class SmallHomeView extends StatelessWidget {
                     iconSize: 20,
                     countPerRow: 1,
                     height: 100,
-
                   );
                 })),
 
-        const SliverToBoxAdapter(
-          child: SpacerWidget(),
+        SliverToBoxAdapter(
+          child: smallSpacing.heightBox,
         ),
 
         /// Experince
@@ -84,7 +82,7 @@ class SmallHomeView extends StatelessWidget {
                     hozPadding: mobileHozPadding,
                   );
                 })),
-        const SliverToBoxAdapter(child: SpacerWidget()),
+        SliverToBoxAdapter(child: smallSpacing.heightBox),
 
         SliverToBoxAdapter(
           child: BlocBuilder<PortfolioCubit, PortfolioState>(
@@ -95,14 +93,12 @@ class SmallHomeView extends StatelessWidget {
                   hozPadding: mobileHozPadding,
                   countPerRow: 1,
                   height: 208,
-
                 );
               }),
         ),
 
-
-        const SliverToBoxAdapter(
-          child: SpacerWidget(),
+        SliverToBoxAdapter(
+          child: smallSpacing.heightBox,
         ),
 
         SliverToBoxAdapter(
@@ -111,16 +107,17 @@ class SmallHomeView extends StatelessWidget {
               builder: (context, state) {
                 return CertificationSection(
                     hozPadding: mobileHozPadding,
-
                     data: state.data?.certificates ?? []);
               }),
         ),
-        const SliverToBoxAdapter(child: SpacerWidget()),
+        SliverToBoxAdapter(child: smallSpacing.heightBox),
         const SliverToBoxAdapter(child: DividerWidget()),
-        const SliverToBoxAdapter(child: SpacerWidget()),
+        SliverToBoxAdapter(child: smallSpacing.heightBox),
         const SliverToBoxAdapter(child: ContactWidget()),
-        const SliverToBoxAdapter(child: SizedBox(height: 16,)),
-
+        const SliverToBoxAdapter(
+            child: SizedBox(
+          height: 16,
+        )),
       ],
     );
   }

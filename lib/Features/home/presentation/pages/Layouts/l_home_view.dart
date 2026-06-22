@@ -36,13 +36,8 @@ class LargeHomeView extends StatelessWidget {
                   );
                 })),
         SliverToBoxAdapter(
-          child: 16.0.heightBox,
+          child: largeSpacing.heightBox,
         ),
-
-        SliverToBoxAdapter(
-          child: 16.0.heightBox,
-        ),
-
 
         SliverToBoxAdapter(
           child: BlocBuilder<PortfolioCubit, PortfolioState>(
@@ -53,9 +48,10 @@ class LargeHomeView extends StatelessWidget {
                     education: state.data?.education ?? []);
               }),
         ),
-        const SliverToBoxAdapter(
-          child: SpacerWidget(),
+        SliverToBoxAdapter(
+          child: largeSpacing.heightBox,
         ),
+
         /// Skills
         SliverToBoxAdapter(
             child: BlocBuilder<PortfolioCubit, PortfolioState>(
@@ -67,12 +63,11 @@ class LargeHomeView extends StatelessWidget {
                     iconSize: 22,
                     countPerRow: 3,
                     height: 144,
-
                   );
                 })),
 
-        const SliverToBoxAdapter(
-          child: SpacerWidget(),
+        SliverToBoxAdapter(
+          child: largeSpacing.heightBox,
         ),
 
         /// Experince
@@ -86,9 +81,9 @@ class LargeHomeView extends StatelessWidget {
                   );
                 })),
 
-
-
-        const SliverToBoxAdapter(child: SpacerWidget()),
+        SliverToBoxAdapter(
+          child: largeSpacing.heightBox,
+        ),
 
         SliverToBoxAdapter(
           child: BlocBuilder<PortfolioCubit, PortfolioState>(
@@ -99,12 +94,11 @@ class LargeHomeView extends StatelessWidget {
                   hozPadding: desktopHozPadding,
                   height: 216,
                   countPerRow: 2,
-
                 );
               }),
         ),
-        const SliverToBoxAdapter(
-          child: SpacerWidget(),
+        SliverToBoxAdapter(
+          child: largeSpacing.heightBox,
         ),
 
         SliverToBoxAdapter(
@@ -116,12 +110,18 @@ class LargeHomeView extends StatelessWidget {
                     data: state.data?.certificates ?? []);
               }),
         ),
-        const SliverToBoxAdapter(child: SpacerWidget()),
+        SliverToBoxAdapter(
+          child: largeSpacing.heightBox,
+        ),
         const SliverToBoxAdapter(child: DividerWidget()),
-        const SliverToBoxAdapter(child: SpacerWidget()),
+        SliverToBoxAdapter(
+          child: largeSpacing.heightBox,
+        ),
         const SliverToBoxAdapter(child: ContactWidget()),
-        const SliverToBoxAdapter(child: SizedBox(height: 16,)),
-
+        const SliverToBoxAdapter(
+            child: SizedBox(
+          height: 16,
+        )),
       ],
     );
   }

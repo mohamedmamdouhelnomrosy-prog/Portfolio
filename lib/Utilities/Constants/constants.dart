@@ -24,3 +24,7 @@ const sThemeButtonSize = 28.0;
 const smallButtonIcon = 24.0;
 const mediumButtonIcon = 28.0;
 const largeButtonIcon = 36.0;
+
+const smallSpacing = 24.0;
+const mediumSpacing = 40.0;
+const largeSpacing = 56.0;

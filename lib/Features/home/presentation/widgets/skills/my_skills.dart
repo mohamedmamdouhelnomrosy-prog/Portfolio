@@ -8,18 +8,21 @@ import '../../../../../Utilities/Constants/constants.dart';
 import '../../../../../Utilities/Constants/global_keys.dart';
 import '../../../../../Utilities/Constants/strings.dart';
 import '../../../../../Utilities/portifilo_icons.dart';
+import '../../../../../Widgets/Custom/animated_list.dart';
 
 class SkillsSection extends StatelessWidget {
   final List<TechnicalSkillEntity> skills;
   final double hozPadding;
-  final double iconSize,height;
+  final double iconSize, height;
   final int countPerRow;
-  const SkillsSection(
-      {super.key,
-        this.height=120,
-      this.skills = const [],
-      this.hozPadding = desktopHozPadding,
-      this.iconSize = 40,  this.countPerRow =4,});
+  const SkillsSection({
+    super.key,
+    this.height = 120,
+    this.skills = const [],
+    this.hozPadding = desktopHozPadding,
+    this.iconSize = 40,
+    this.countPerRow = 4,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,20 +36,14 @@ class SkillsSection extends StatelessWidget {
           title: Strings.mySkill.translate.toUpperCase(),
           key: GlobalKeys.skill,
         ),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount:countPerRow,
-              mainAxisExtent: height,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16),
-          itemBuilder: (c, u) => SkillCard(
+        AnimatedGridView(
+          perRow: countPerRow,
+          mainAxisExtent: height,
+          buildChild: (u) => SkillCard(
             skill: skills[u],
             iconSize: iconSize,
-
           ),
-          itemCount: skills.length,
+          items: skills,
         )
       ],
     ).paddingSymmetric(horizontal: hozPadding);
