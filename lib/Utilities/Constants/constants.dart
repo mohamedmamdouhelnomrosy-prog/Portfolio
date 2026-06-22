@@ -20,3 +20,7 @@ const cardRadius = 12.0;
 const lThemeButtonSize = 40.0;
 const mThemeButtonSize = 32.0;
 const sThemeButtonSize = 28.0;
+
+const smallButtonIcon = 24.0;
+const mediumButtonIcon = 28.0;
+const largeButtonIcon = 36.0;

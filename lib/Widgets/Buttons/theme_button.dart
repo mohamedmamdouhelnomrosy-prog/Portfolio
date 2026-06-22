@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/Core/Theme/theme_cubit.dart';
 import 'package:portfolio/Core/Theme/theme_state.dart';
-import 'package:portfolio/Features/home/presentation/widgets/contact/contact_button.dart';
-import 'package:portfolio/Utilities/Constants/constants.dart';
+
 import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Widgets/Buttons/custom_button_widget.dart';
 
 import '../../Utilities/portifilo_icons.dart';
 
 class ThemeButton extends StatelessWidget {
-  const ThemeButton({super.key});
+  final double? height;
+  const ThemeButton({super.key, this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class ThemeButton extends StatelessWidget {
               context.read<ThemeCubit>().changeTheme();
             },
             width: size,
-            height: double.infinity,
+            height: height ?? double.infinity,
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(size / 4),
               bottomRight: Radius.circular(size / 4),

@@ -89,11 +89,15 @@ extension LayoutExtensions on BuildContext {
       ResponsiveBreakpoints.of(this).isPhone ||
       ResponsiveBreakpoints.of(this).isMobile;
 
-  double get authDialogWidth => isLarge
-      ? 450
-      : isMedium
-          ? 350
-          : 300;
+  double matchedSize(
+      {required double large, required double medium, required double small}) {
+    if (isLarge) {
+      return large;
+    } else if (isMedium)
+      return medium;
+    else
+      return small;
+  }
 }
 
 extension ThemeHelper on BuildContext {
@@ -101,5 +105,3 @@ extension ThemeHelper on BuildContext {
 
   AppTextStyles get text => Theme.of(this).extension<AppTextStyles>()!;
 }
-
-

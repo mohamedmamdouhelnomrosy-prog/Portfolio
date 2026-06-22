@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Widgets/MainLayout/AppBar/home_app_bar.dart';
+import 'package:portfolio/Widgets/MainLayout/menu_button.dart';
 
 import '../../Utilities/Constants/global_keys.dart';
 
@@ -21,12 +22,15 @@ class _MainLayoutWidgetState extends State<MainLayoutWidget> {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final screenWidth = MediaQuery.of(context).size.width;
-    final scale =MediaQuery.of(context).size.width > 1539 ? (screenWidth / _designWidth).clamp(0.5, 1.0) : 1.0;
+    final scale = MediaQuery.of(context).size.width > 1539
+        ? (screenWidth / _designWidth).clamp(0.5, 1.0)
+        : 1.0;
 
     return Scaffold(
       key: GlobalKeys.scaffoldKey,
       backgroundColor: colors.background,
-      floatingActionButton:const FloatingAppBar(),
+      floatingActionButton:
+          context.isLarge ? const FloatingAppBar() : const MenuButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterTop,
       body: AnimatedScale(
         scale: scale,
@@ -36,4 +40,3 @@ class _MainLayoutWidgetState extends State<MainLayoutWidget> {
     );
   }
 }
-
