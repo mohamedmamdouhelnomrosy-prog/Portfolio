@@ -5,6 +5,7 @@ import 'package:universal_html/html.dart' as html;
 import '../Features/Splash/presentation/pages/splash_view.dart';
 import '../Features/home/presentation/pages/home_view.dart';
 import '../Widgets/MainLayout/main_layout_widget.dart';
+import '../sco_helper.dart';
 
 BuildContext? get CURRENT_CONTEXT =>
     GoRouterConfig.router.routerDelegate.navigatorKey.currentContext;
@@ -15,7 +16,6 @@ class GoRouterConfig {
     Uri uri = Uri.parse(completeUrl);
     String serverUrl =
         '${uri.scheme}://${uri.host}${uri.hasPort ? ":${uri.port}" : ""}';
-    print("com :${completeUrl}");
     return serverUrl;
   }
 
@@ -67,6 +67,14 @@ class GoRouterConfig {
             GoRoute(
               name: HomeView.routeName,
               path: "/${HomeView.routeName}",
+              redirect: (_, state) {
+                SeoHelper.setMetaTags(
+                  title: 'محمد النمرسي | Mohamed El-Nomrosy',
+                  description:
+                      'My Portfolio Page As SoftWare Testing Engineer , Manual and Automation Testing ',
+                );
+                return null;
+              },
               pageBuilder: (_, GoRouterState state) {
                 return getCustomTransitionPage(
                   state: state,
