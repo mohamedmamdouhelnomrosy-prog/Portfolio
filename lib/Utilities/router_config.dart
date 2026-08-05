@@ -53,6 +53,14 @@ class GoRouterConfig {
             child: const SplashScreen(),
           );
         },
+        redirect: (_, state) {
+          SeoHelper.setMetaTags(
+            title: 'محمد النمرسي | Mohamed El-Nomrosy',
+            description:
+                'My Portfolio Page As SoftWare Testing Engineer , Manual and Automation Testing ',
+          );
+          return null;
+        },
         routes: const <RouteBase>[],
       ),
       ShellRoute(
@@ -82,113 +90,8 @@ class GoRouterConfig {
                 );
               },
             )
-            //     routes: <RouteBase>[
-            //       //// --------------------------  Blog Details  --------------------------
-            //       GoRoute(
-            //         name: BlogsView.routeName,
-            //         path: BlogsView.routeName,
-            //         pageBuilder: (_, GoRouterState state) {
-            //           return getCustomTransitionPage(
-            //             state: state,
-            //             child: const BlogsView(),
-            //           );
-            //         },
-            //         routes: <RouteBase>[
-            //           GoRoute(
-            //               name: BlogDetailsView.routeName,
-            //               path: BlogDetailsView.routeName,
-            //               pageBuilder: (_, GoRouterState state) {
-            //                 return getCustomTransitionPage(
-            //                   state: state,
-            //                   child: BlogDetailsView(
-            //                     blogId: int.tryParse(state.uri.queryParameters["id"]??""),
-            //                   ),
-            //                 );
-            //               },
-            //               routes: const <RouteBase>[]),
-            //         ],
-            //       ),
-            //
-            //       //// --------------------------  profile --------------------------
-            //       GoRoute(
-            //           name: ProfileView.routeName,
-            //           path: ProfileView.routeName,
-            //           pageBuilder: (_, GoRouterState state) {
-            //             return getCustomTransitionPage(
-            //               state: state,
-            //               child: const ProfileView(),
-            //             );
-            //           },
-            //           routes: const <RouteBase>[]),
-            //
-            //       //// --------------------------  product Shipping Cart --------------------------
-            //       GoRoute(
-            //           name: ProductShippingCartView.routeName,
-            //           path: ProductShippingCartView.routeName,
-            //           pageBuilder: (_, GoRouterState state) {
-            //             return getCustomTransitionPage(
-            //               state: state,
-            //               child: const ProductShippingCartView(),
-            //             );
-            //           },
-            //           routes: <RouteBase>[
-            //             //// --------------------------  Check Out --------------------------
-            //             GoRoute(
-            //                 name: CheckOutView.routeName,
-            //                 path: CheckOutView.routeName,
-            //                 pageBuilder: (_, GoRouterState state) {
-            //                   return getCustomTransitionPage(
-            //                     state: state,
-            //                     child: CheckOutView(),
-            //                   );
-            //                 },
-            //                 routes: <RouteBase>[
-            //                   GoRoute(
-            //                       name: BillView.routeName,
-            //                       path: BillView.routeName,
-            //                       pageBuilder: (_, GoRouterState state) {
-            //                         return getCustomTransitionPage(
-            //                           state: state,
-            //                           child:  BillView(
-            //                             orderID: int.tryParse(state.uri.queryParameters["id"]??"0")??0,
-            //                           ),
-            //                         );
-            //                       },
-            //                       routes: const <RouteBase>[]),
-            //                 ]),
-            //           ]),
-            //
-            //       //// --------------------------  Privacy Policy --------------------------
-            //       GoRoute(
-            //           name: PrivacyPolicyView.routeName,
-            //           path: PrivacyPolicyView.routeName,
-            //           pageBuilder: (_, GoRouterState state) {
-            //             return getCustomTransitionPage(
-            //               state: state,
-            //               child: const PrivacyPolicyView(),
-            //             );
-            //           },
-            //           routes: const <RouteBase>[]),
-            //       // error page
-            //       GoRoute(
-            //         name: ErrorView.routeName,
-            //         path: ErrorView.routeName,
-            //         pageBuilder: (_, GoRouterState state) {
-            //           return getCustomTransitionPage(
-            //             state: state,
-            //             child: ErrorView(
-            //               arg: state.extra as ErrorPageArguments,
-            //             ),
-            //           );
-            //         },
-            //         routes: const <RouteBase>[],
-            //       ),
-            //     ]),
           ]),
     ],
-    redirect: (BuildContext context, GoRouterState state) {
-      print("redirecting to ${state.fullPath}");
-    },
   );
 
   static CustomTransitionPage getCustomTransitionPage(
