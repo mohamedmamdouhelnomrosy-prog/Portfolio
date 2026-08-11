@@ -24,8 +24,7 @@ class CustomRadioButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
 
-    return InkWell(
-      borderRadius: BorderRadius.circular(100),
+    return GestureDetector(
       onTap: onTap,
       child: Container(
         width: size ?? 24,
@@ -80,8 +79,9 @@ class CustomRadioWithColor extends StatelessWidget {
       width: 20,
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
-        color:
-            isSelected ? backgroundColor ?? colors.secondary : colors.background,
+        color: isSelected
+            ? backgroundColor ?? colors.secondary
+            : colors.background,
         shape: BoxShape.circle,
         border: Border.all(
           color:

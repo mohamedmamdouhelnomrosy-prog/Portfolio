@@ -20,9 +20,8 @@ class HamburgerBtn extends StatelessWidget {
         large: largeButtonIcon,
         medium: mediumButtonIcon,
         small: smallButtonIcon);
-    return InkWell(
+    return GestureDetector(
       onTap: onTap,
-      hoverColor: Colors.transparent,
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 220),
         child: Icon(isOpen ? Portfolio.close : Portfolio.menu,

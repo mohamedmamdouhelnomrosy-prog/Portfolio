@@ -55,15 +55,12 @@ class CustomButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
 
-    return InkWell(
-      focusNode: focusNode,
+    return GestureDetector(
       onTap: () => handleTap(
         context: context,
         isLoading: isLoading,
         onPressed: onPressed,
       ),
-      hoverColor: Colors.transparent,
-      splashColor: Colors.transparent,
       child: Container(
         alignment: Alignment.center,
         height: height ?? 36.0,

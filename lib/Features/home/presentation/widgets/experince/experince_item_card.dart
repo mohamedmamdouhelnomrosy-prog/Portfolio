@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/Features/home/domain/entities/experince_entity.dart';
-import 'package:portfolio/Utilities/Constants/constants.dart';
 import 'package:portfolio/Utilities/Constants/date_helper.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Widgets/Custom/card_with_animation.dart';
@@ -65,7 +64,7 @@ class ExperienceItemCard extends StatelessWidget {
           ...List.generate(
               item?.responsibilities.length ?? 0,
               (i) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       PointText(
                           point: (item?.responsibilities[i] ?? ""),
@@ -133,16 +132,13 @@ class _ExperienceCardState extends State<ExperienceCard>
   Widget build(BuildContext context) {
     final colors = context.colors;
     return SideAnimatedCard(
-
       child: Column(
         children: [
           // ── Header ──
-          InkWell(
+          GestureDetector(
             onTap: _toggle,
-            hoverColor: Colors.transparent,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(cardRadius)),
             child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Column(
@@ -151,24 +147,21 @@ class _ExperienceCardState extends State<ExperienceCard>
                       Row(
                         spacing: 8,
                         children: [
-
                           if (widget.experience.status)
                             const AnimatedDot(
-                             active: true,
+                              active: true,
                             ),
                           Text(widget.experience.companyName ?? "",
-                              maxLines: 2,
-                              style: AppTextStyles.titleCardLarge(
-                                  context: context, color: colors.text1)).expand,
-
+                                  maxLines: 2,
+                                  style: AppTextStyles.titleCardLarge(
+                                      context: context, color: colors.text1))
+                              .expand,
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        widget.experience.jobTitle ?? "",
-                        style: AppTextStyles.label(
-                            context: context, color: colors.secondary50)
-                      ),
+                      Text(widget.experience.jobTitle ?? "",
+                          style: AppTextStyles.label(
+                              context: context, color: colors.secondary50)),
                     ],
                   ),
                 ),
@@ -180,14 +173,18 @@ class _ExperienceCardState extends State<ExperienceCard>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 5),
                       decoration: BoxDecoration(
-                        color:  widget.experience.status ==true ? colors.secondary25 : colors.border.withValues(alpha: 0.4),
+                        color: widget.experience.status == true
+                            ? colors.secondary25
+                            : colors.border.withValues(alpha: 0.4),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
                         "${widget.experience.startDate == null ? "" : mmYYYY(widget.experience.startDate!)} - ${(widget.experience.endDate == null ? "Present" : mmYYYY(widget.experience.endDate!))}",
-                        style:
-                        (AppTextStyles.titleCardSmall(context: context)).copyWith(
-                          color: widget.experience.status ==true ? colors.secondary : colors.text2,
+                        style: (AppTextStyles.titleCardSmall(context: context))
+                            .copyWith(
+                          color: widget.experience.status == true
+                              ? colors.secondary
+                              : colors.text2,
                         ),
                       ),
                     ),
@@ -213,24 +210,26 @@ class _ExperienceCardState extends State<ExperienceCard>
             sizeFactor: _expandAnimation,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-
               spacing: 4,
               children: [
                 ...List.generate(
-                    widget.experience.responsibilities.length ,
-                        (i) => Column(
+                    widget.experience.responsibilities.length,
+                    (i) => Column(
                           spacing: 4,
                           crossAxisAlignment: CrossAxisAlignment.start,
-
                           children: [
-                        PointText(
-                            point: (widget.experience.responsibilities[i] ?? ""),
-                            style: AppTextStyles.body(
-                                context: context, color: colors.text2)),
-                        if (i < (widget.experience.responsibilities.length ?? 0) - 1)
-                          const DividerWidget(thickness: 0.6)
-                      ],
-                    ))
+                            PointText(
+                                point: (widget.experience.responsibilities[i] ??
+                                    ""),
+                                style: AppTextStyles.body(
+                                    context: context, color: colors.text2)),
+                            if (i <
+                                (widget.experience.responsibilities.length ??
+                                        0) -
+                                    1)
+                              const DividerWidget(thickness: 0.6)
+                          ],
+                        ))
               ],
             ),
           ),

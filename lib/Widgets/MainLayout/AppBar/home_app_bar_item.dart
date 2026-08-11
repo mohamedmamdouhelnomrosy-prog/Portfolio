@@ -38,8 +38,7 @@ class _HomeAppBarItemState extends State<HomeAppBarItem> {
             ? mThemeButtonSize
             : sThemeButtonSize;
 
-    return InkWell(
-      hoverColor: Colors.transparent,
+    return GestureDetector(
       onTap: widget.onTap,
       child: MouseRegion(
         onEnter: (_) => setState(() => _isHovered = true),

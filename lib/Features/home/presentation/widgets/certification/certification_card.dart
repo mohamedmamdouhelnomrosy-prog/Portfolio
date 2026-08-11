@@ -16,7 +16,8 @@ class CertificationCard extends StatefulWidget {
     super.key,
     required this.item,
     this.imageHeight = 48,
-    this.imageWidth=72, required this.index,
+    this.imageWidth = 72,
+    required this.index,
   });
 
   @override
@@ -24,10 +25,10 @@ class CertificationCard extends StatefulWidget {
 }
 
 class _CertificationCardState extends State<CertificationCard> {
-  bool hover =false;
-  void hovering(bool h)=> setState(() {
-    hover =h;
-  });
+  bool hover = false;
+  void hovering(bool h) => setState(() {
+        hover = h;
+      });
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
@@ -37,59 +38,62 @@ class _CertificationCardState extends State<CertificationCard> {
       onExit: (_) => hovering(false),
       child: AnimatedScale(
         duration: const Duration(microseconds: 400),
-        scale: hover?0.99:1,
-        child:  AnimatedContainer(
+        scale: hover ? 0.99 : 1,
+        child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(
               Radius.circular(cardRadius),
             ),
             border: Border.all(
-              color: hover
-                  ? colors.secondary
-                  :  colors.border,
+              color: hover ? colors.secondary : colors.border,
               width: 1,
             ),
-            boxShadow: hover ?[
-              BoxShadow(
-                  color: colors.border,
-                  spreadRadius: 2,
-                  blurRadius: 2,
-                  offset:const Offset (0,4)
-              )
-            ]:null,
-            color: ( colors.surface),
+            boxShadow: hover
+                ? [
+                    BoxShadow(
+                        color: colors.border,
+                        spreadRadius: 2,
+                        blurRadius: 2,
+                        offset: const Offset(0, 4))
+                  ]
+                : null,
+            color: (colors.surface),
           ),
-          padding: const EdgeInsets.symmetric(
-              horizontal: 20, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           child: Row(
             spacing: 16,
             children: [
               Text(
-                widget.index < 10 ?  "0${widget.index}" :widget.index.toString(),
-                style:  AppTextStyles.titleCardLarge(context: context,
+                widget.index < 10
+                    ? "0${widget.index}"
+                    : widget.index.toString(),
+                style: AppTextStyles.titleCardLarge(
+                  context: context,
                   color: colors.text3,
                 ),
               ),
-             RoundedImage(
-                    imagePath: widget.item.certificateImageUrl,
-                    width: widget.imageWidth,
-                    height: widget.imageHeight,
-                    radiusValue: 0,
-                  ),
+              RoundedImage(
+                imagePath: widget.item.certificateImageUrl,
+                width: widget.imageWidth,
+                height: widget.imageHeight,
+                radiusValue: 0,
+              ),
               Column(
                 spacing: 8,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     widget.item.courseName ?? "",
-                    style:  AppTextStyles.titleCardLarge(context: context,
+                    style: AppTextStyles.titleCardLarge(
+                      context: context,
                       color: colors.text1,
                     ),
                   ),
                   Text(
                     widget.item.provider ?? "",
-                    style: AppTextStyles.label(context: context,
+                    style: AppTextStyles.label(
+                      context: context,
                       color: colors.secondary,
                     ),
                   ),
@@ -101,18 +105,22 @@ class _CertificationCardState extends State<CertificationCard> {
                   context: context,
                   color: colors.text2,
                 ),
-
                 border: 8,
                 color: colors.border.withValues(alpha: 0.4),
                 borderColor: Colors.transparent,
               ),
-              InkWell(
-                onTap: (){
-                  if(widget.item.certificateImageUrl !=null) {
-                    HelperFunctions.openUrl(widget.item.certificateImageUrl!, context);
+              GestureDetector(
+                onTap: () {
+                  if (widget.item.certificateImageUrl != null) {
+                    HelperFunctions.openUrl(
+                        widget.item.certificateImageUrl!, context);
                   }
                 },
-                child: Icon(Icons.arrow_right_alt_rounded,size: 16,color: colors.text3,),
+                child: Icon(
+                  Icons.arrow_right_alt_rounded,
+                  size: 16,
+                  color: colors.text3,
+                ),
               )
             ],
           ),
