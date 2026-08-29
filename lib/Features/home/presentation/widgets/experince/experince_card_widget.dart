@@ -26,8 +26,9 @@ class ExperienceSection extends StatelessWidget {
       spacing: 8,
       children: [
         SectionsTitleWidget(
+          index: 4,
           icon: Portfolio.work,
-          title: Strings.experience.translate.toUpperCase(),
+          title: Strings.experience.translate,
           key: GlobalKeys.experince,
         ),
         AnimatedListView<ExperienceEntity>(

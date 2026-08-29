@@ -13,9 +13,9 @@ BoxShadow get defaultBoxShadow => const BoxShadow(
       spreadRadius: 0,
     );
 
-const desktopHozPadding = 64.0;
-const tabletHozPadding = 24.0;
-const mobileHozPadding = 16.0;
+const desktopHozPadding = 160.0;
+const tabletHozPadding = 40.0;
+const mobileHozPadding = 24.0;
 const cardRadius = 12.0;
 const lThemeButtonSize = 40.0;
 const mThemeButtonSize = 32.0;

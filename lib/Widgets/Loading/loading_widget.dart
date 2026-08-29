@@ -14,7 +14,7 @@ class LoadingWidget extends StatelessWidget {
 
     return !isLoading
         ? CircularProgressIndicator(
-            color: colors.secondary,
+            color: colors.accent,
           )
         : child;
   }

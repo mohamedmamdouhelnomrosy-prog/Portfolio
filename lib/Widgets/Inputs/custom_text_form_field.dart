@@ -275,7 +275,7 @@ class CustomTextFormField extends StatelessWidget {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(radius ?? 100.0),
       borderSide: BorderSide(
-        color: color ?? context.colors.secondary,
+        color: color ?? context.colors.accent,
         width: width ?? 1.0,
       ),
     );
@@ -302,7 +302,7 @@ class CustomTextFormField extends StatelessWidget {
       textAlign: textAlign ?? TextAlign.start,
       autofocus: autoFocus,
       mouseCursor: isClickable ? SystemMouseCursors.click : null,
-      cursorColor: colors.secondary,
+      cursorColor: colors.accent,
       onTap: onTap,
       onFieldSubmitted: (_) => _handleFieldSubmitted(context),
       textInputAction: textInputAction ??

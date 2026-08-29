@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/Features/home/domain/entities/project_entity.dart';
-import 'package:portfolio/Features/home/presentation/widgets/products/project_list.dart';
+import 'package:portfolio/Features/home/presentation/widgets/projects/project_list.dart';
 import 'package:portfolio/Utilities/extensions.dart';
-import 'package:portfolio/Widgets/Buttons/custom_button_widget.dart';
 
-import '../../../../../Core/Language/app_styles.dart';
 import '../../../../../Utilities/Constants/constants.dart';
 import '../../../../../Utilities/Constants/global_keys.dart';
 import '../../../../../Utilities/Constants/strings.dart';
@@ -17,13 +15,13 @@ class MyProjectsWidget extends StatefulWidget {
   final double hozPadding;
   final double height;
   final int countPerRow;
-  const MyProjectsWidget(
-      {super.key,
-        this.height=180,
-        this.countPerRow=4,
-      this.projects = const [],
-      this.hozPadding = desktopHozPadding,
-      });
+  const MyProjectsWidget({
+    super.key,
+    this.height = 200,
+    this.countPerRow = 4,
+    this.projects = const [],
+    this.hozPadding = desktopHozPadding,
+  });
 
   @override
   State<MyProjectsWidget> createState() => _MyProjectsWidgetState();
@@ -31,77 +29,102 @@ class MyProjectsWidget extends StatefulWidget {
 
 class _MyProjectsWidgetState extends State<MyProjectsWidget> {
   int currentIndex = 0;
-  late List<ProjectEntity> man, auto;
+  late List<ProjectEntity> erp, ecom, other, finTech;
   @override
   void initState() {
     super.initState();
   }
 
-  void previewMan(int m) => setState(() {currentIndex = m;});
+  void previewMan(int m) => setState(() {
+        currentIndex = m;
+      });
   @override
   Widget build(BuildContext context) {
-    man = widget.projects.where((e) => e.isManual != false).toList();
-    auto = widget.projects.where((e) => !e.isManual).toList();
+    erp = widget.projects.where((e) => e.platform?.name == 'ERP').toList();
+    ecom =
+        widget.projects.where((e) => e.platform?.name == 'E-commerce').toList();
+    other = widget.projects.where((e) => e.platform?.name == 'Other').toList();
+    finTech =
+        widget.projects.where((e) => e.platform?.name == 'FinTech').toList();
     return Column(
       spacing: 16,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionsTitleWidget(
+          index: 5,
           icon: Portfolio.projects,
           key: GlobalKeys.projects,
-          title: Strings.projects.translate.toUpperCase(),
-          subtitle: '${widget.projects.length} Projects',
+          title: Strings.projects.translate,
+          subtitle: '${widget.projects.length} Usecases',
         ),
         Row(
           spacing: 16,
           children: [
             ButtonWidget(
-              title: 'All',
+              title: 'E-commerce',
               onTap: (index) {
-                if(currentIndex ==0) return;
-               previewMan(0);
+                if (currentIndex == 0) return;
+                previewMan(0);
               },
               width: 80,
-              selected: currentIndex ==0,
+              selected: currentIndex == 0,
               index: 0,
-            ),  ButtonWidget(
-              title: 'Manual Projects',
+            ),
+            ButtonWidget(
+              title: 'ERP',
               onTap: (index) {
-                if(currentIndex ==1) return;
-               previewMan(1);
+                if (currentIndex == 1) return;
+                previewMan(1);
               },
               width: 120,
-              selected: currentIndex ==1,
+              selected: currentIndex == 1,
               index: 1,
             ),
             ButtonWidget(
-              title: 'Automation Projects',
+              title: 'FinTech',
               onTap: (index) {
-                if(currentIndex ==2) return;
+                if (currentIndex == 2) return;
                 previewMan(2);
               },
-              width: 140,
-              selected: currentIndex ==2,
+              width: 120,
+              selected: currentIndex == 2,
               index: 2,
-            ),          ],
+            ),
+            ButtonWidget(
+              title: 'Other',
+              onTap: (index) {
+                if (currentIndex == 3) return;
+                previewMan(3);
+              },
+              width: 140,
+              selected: currentIndex == 3,
+              index: 2,
+            ),
+          ],
         ),
-        if (currentIndex ==0)
+        if (currentIndex == 0)
           ProjectsList(
-            projects: widget.projects,
+            projects: ecom,
             height: widget.height,
             countPerRow: widget.countPerRow,
           )
-        else if (currentIndex ==1)
+        else if (currentIndex == 1)
           ProjectsList(
-            projects: man,
+            projects: erp,
             height: widget.height,
             countPerRow: widget.countPerRow,
           )
-        else if(currentIndex==2)
+        else if (currentIndex == 2)
           ProjectsList(
             height: widget.height,
             countPerRow: widget.countPerRow,
-            projects: auto,
+            projects: finTech,
+          )
+        else if (currentIndex == 3)
+          ProjectsList(
+            height: widget.height,
+            countPerRow: widget.countPerRow,
+            projects: other,
           )
       ],
     ).paddingSymmetric(horizontal: widget.hozPadding);

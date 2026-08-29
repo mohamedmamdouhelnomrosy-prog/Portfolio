@@ -9,7 +9,7 @@ class ExperienceModel {
   final bool status;
   final DateTime? startDate;
   final DateTime? endDate;
-  final List<String> responsibilities;
+  final List<ExperienceContentModel> content;
 
   ExperienceModel(
       {this.id,
@@ -18,7 +18,7 @@ class ExperienceModel {
       this.companyName,
       this.location,
       this.startDate,
-      this.responsibilities = const [],
+      this.content = const [],
       this.status = false,
       this.endDate});
 
@@ -36,7 +36,11 @@ class ExperienceModel {
             ? null
             : DateTime.tryParse(json['end_date']),
         status: json['status'] ?? false,
-        responsibilities: List<String>.from(json['responsibilities'] ?? []),
+        content: json['content'] == null
+            ? []
+            : (json['content'] as List)
+                .map((e) => ExperienceContentModel.fromJson(e))
+                .toList(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -48,7 +52,7 @@ class ExperienceModel {
         "startDate": startDate?.toIso8601String(),
         "endDate": endDate?.toIso8601String(),
         "status": status,
-        "responsibilities": responsibilities,
+        'content': content.map((e) => e.toJson()).toList(),
       };
 
   static ExperienceModel toModel(ExperienceEntity? entity) => ExperienceModel(
@@ -59,7 +63,10 @@ class ExperienceModel {
       location: entity?.location,
       startDate: entity?.startDate,
       endDate: entity?.endDate,
-      responsibilities: entity?.responsibilities ?? [],
+      content: entity?.content
+              .map((e) => ExperienceContentModel.toModel(e))
+              .toList() ??
+          [],
       status: entity?.status ?? false);
   ExperienceEntity fromModel() => ExperienceEntity(
         id: id,
@@ -70,6 +77,37 @@ class ExperienceModel {
         startDate: startDate,
         endDate: endDate,
         status: status,
-        responsibilities: responsibilities,
+        content: content.map((e) => e.fromModel()).toList(),
+      );
+}
+
+class ExperienceContentModel {
+  final String? title;
+  final List<String> keys;
+
+  ExperienceContentModel({
+    this.keys = const [],
+    this.title,
+  });
+
+  factory ExperienceContentModel.fromJson(Map<String, dynamic> json) =>
+      ExperienceContentModel(
+        title: json['title'],
+        keys: List<String>.from(json['keys'] ?? []),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "title": title,
+        "keys": keys,
+      };
+
+  static ExperienceContentModel toModel(ExperienceContentEntity? entity) =>
+      ExperienceContentModel(
+        title: entity?.title,
+        keys: entity?.keys ?? [],
+      );
+  ExperienceContentEntity fromModel() => ExperienceContentEntity(
+        title: title,
+        keys: keys,
       );
 }

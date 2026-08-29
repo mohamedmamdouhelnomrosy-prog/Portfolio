@@ -61,7 +61,6 @@ class PortfolioModel {
         'projects': projects.map((e) => e.toJson()).toList(),
         'certificates': certificates.map((e) => e.toJson()).toList(),
         'skills': skills.map((e) => e.toJson()).toList(),
-
       };
 
   PortfolioEntity fromModel() => PortfolioEntity(
@@ -75,10 +74,18 @@ class PortfolioModel {
 
   static PortfolioModel toModel(PortfolioEntity? pr) => PortfolioModel(
         profile: ProfileModel.toModel(pr?.profile),
-        education: pr?.education.map((e) => EducationModel.toModel(e)).toList()??[],
-        projects: pr?.projects.map((e) => ProjectModel.toModel(e)).toList()??[],
-        experience: pr?.experience.map((e) => ExperienceModel.toModel(e)).toList()??[],
-        certificates: pr?.certificates.map((e) => CertificateModel.toModel(e)).toList()??[],
-        skills: pr?.skills.map((e) => TechnicalSkillModel.toModel(e)).toList()??[],
+        education:
+            pr?.education.map((e) => EducationModel.toModel(e)).toList() ?? [],
+        projects:
+            pr?.projects.map((e) => ProjectModel.toModel(e)).toList() ?? [],
+        experience:
+            pr?.experience.map((e) => ExperienceModel.toModel(e)).toList() ??
+                [],
+        certificates:
+            pr?.certificates.map((e) => CertificateModel.toModel(e)).toList() ??
+                [],
+        skills:
+            pr?.skills.map((e) => TechnicalSkillModel.toModel(e)).toList() ??
+                [],
       );
 }

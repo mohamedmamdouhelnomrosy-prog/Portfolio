@@ -12,8 +12,7 @@ import '../../../../../Widgets/Portfilio/divider.dart';
 import '../../widgets/certification/certification_widget.dart';
 import '../../widgets/education/education_widget.dart';
 import '../../widgets/experince/experince_card_widget.dart';
-import '../../widgets/general/spacer_widget.dart';
-import '../../widgets/products/my_projects.dart';
+import '../../widgets/projects/my_projects.dart';
 import '../../widgets/skills/my_skills.dart';
 
 class MediumHomeView extends StatelessWidget {
@@ -35,10 +34,6 @@ class MediumHomeView extends StatelessWidget {
                     hozPadding: tabletHozPadding,
                   );
                 })),
-        SliverToBoxAdapter(
-          child: 16.0.heightBox,
-        ),
-
         SliverToBoxAdapter(
           child: 16.0.heightBox,
         ),
@@ -66,7 +61,7 @@ class MediumHomeView extends StatelessWidget {
                     skills: state.data?.skills ?? [],
                     iconSize: 22,
                     countPerRow: 2,
-                    height: 144,
+                    height: 160,
                   );
                 })),
 
@@ -94,8 +89,8 @@ class MediumHomeView extends StatelessWidget {
                 return MyProjectsWidget(
                   projects: state.data?.projects ?? [],
                   hozPadding: tabletHozPadding,
-                  height: 220,
-                  countPerRow: 2,
+                  height: 240,
+                  countPerRow: 1,
                 );
               }),
         ),

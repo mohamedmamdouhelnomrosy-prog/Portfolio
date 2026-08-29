@@ -1,4 +1,3 @@
-
 // ──────────────────────────────────────────
 //  STATS ROW
 // ──────────────────────────────────────────
@@ -10,7 +9,7 @@ import '../../../../../Widgets/Custom/animated_counter.dart';
 
 class StatsRow extends StatelessWidget {
   final List<Stat> items;
-  final TextStyle? numStyle , titleStyle;
+  final TextStyle? numStyle, titleStyle;
   const StatsRow({this.items = const [], this.numStyle, this.titleStyle});
 
   @override
@@ -20,10 +19,10 @@ class StatsRow extends StatelessWidget {
       runSpacing: 20,
       children: items
           .map((s) => StatItem(
-        item: s,
-        titleStyle: titleStyle,
-        numStyle: numStyle,
-      ))
+                item: s,
+                titleStyle: titleStyle,
+                numStyle: numStyle,
+              ))
           .toList(),
     );
   }
@@ -34,10 +33,12 @@ class StatsRow extends StatelessWidget {
 // ──────────────────────────────────────────
 class StatItem extends StatelessWidget {
   final Stat item;
-  final TextStyle? numStyle , titleStyle;
+  final TextStyle? numStyle, titleStyle;
 
   const StatItem({
-    required this.item, this.numStyle, this.titleStyle,
+    required this.item,
+    this.numStyle,
+    this.titleStyle,
   });
 
   @override
@@ -49,20 +50,22 @@ class StatItem extends StatelessWidget {
         // Gradient number
         ShaderMask(
           shaderCallback: (bounds) => LinearGradient(
-            colors: [colors.text1, colors.secondary],
+            colors: [colors.accent, colors.accentSoft],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ).createShader(bounds),
           child: AnimatedCounter(
-            targetNumber:  item.value??0,
+            targetNumber: item.value ?? 0,
             subtitle: item.subTitle,
-            style:( numStyle?? AppTextStyles.medium32()).copyWith(color: Colors.white),
+            style: (numStyle ?? AppTextStyles.medium32())
+                .copyWith(color: Colors.white),
           ),
         ),
         const SizedBox(height: 5),
         Text(
           item.name?.toUpperCase() ?? "",
-          style:  (titleStyle??AppTextStyles.regular12()).copyWith(color: colors.text3),
+          style: (titleStyle ?? AppTextStyles.regular12())
+              .copyWith(color: colors.text2),
         ),
       ],
     );

@@ -43,13 +43,9 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             text: widget.title,
             style: AppTextStyles.buttonTitle(
                 context: context,
-                color: widget.selected
-                    ? colors.secondary50
-                    : (hover ? colors.text2 : colors.text1)),
-            borderColor: widget.selected
-                ? colors.text1
-                : (!hover ? colors.border : colors.text3),
-            color: widget.selected ? colors.text1 : colors.surface,
+                color: widget.selected ? colors.accent : colors.text2),
+            borderColor: widget.selected ? colors.accent : colors.text3,
+            color: widget.selected ? colors.accentSoft : colors.surface,
             border: 8,
           ),
         ));

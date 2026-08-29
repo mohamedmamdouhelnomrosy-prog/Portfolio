@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/Core/Language/app_styles.dart';
 import 'package:portfolio/Features/home/domain/entities/education_entity.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 
@@ -12,7 +11,8 @@ import 'education_card.dart';
 class EducationSection extends StatelessWidget {
   final List<EducationEntity> education;
   final double padding;
-  const EducationSection({super.key,this.padding = 20, this.education = const []});
+  const EducationSection(
+      {super.key, this.padding = 20, this.education = const []});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +22,10 @@ class EducationSection extends StatelessWidget {
       key: GlobalKeys.education,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         SectionsTitleWidget(
+        SectionsTitleWidget(
+          index: 2,
           icon: Portfolio.education,
-          title:  Strings.education.translate.toUpperCase(),
+          title: Strings.education.translate,
         ),
         ListView.builder(
           shrinkWrap: true,
@@ -37,6 +38,6 @@ class EducationSection extends StatelessWidget {
           },
         ),
       ],
-    ).paddingOnly(start: padding ,end:  padding);
+    ).paddingOnly(start: padding, end: padding);
   }
 }

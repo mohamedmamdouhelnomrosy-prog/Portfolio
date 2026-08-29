@@ -11,7 +11,7 @@ class ContactButton extends StatefulWidget {
   final Color? backgroundColor, borderColor, iconColor;
   const ContactButton(
       {super.key,
-        this.border=8,
+      this.border = 8,
       required this.onTap,
       required this.icon,
       this.backgroundColor,
@@ -30,7 +30,11 @@ class _ContactButtonState extends State<ContactButton> {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final size =context.isLarge?lThemeButtonSize:context.isMedium?mThemeButtonSize:sThemeButtonSize;
+    final size = context.isLarge
+        ? lThemeButtonSize
+        : context.isMedium
+            ? mThemeButtonSize
+            : sThemeButtonSize;
 
     return MouseRegion(
       onEnter: (_) => hovering(true),
@@ -42,17 +46,14 @@ class _ContactButtonState extends State<ContactButton> {
           borderRadiusValue: widget.border,
           onPressed: widget.onTap,
           btnColor: widget.backgroundColor ?? Colors.transparent,
-          borderColor: hover
-              ? colors.secondary
-              : widget.borderColor ?? colors.text2,
+          borderColor:
+              hover ? colors.accent : widget.borderColor ?? colors.text2,
           width: size,
-          height:size,
+          height: size,
           child: Icon(
             widget.icon,
-            color: hover
-                ? colors.secondary
-                : widget.iconColor ?? colors.text2,
-            size: size/2,
+            color: hover ? colors.accent : widget.iconColor ?? colors.text2,
+            size: size / 2,
           ),
         ),
       ),

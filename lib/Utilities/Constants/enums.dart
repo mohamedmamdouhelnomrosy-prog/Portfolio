@@ -5,7 +5,6 @@ enum ScreenRoutes {
 
 enum RequestStatus { init, loading, success, error }
 
-
 enum HomeSection {
   about,
   education,
@@ -15,3 +14,7 @@ enum HomeSection {
   certifications,
   contact,
 }
+
+enum LinkType { ios, android, web }
+
+enum TestingType { manual, automation }

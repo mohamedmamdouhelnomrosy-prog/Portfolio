@@ -14,13 +14,13 @@ abstract class HelperFunctions {
     showModalBottomSheet(
         useSafeArea: true,
         isScrollControlled: isFullScreen,
-        backgroundColor: backgroundColor ?? colors.secondary,
+        backgroundColor: backgroundColor ?? colors.accent,
         showDragHandle: true,
         context: context,
         builder: (context) {
           return BottomSheet(
               onClosing: () {},
-              backgroundColor: backgroundColor ?? colors.secondary,
+              backgroundColor: backgroundColor ?? colors.accent,
               builder: (context) {
                 return widget;
               });
@@ -116,12 +116,11 @@ abstract class HelperFunctions {
     }
   }
 
-
-
-  static Color? convertStringToColor (String color)  {
-    final colorN =  int.tryParse(color);
-    if(colorN == null) return null;
-    else return Color(colorN);
-
+  static Color? convertStringToColor(String color) {
+    final colorN = int.tryParse(color);
+    if (colorN == null)
+      return null;
+    else
+      return Color(colorN);
   }
 }

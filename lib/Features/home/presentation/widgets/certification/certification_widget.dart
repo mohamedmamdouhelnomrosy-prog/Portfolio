@@ -3,7 +3,6 @@ import 'package:portfolio/Features/home/domain/entities/certificate_entity.dart'
 import 'package:portfolio/Utilities/Constants/constants.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Utilities/portifilo_icons.dart';
-import 'package:portfolio/Widgets/Portfilio/divider.dart';
 import 'package:portfolio/Widgets/sections_title_widget.dart';
 
 import '../../../../../Utilities/Constants/global_keys.dart';
@@ -26,9 +25,9 @@ class CertificationSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionsTitleWidget(
+          index: 6,
           icon: Portfolio.certification,
-          title: Strings.certification.translate.toUpperCase(),
-          subtitle: '${data.length} Certifications',
+          title: Strings.certification.translate,
           key: GlobalKeys.certification,
         ),
         AnimatedListView<CertificateEntity>(
@@ -37,7 +36,6 @@ class CertificationSection extends StatelessWidget {
                   item: data[index],
                   imageHeight: 40,
                   imageWidth: 64,
-                  index: index + 1,
                 )),
       ],
     ).paddingSymmetric(horizontal: hozPadding);

@@ -12,8 +12,7 @@ import '../../../../../Widgets/Portfilio/divider.dart';
 import '../../widgets/certification/certification_widget.dart';
 import '../../widgets/education/education_widget.dart';
 import '../../widgets/experince/experince_card_widget.dart';
-import '../../widgets/general/spacer_widget.dart';
-import '../../widgets/products/my_projects.dart';
+import '../../widgets/projects/my_projects.dart';
 import '../../widgets/skills/my_skills.dart';
 
 class SmallHomeView extends StatelessWidget {
@@ -29,7 +28,6 @@ class SmallHomeView extends StatelessWidget {
                 buildWhen: (c, p) => c.data?.profile != p.data?.profile,
                 builder: (context, state) {
                   return HomeSummarySection(
-                    height: 424,
                     profile: state.data?.profile,
                     certNumber: state.data?.certificates.length ?? 0,
                     projectsNumber: state.data?.projects.length ?? 0,
@@ -64,7 +62,7 @@ class SmallHomeView extends StatelessWidget {
                     skills: state.data?.skills ?? [],
                     iconSize: 20,
                     countPerRow: 1,
-                    height: 100,
+                    height: 140,
                   );
                 })),
 
@@ -92,7 +90,7 @@ class SmallHomeView extends StatelessWidget {
                   projects: state.data?.projects ?? [],
                   hozPadding: mobileHozPadding,
                   countPerRow: 1,
-                  height: 208,
+                  height: 300,
                 );
               }),
         ),

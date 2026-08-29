@@ -30,7 +30,7 @@ class NameWidget extends StatelessWidget {
               ),
               CircleAvatar(
                 radius: 2,
-                backgroundColor: colors.secondary,
+                backgroundColor: colors.accent,
               ).paddingOnly(top: 4),
               Text(
                 (profile?.lastName ?? "").split(" ").last,

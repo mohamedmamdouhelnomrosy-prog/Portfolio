@@ -42,6 +42,7 @@ class _SplashScreenState extends State<SplashScreen>
     _initParticles();
     _initAnimations();
   }
+
   void _initParticles() {
     for (int i = 0; i < 60; i++) {
       _particles.add(Particle(random: _random));
@@ -54,8 +55,6 @@ class _SplashScreenState extends State<SplashScreen>
       duration: const Duration(seconds: 10),
     )..repeat();
   }
-
-
 
   @override
   void dispose() {
@@ -82,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen>
                   return CustomPaint(
                     painter: ParticlePainter(
                       particles: _particles,
-                      color: colors.secondary,
+                      color: colors.accent,
                       progress: _particleController.value,
                     ),
                     child: const SizedBox.expand(),
@@ -93,7 +92,9 @@ class _SplashScreenState extends State<SplashScreen>
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ProfileImage(image: Assets.images.logo.path,),
+                    ProfileImage(
+                      image: Assets.images.logo.path,
+                    ),
                     24.0.heightBox,
                     const LoadingTextWidget()
                   ],

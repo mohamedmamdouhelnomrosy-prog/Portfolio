@@ -9,7 +9,7 @@ class ExperienceEntity extends Equatable {
   final bool status;
   final DateTime? startDate;
   final DateTime? endDate;
-  final List<String> responsibilities;
+  final List<ExperienceContentEntity> content;
 
   ExperienceEntity({
     this.id,
@@ -18,8 +18,9 @@ class ExperienceEntity extends Equatable {
     this.companyName,
     this.location,
     this.startDate,
-    this.responsibilities = const [],
-    this.status = false, this.endDate,
+    this.content = const [],
+    this.status = false,
+    this.endDate,
   });
 
   List<Object?> get props => [
@@ -29,7 +30,18 @@ class ExperienceEntity extends Equatable {
         companyName,
         location,
         startDate,
-        responsibilities,
+        content,
         status
       ];
+}
+
+class ExperienceContentEntity extends Equatable {
+  final String? title;
+  final List<String> keys;
+
+  ExperienceContentEntity({
+    this.keys = const [],
+    this.title,
+  });
+  List<Object?> get props => [keys, title];
 }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/Utilities/extensions.dart';
-import 'package:portfolio/Widgets/Portfilio/divider.dart';
 
 import '../../../Core/Language/app_styles.dart';
-import '../../../Utilities/Constants/constants.dart';
 
 class HomeAppBarItem extends StatefulWidget {
   final Function() onTap;
@@ -32,38 +30,29 @@ class _HomeAppBarItemState extends State<HomeAppBarItem> {
   Widget build(BuildContext context) {
     final colors = context.colors;
     bool active = widget.selected || _isHovered;
-    final size = context.isLarge
-        ? lThemeButtonSize
+    final padding = context.isLarge
+        ? 40.0
         : context.isMedium
-            ? mThemeButtonSize
-            : sThemeButtonSize;
+            ? 20.0
+            : 0.0;
 
     return GestureDetector(
       onTap: widget.onTap,
       child: MouseRegion(
-        onEnter: (_) => setState(() => _isHovered = true),
-        onExit: (_) => setState(() => _isHovered = false),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(widget.title,
-                style: AppTextStyles.titleSmall(
+          onEnter: (_) => setState(() => _isHovered = true),
+          onExit: (_) => setState(() => _isHovered = false),
+          child: AnimatedContainer(
+            duration: const Duration(microseconds: 400),
+            padding:
+                const EdgeInsetsGeometry.symmetric(horizontal: 8, vertical: 8),
+            decoration: BoxDecoration(
+                color: active ? colors.accentSoft : Colors.transparent,
+                borderRadius: const BorderRadius.all(Radius.circular(8))),
+            child: Text(widget.title,
+                style: AppTextStyles.appbarTitle(
                     context: context,
-                    color: active ? colors.secondary : colors.text2)),
-            AnimatedSize(
-              duration: const Duration(milliseconds: 300),
-              child: active
-                  ? SizedBox(
-                      width: 80,
-                      child: DividerWidget(
-                        color: colors.secondary,
-                        thickness: 1,
-                      ))
-                  : SizedBox.shrink(),
-            )
-          ],
-        ),
-      ),
-    );
+                    color: active ? colors.accent : colors.text2)),
+          )),
+    ).paddingOnly(end: padding);
   }
 }

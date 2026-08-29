@@ -20,7 +20,7 @@ class RoundedDotedWidget extends StatelessWidget {
           stackFit: StackFit.passthrough),
       child: CircleAvatar(
         radius: innerRadius,
-        backgroundColor: colors.secondary,
+        backgroundColor: colors.accent,
       ),
     );
   }

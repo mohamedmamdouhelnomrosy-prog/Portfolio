@@ -18,6 +18,7 @@ extension WidgetsExtensions on Widget {
       );
 
   Widget get expand => Expanded(child: this);
+  Widget get center => Center(child: this);
 
   Widget expandFlex(int flex) => Expanded(flex: flex, child: this);
 

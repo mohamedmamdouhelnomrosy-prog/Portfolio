@@ -10,14 +10,12 @@ import 'package:portfolio/Widgets/rounded_image_widget.dart';
 class CertificationCard extends StatefulWidget {
   final CertificateEntity item;
   final double imageWidth, imageHeight;
-  final int index;
 
   const CertificationCard({
     super.key,
     required this.item,
-    this.imageHeight = 48,
-    this.imageWidth = 72,
-    required this.index,
+    this.imageHeight = 56,
+    this.imageWidth = 88,
   });
 
   @override
@@ -33,99 +31,90 @@ class _CertificationCardState extends State<CertificationCard> {
   Widget build(BuildContext context) {
     final colors = context.colors;
 
-    return MouseRegion(
-      onEnter: (_) => hovering(true),
-      onExit: (_) => hovering(false),
-      child: AnimatedScale(
-        duration: const Duration(microseconds: 400),
-        scale: hover ? 0.99 : 1,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 250),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(cardRadius),
-            ),
-            border: Border.all(
-              color: hover ? colors.secondary : colors.border,
-              width: 1,
-            ),
-            boxShadow: hover
-                ? [
-                    BoxShadow(
-                        color: colors.border,
-                        spreadRadius: 2,
-                        blurRadius: 2,
-                        offset: const Offset(0, 4))
-                  ]
-                : null,
-            color: (colors.surface),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          child: Row(
-            spacing: 16,
-            children: [
-              Text(
-                widget.index < 10
-                    ? "0${widget.index}"
-                    : widget.index.toString(),
-                style: AppTextStyles.titleCardLarge(
-                  context: context,
-                  color: colors.text3,
-                ),
-              ),
-              RoundedImage(
-                imagePath: widget.item.certificateImageUrl,
-                width: widget.imageWidth,
-                height: widget.imageHeight,
-                radiusValue: 0,
-              ),
-              Column(
-                spacing: 8,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.item.courseName ?? "",
-                    style: AppTextStyles.titleCardLarge(
-                      context: context,
-                      color: colors.text1,
-                    ),
+    return GestureDetector(
+        onTap: () {
+          if (widget.item.certificateImageUrl != null) {
+            HelperFunctions.openUrl(widget.item.certificateImageUrl!, context);
+          }
+        },
+        child: MouseRegion(
+          onEnter: (_) => hovering(true),
+          onExit: (_) => hovering(false),
+          child: AnimatedScale(
+            duration: const Duration(microseconds: 400),
+            scale: hover ? 0.99 : 1,
+            child: AnimatedContainer(
+                duration: const Duration(milliseconds: 250),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(cardRadius),
                   ),
-                  Text(
-                    widget.item.provider ?? "",
-                    style: AppTextStyles.label(
-                      context: context,
-                      color: colors.secondary,
-                    ),
+                  border: Border.all(
+                    color: hover ? colors.accent : colors.text3,
+                    width: 1,
                   ),
-                ],
-              ).expand,
-              CardWithText(
-                text: widget.item.issueDate ?? "",
-                style: AppTextStyles.titleCardSmall(
-                  context: context,
-                  color: colors.text2,
+                  boxShadow: hover
+                      ? [
+                          BoxShadow(
+                              color: colors.text3,
+                              spreadRadius: 2,
+                              blurRadius: 2,
+                              offset: const Offset(0, 4))
+                        ]
+                      : null,
+                  color: (colors.surface),
                 ),
-                border: 8,
-                color: colors.border.withValues(alpha: 0.4),
-                borderColor: Colors.transparent,
-              ),
-              GestureDetector(
-                onTap: () {
-                  if (widget.item.certificateImageUrl != null) {
-                    HelperFunctions.openUrl(
-                        widget.item.certificateImageUrl!, context);
-                  }
-                },
-                child: Icon(
-                  Icons.arrow_right_alt_rounded,
-                  size: 16,
-                  color: colors.text3,
-                ),
-              )
-            ],
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                child: Column(
+                  spacing: 8,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      spacing: 16,
+                      children: [
+                        RoundedImage(
+                          imagePath: widget.item.certificateImageUrl,
+                          width: widget.imageWidth,
+                          height: widget.imageHeight,
+                          radiusValue: 4,
+                          borderColor: colors.secondary,
+                        ),
+                        const Spacer(),
+                        CardWithText(
+                          text: widget.item.issueDate ?? "",
+                          style: AppTextStyles.titleCardSmall(
+                            context: context,
+                            color: colors.secondary,
+                          ),
+                          border: 4,
+                          color: colors.secondarySoft,
+                          borderColor: Colors.transparent,
+                        ),
+                        Icon(
+                          Icons.arrow_right_alt_rounded,
+                          size: 20,
+                          color: colors.text3,
+                        ),
+                      ],
+                    ),
+                    Text(
+                      widget.item.courseName ?? "",
+                      style: AppTextStyles.titleCardLarge(
+                        context: context,
+                        color: colors.text1,
+                      ),
+                    ),
+                    Text(
+                      widget.item.provider ?? "",
+                      style: AppTextStyles.subtitleCard(
+                        context: context,
+                        color: colors.accent,
+                      ),
+                    ),
+                  ],
+                )),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

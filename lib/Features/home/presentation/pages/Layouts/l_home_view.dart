@@ -12,8 +12,7 @@ import 'package:portfolio/Widgets/Portfilio/divider.dart';
 import '../../widgets/certification/certification_widget.dart';
 import '../../widgets/education/education_widget.dart';
 import '../../widgets/experince/experince_card_widget.dart';
-import '../../widgets/general/spacer_widget.dart';
-import '../../widgets/products/my_projects.dart';
+import '../../widgets/projects/my_projects.dart';
 import '../../widgets/skills/my_skills.dart';
 
 class LargeHomeView extends StatelessWidget {
@@ -35,6 +34,9 @@ class LargeHomeView extends StatelessWidget {
                     hozPadding: desktopHozPadding,
                   );
                 })),
+        const SliverToBoxAdapter(
+          child: DividerWidget(),
+        ),
         SliverToBoxAdapter(
           child: largeSpacing.heightBox,
         ),
@@ -92,7 +94,7 @@ class LargeHomeView extends StatelessWidget {
                 return MyProjectsWidget(
                   projects: state.data?.projects ?? [],
                   hozPadding: desktopHozPadding,
-                  height: 216,
+                  height: 256,
                   countPerRow: 2,
                 );
               }),

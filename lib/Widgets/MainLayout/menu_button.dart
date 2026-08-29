@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/Widgets/MainLayout/AppBar/home_app_bar_item.dart';
 import 'package:portfolio/Widgets/MainLayout/AppBar/name_widget.dart';
-import 'package:portfolio/Widgets/Portfilio/animated_background.dart';
 
-import '../../Core/Language/app_styles.dart';
 import '../../Features/home/presentation/cubit/cubit.dart';
 import '../../Features/home/presentation/cubit/state.dart';
 import '../../Utilities/Constants/constants.dart';
@@ -14,7 +12,6 @@ import '../../Utilities/Constants/strings.dart';
 import '../../Utilities/extensions.dart';
 import '../../Utilities/portifilo_icons.dart';
 import '../Buttons/theme_button.dart';
-import '../Portfilio/divider.dart';
 import 'menu_button_item.dart';
 
 class MenuButton extends StatefulWidget {
@@ -71,48 +68,37 @@ class _MenuButtonState extends State<MenuButton>
     final colors = context.colors;
     return SizedBox(
       height: 220,
+      width: double.infinity,
       child: Stack(
         clipBehavior: Clip.none, // ← اتنقل لبره الـ Container
         children: [
           // ── AppBar ──
           Container(
-            height: 50,
-            padding: const EdgeInsetsDirectional.only(start: 16, end: 0),
-            margin: const EdgeInsetsDirectional.symmetric(
-              vertical: 24,
-            ),
+            height: 64,
+            width: double.infinity,
+            padding: const EdgeInsetsDirectional.symmetric(
+                horizontal: mobileHozPadding),
             decoration: BoxDecoration(
               color: colors.surface,
-              borderRadius: BorderRadius.circular(cardRadius),
-              border: Border.all(color: colors.border, width: 0.4),
-              boxShadow: [
-                BoxShadow(
-                    color: colors.border,
-                    blurRadius: 4,
-                    spreadRadius: 2,
-                    offset: const Offset(0, 4))
-              ],
+              border: Border.all(color: colors.text3, width: 1),
             ),
             child: Row(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 HamburgerBtn(
                   isOpen: _isOpen,
                   onTap: _toggle,
                 ),
-                40.0.widthBox,
-                NameWidget(),
-                40.0.widthBox,
-                ThemeButton(),
+                const NameWidget(),
+                const ThemeButton(),
               ],
             ),
           ),
 
-          // ── Dropdown overlay ──
           Positioned(
             left: 0,
             right: 0,
-            top: 80,
+            top: 64,
             child: FadeTransition(
               opacity: _fadeAnim,
               child: ScaleTransition(
@@ -121,11 +107,9 @@ class _MenuButtonState extends State<MenuButton>
                 child: Container(
                   decoration: BoxDecoration(
                     color: colors.surface,
-                    borderRadius: BorderRadius.circular(cardRadius),
                   ),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  height: 200,
                   child: Column(
                     spacing: 12,
                     children: paths,

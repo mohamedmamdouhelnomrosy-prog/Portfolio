@@ -7,6 +7,7 @@ class ProjectEntity extends Equatable {
   final String? projectType;
   final ProjectPlatformEntity? platform;
   final List<String> keyTasks;
+  final List<ProjectLinkEntity> links;
   final bool isManual;
 
   ProjectEntity({
@@ -16,34 +17,52 @@ class ProjectEntity extends Equatable {
     this.projectType,
     this.platform,
     this.keyTasks = const [],
+    this.links = const [],
     this.isManual = false,
   });
 
   @override
   // TODO: implement props
-  List<Object?> get props => [
-        id,
-        profileId,
-        title,
-        projectType,
-        platform,
-        keyTasks,
-        isManual,
-      ];
+  List<Object?> get props =>
+      [id, profileId, title, projectType, platform, keyTasks, isManual, links];
 }
+
 class ProjectPlatformEntity extends Equatable {
   final int? id;
   final String? name;
   final String? color;
 
   const ProjectPlatformEntity({
-    this.id, this.name, this.color,
+    this.id,
+    this.name,
+    this.color,
   });
 
   @override
   // TODO: implement props
-  List<Object?> get props => [
-        id,
-        name,color
-      ];
+  List<Object?> get props => [id, name, color];
+}
+
+class LinkTypeEntity {
+  final String? id;
+  final String? type;
+
+  const LinkTypeEntity({
+    this.id,
+    this.type,
+  });
+}
+
+class ProjectLinkEntity {
+  final String? id;
+  final String? url;
+  final String? name;
+  final LinkTypeEntity? linkType;
+
+  const ProjectLinkEntity({
+    this.id,
+    this.name,
+    this.url,
+    this.linkType,
+  });
 }

@@ -60,7 +60,7 @@ class _CustomCursorPageState extends State<CustomCursorPage>
               top: _cursorPosition.dy - 10,
               child: CursorIconWidget(
                 size: 24,
-                basicColor: colors.secondary,
+                basicColor: colors.accent,
               ),
             ),
         ],
@@ -88,17 +88,10 @@ class CursorWidget extends StatelessWidget {
       child: Container(
         width: size,
         height: size,
-        child: child,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: shadowColor,
-              blurRadius: blurRadius,
-              spreadRadius: spreadRadius,
-            ),
-          ],
         ),
+        child: child,
       ),
     );
   }

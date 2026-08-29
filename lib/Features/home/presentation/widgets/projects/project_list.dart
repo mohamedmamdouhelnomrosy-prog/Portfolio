@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/Features/home/domain/entities/project_entity.dart';
-import 'package:portfolio/Features/home/presentation/widgets/products/project_card.dart';
+import 'package:portfolio/Features/home/presentation/widgets/projects/project_card.dart';
 
 import '../../../../../Widgets/Custom/animated_list.dart';
 

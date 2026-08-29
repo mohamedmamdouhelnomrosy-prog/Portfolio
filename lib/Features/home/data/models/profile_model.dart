@@ -13,7 +13,8 @@ class ProfileModel {
   final String? linkedin;
   final String? image;
   final String? cv;
-  final    bool militaryService;
+  final String? currentCompany;
+  final bool militaryService;
 
   ProfileModel({
     this.id,
@@ -28,6 +29,7 @@ class ProfileModel {
     this.linkedin,
     this.militaryService = false,
     this.image,
+    this.currentCompany,
     this.cv,
   });
 
@@ -42,6 +44,7 @@ class ProfileModel {
       summary: json['summary'],
       github: json['github'],
       linkedin: json['linkedin'],
+      currentCompany: json['currentCompany'],
       image: json['image'],
       militaryService: json['military_service'] ?? false,
       cv: json['cv']);
@@ -57,8 +60,9 @@ class ProfileModel {
       summary: entity?.summary,
       github: entity?.github,
       linkedin: entity?.linkedin,
-      militaryService: entity?.militaryService??true,
+      militaryService: entity?.militaryService ?? true,
       image: entity?.image,
+      currentCompany: entity?.currentCompany,
       cv: entity?.cv);
   ProfileEntity toEntity() => ProfileEntity(
         id: id,
@@ -68,6 +72,7 @@ class ProfileModel {
         email: email,
         phone: phone,
         cv: cv,
+        currentCompany: currentCompany,
         location: location,
         summary: summary,
         github: github,
@@ -77,18 +82,19 @@ class ProfileModel {
       );
 
   Map<String, dynamic> toJson() => {
-    "id":id,
-    "firstName":firstName,
-    "lastName":lastName,
-    "jobTitle":jobTitle,
-    "email":email,
-    "phone":phone,
-    "location":location,
-    "summary":summary,
-    "github":github,
-    "linkedin":linkedin,
-    "image":image,
-    "cv":cv,
-    "militaryService":militaryService,
+        "id": id,
+        "firstName": firstName,
+        "lastName": lastName,
+        "jobTitle": jobTitle,
+        "email": email,
+        "phone": phone,
+        "location": location,
+        "summary": summary,
+        "github": github,
+        "linkedin": linkedin,
+        "image": image,
+        "cv": cv,
+        "currentCompany": currentCompany,
+        "militaryService": militaryService,
       };
 }

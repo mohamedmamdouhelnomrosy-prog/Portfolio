@@ -64,11 +64,14 @@ class CustomButtonWidget extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         height: height ?? 36.0,
-        width: width ?? 108.0,
+        width: width,
+        padding: width != null
+            ? null
+            : const EdgeInsetsGeometry.symmetric(horizontal: 8),
         decoration: BoxDecoration(
           borderRadius:
               borderRadius ?? BorderRadius.circular(borderRadiusValue ?? 100.0),
-          color: btnColor ?? colors.secondary,
+          color: btnColor ?? colors.accent,
           boxShadow: boxShadow == null ? null : [boxShadow!],
           border: Border.all(color: borderColor ?? Colors.transparent),
         ),

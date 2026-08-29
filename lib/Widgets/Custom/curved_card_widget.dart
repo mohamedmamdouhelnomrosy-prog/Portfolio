@@ -26,7 +26,7 @@ class CurvedCardWidget extends StatelessWidget {
               height: 60,
               onPressed: onTap,
               borderRadiusValue: 100,
-              btnColor: colors.secondary,
+              btnColor: colors.accent,
               child: const Icon(
                 Icons.north_east,
                 color: Colors.white,

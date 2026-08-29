@@ -10,7 +10,7 @@ class DividerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     return Divider(
-      color: color??colors.border,
+      color: color ?? colors.text3,
       thickness: thickness,
     );
   }
@@ -36,14 +36,14 @@ class GradintDividerWidget extends StatelessWidget {
 }
 
 class VertGradintDividerWidget extends StatelessWidget {
-  final double thickness,height;
+  final double thickness, height;
   final Color color1, color2;
   const VertGradintDividerWidget(
       {super.key,
-        this.thickness = 1,
-        this.height =20,
-        required this.color1,
-        required this.color2});
+      this.thickness = 1,
+      this.height = 20,
+      required this.color1,
+      required this.color2});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class VertGradintDividerWidget extends StatelessWidget {
       height: height,
       width: thickness,
       decoration:
-      BoxDecoration(gradient: LinearGradient(colors: [color1, color2])),
+          BoxDecoration(gradient: LinearGradient(colors: [color1, color2])),
     );
   }
 }

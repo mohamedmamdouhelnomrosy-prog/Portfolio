@@ -11,9 +11,21 @@ class PointText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    return Text("• "+point,
-            maxLines: 2,
-            style:  AppTextStyles.body(context:context,color: colors.text2))
-        ;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 4,
+      children: [
+        Icon(
+          Icons.check,
+          color: colors.accent,
+          size: 14,
+        ),
+        Text(point,
+                maxLines: 2,
+                style:
+                    AppTextStyles.body(context: context, color: colors.text2))
+            .expand
+      ],
+    );
   }
 }

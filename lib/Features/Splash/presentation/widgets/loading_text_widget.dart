@@ -93,7 +93,7 @@ class _LoadingTextWidgetState extends State<LoadingTextWidget>
               backgroundColor: colors.text3,
               borderRadius: BorderRadius.circular(8),
               valueColor: AlwaysStoppedAnimation<Color>(
-                colors.secondary.withValues(alpha: 0.7),
+                colors.accent.withValues(alpha: 0.7),
               ),
             ),
           ),

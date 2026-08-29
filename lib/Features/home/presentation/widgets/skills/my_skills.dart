@@ -32,8 +32,9 @@ class SkillsSection extends StatelessWidget {
       spacing: 24,
       children: [
         SectionsTitleWidget(
+          index: 3,
           icon: Portfolio.skills,
-          title: Strings.mySkill.translate.toUpperCase(),
+          title: Strings.mySkill.translate,
           key: GlobalKeys.skill,
         ),
         AnimatedGridView(

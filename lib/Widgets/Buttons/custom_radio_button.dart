@@ -34,7 +34,7 @@ class CustomRadioButton extends StatelessWidget {
           color: Colors.grey.shade400,
           border: Border.all(
             color: isSelected
-                ? (activeColor ?? colors.secondary)
+                ? (activeColor ?? colors.accent)
                 : Colors.grey.shade400,
             width: 5,
           ),
@@ -79,9 +79,8 @@ class CustomRadioWithColor extends StatelessWidget {
       width: 20,
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
-        color: isSelected
-            ? backgroundColor ?? colors.secondary
-            : colors.background,
+        color:
+            isSelected ? backgroundColor ?? colors.accent : colors.background,
         shape: BoxShape.circle,
         border: Border.all(
           color:

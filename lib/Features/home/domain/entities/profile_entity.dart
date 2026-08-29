@@ -10,6 +10,7 @@ class ProfileEntity extends Equatable {
   final String? cv;
   final String? phone;
   final String? location;
+  final String? currentCompany;
   final String? summary;
   final String? github;
   final String? linkedin;
@@ -28,6 +29,7 @@ class ProfileEntity extends Equatable {
     this.linkedin,
     this.militaryService = false,
     this.image,
+    this.currentCompany,
     this.cv,
   });
 
@@ -46,5 +48,6 @@ class ProfileEntity extends Equatable {
         militaryService,
         cv,
         image,
+        currentCompany
       ];
 }

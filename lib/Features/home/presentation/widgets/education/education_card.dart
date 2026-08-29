@@ -15,10 +15,9 @@ class EducationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors =context.colors;
-      return SideAnimatedCard(child:
-
-     Column(
+    final colors = context.colors;
+    return SideAnimatedCard(
+        child: Column(
       spacing: 8,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -32,16 +31,14 @@ class EducationCard extends StatelessWidget {
                 color: colors.text1,
               ),
             ).expand,
-
             CardWithText(
               text: item.duration ?? "",
               style: AppTextStyles.titleCardSmall(
                 context: context,
-                color: colors.text2,
+                color: colors.secondary,
               ),
-
-              border: 8,
-              color: colors.border.withValues(alpha: 0.4),
+              border: 4,
+              color: colors.secondarySoft,
               borderColor: Colors.transparent,
             ),
           ],
@@ -50,22 +47,21 @@ class EducationCard extends StatelessWidget {
           item.university ?? "",
           style: AppTextStyles.subtitleCard(
             context: context,
-            color: colors.text2,
+            color: colors.accent,
           ),
         ),
-
         Text(
           'Grade: ${item.grade ?? ""}',
           style: AppTextStyles.body(
             context: context,
-            color: colors.text3,
+            color: colors.text2,
           ),
         ),
         Text(
           (item.gradProjectTitle ?? ""),
           style: AppTextStyles.body(
             context: context,
-            color: colors.text3,
+            color: colors.text2,
           ),
         ),
         Wrap(
@@ -76,12 +72,12 @@ class EducationCard extends StatelessWidget {
               item.gradProjectTech.length,
               (i) => CardWithText(
                 borderColor: Colors.transparent,
-                color: colors.secondary.withValues(alpha: 0.1),
+                color: colors.accentSoft,
                 text: item.gradProjectTech[i],
                 border: 4,
                 style: AppTextStyles.titleCardSmall(
                   context: context,
-                  color: colors.secondary,
+                  color: colors.accent,
                 ),
               ),
             )

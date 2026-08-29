@@ -3,55 +3,38 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Widgets/Buttons/theme_button.dart';
 import 'package:portfolio/Widgets/MainLayout/AppBar/name_widget.dart';
-import 'package:portfolio/Widgets/Portfilio/divider.dart';
 
-import '../../../Core/Language/app_styles.dart';
 import '../../../Features/home/presentation/cubit/cubit.dart';
 import '../../../Features/home/presentation/cubit/state.dart';
-import '../../../Utilities/Constants/constants.dart';
 import '../../../Utilities/Constants/enums.dart';
 import '../../../Utilities/Constants/global_keys.dart';
 import '../../../Utilities/Constants/strings.dart';
 import '../../../Utilities/portifilo_icons.dart';
 import 'home_app_bar_item.dart';
 
-class FloatingAppBar extends StatelessWidget {
-  const FloatingAppBar({super.key});
+class AppBarWidget extends StatelessWidget {
+  const AppBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final size = !context.isSmall ? 56.0 : 48.0;
+    final padding = context.matchedSize(large: 160, medium: 16, small: 0);
     return Container(
-      height: size,
-      padding: const EdgeInsetsDirectional.only(start: 24, end: 0),
-      margin: const EdgeInsetsDirectional.symmetric(
-        vertical: 24,
-      ),
+      height: 64,
+      padding: EdgeInsetsDirectional.symmetric(horizontal: padding),
       decoration: BoxDecoration(
         color: colors.surface,
-        borderRadius: BorderRadius.circular(cardRadius),
-        border: Border.all(color: colors.border, width: 0.4),
-        boxShadow: [
-          BoxShadow(
-              color: colors.border,
-              blurRadius: 4,
-              spreadRadius: 2,
-              offset: const Offset(0, 4))
-        ],
+        border: Border.all(color: colors.text3, width: 1),
       ),
       child: Row(
-        spacing: 16,
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          const NameWidget(),
-          VertGradintDividerWidget(
-            color1: colors.border,
-            color2: colors.border,
-            height: 20,
-            thickness: 2,
-          ),
+          if (context.isLarge) ...[
+            const NameWidget(),
+            const Spacer(),
+          ],
           ...paths,
+          const Spacer(),
           const ThemeButton()
         ],
       ),

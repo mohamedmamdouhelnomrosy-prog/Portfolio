@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/Features/home/domain/entities/experince_entity.dart';
+import 'package:portfolio/Features/home/presentation/widgets/experince/content_item.dart';
 import 'package:portfolio/Utilities/Constants/date_helper.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Widgets/Custom/card_with_animation.dart';
+import 'package:portfolio/Widgets/Custom/card_with_text.dart';
 import 'package:portfolio/Widgets/Portfilio/divider.dart';
 import 'package:portfolio/Widgets/Portfilio/point_text.dart';
 
@@ -34,7 +36,7 @@ class ExperienceItemCard extends StatelessWidget {
                 children: [
                   Text(item?.companyName ?? "",
                       style: AppTextStyles.titleCardLarge(
-                          context: context, color: colors.secondary)),
+                          context: context, color: colors.accent)),
                   const SizedBox(height: 4),
                   Text(item?.jobTitle ?? "",
                       style: AppTextStyles.label(
@@ -46,15 +48,15 @@ class ExperienceItemCard extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: !isActive
-                      ? colors.secondary25.withOpacity(0.2)
-                      : colors.secondary.withOpacity(0.2),
+                      ? colors.secondary.withOpacity(0.2)
+                      : colors.accent.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
                   "${item?.startDate == null ? "" : mmYYYY(item!.startDate!)} - ${(item?.endDate == null ? "Present" : mmYYYY(item!.endDate!))}",
                   style:
                       (AppTextStyles.titleCardSmall(context: context)).copyWith(
-                    color: isActive ? colors.secondary : colors.secondary50,
+                    color: isActive ? colors.accent : colors.accentSoft,
                   ),
                 ),
               ),
@@ -62,15 +64,15 @@ class ExperienceItemCard extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           ...List.generate(
-              item?.responsibilities.length ?? 0,
+              item?.content.length ?? 0,
               (i) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       PointText(
-                          point: (item?.responsibilities[i] ?? ""),
+                          point: (item?.content[i].title ?? ""),
                           style: AppTextStyles.body(
                               context: context, color: colors.text2)),
-                      if (i < (item?.responsibilities.length ?? 0) - 1)
+                      if (i < (item?.content.length ?? 0) - 1)
                         const DividerWidget(thickness: 0.6)
                     ],
                   )),
@@ -137,57 +139,18 @@ class _ExperienceCardState extends State<ExperienceCard>
           // ── Header ──
           GestureDetector(
             onTap: _toggle,
-            child: Row(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 8,
               children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        spacing: 8,
-                        children: [
-                          if (widget.experience.status)
-                            const AnimatedDot(
-                              active: true,
-                            ),
-                          Text(widget.experience.companyName ?? "",
-                                  maxLines: 2,
-                                  style: AppTextStyles.titleCardLarge(
-                                      context: context, color: colors.text1))
-                              .expand,
-                        ],
-                      ),
-                      const SizedBox(height: 4),
-                      Text(widget.experience.jobTitle ?? "",
-                          style: AppTextStyles.label(
-                              context: context, color: colors.secondary50)),
-                    ],
-                  ),
-                ),
-
-                // Period badge + chevron
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 5),
-                      decoration: BoxDecoration(
-                        color: widget.experience.status == true
-                            ? colors.secondary25
-                            : colors.border.withValues(alpha: 0.4),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Text(
-                        "${widget.experience.startDate == null ? "" : mmYYYY(widget.experience.startDate!)} - ${(widget.experience.endDate == null ? "Present" : mmYYYY(widget.experience.endDate!))}",
-                        style: (AppTextStyles.titleCardSmall(context: context))
-                            .copyWith(
-                          color: widget.experience.status == true
-                              ? colors.secondary
-                              : colors.text2,
-                        ),
-                      ),
-                    ),
+                    Text(widget.experience.companyName ?? "",
+                            maxLines: 2,
+                            style: AppTextStyles.titleCardLarge(
+                                context: context, color: colors.text1))
+                        .expand,
                     const SizedBox(width: 12),
                     AnimatedRotation(
                       turns: _expanded ? 0.5 : 0,
@@ -196,6 +159,36 @@ class _ExperienceCardState extends State<ExperienceCard>
                         Icons.keyboard_arrow_down_rounded,
                         color: colors.text2,
                         size: 22,
+                      ),
+                    ),
+                  ],
+                ),
+
+                // Period badge + chevron
+                Row(
+                  spacing: 8,
+                  children: [
+                    Text(widget.experience.jobTitle ?? "",
+                            style: AppTextStyles.subtitleCard(
+                                context: context, color: colors.accent))
+                        .expand,
+                    if (widget.experience.status)
+                      const AnimatedDot(
+                        active: true,
+                      ),
+                    CardWithText(
+                      color: widget.experience.status == true
+                          ? colors.accentSoft
+                          : colors.secondarySoft,
+                      borderColor: Colors.transparent,
+                      border: 4,
+                      text:
+                          "${widget.experience.startDate == null ? "" : mmYYYY(widget.experience.startDate!)} - ${(widget.experience.endDate == null ? "Present" : mmYYYY(widget.experience.endDate!))}",
+                      style: AppTextStyles.titleCardSmall(
+                        context: context,
+                        color: widget.experience.status == true
+                            ? colors.accent
+                            : colors.secondary,
                       ),
                     ),
                   ],
@@ -210,26 +203,11 @@ class _ExperienceCardState extends State<ExperienceCard>
             sizeFactor: _expandAnimation,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 4,
+              spacing: 16,
               children: [
-                ...List.generate(
-                    widget.experience.responsibilities.length,
-                    (i) => Column(
-                          spacing: 4,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            PointText(
-                                point: (widget.experience.responsibilities[i] ??
-                                    ""),
-                                style: AppTextStyles.body(
-                                    context: context, color: colors.text2)),
-                            if (i <
-                                (widget.experience.responsibilities.length ??
-                                        0) -
-                                    1)
-                              const DividerWidget(thickness: 0.6)
-                          ],
-                        ))
+                ...widget.experience.content.map((i) => ContentItem(
+                      item: i,
+                    ))
               ],
             ),
           ),

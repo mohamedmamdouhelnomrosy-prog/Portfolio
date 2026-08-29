@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/Core/Theme/theme_cubit.dart';
 import 'package:portfolio/Core/Theme/theme_state.dart';
-
 import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Widgets/Buttons/custom_button_widget.dart';
 
@@ -24,16 +23,13 @@ class ThemeButton extends StatelessWidget {
               context.read<ThemeCubit>().changeTheme();
             },
             width: size,
-            height: height ?? double.infinity,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(size / 4),
-              bottomRight: Radius.circular(size / 4),
-            ),
-            btnColor: s.isDark ? colors.secondary : colors.secondary25,
-            borderColor: s.isDark ? colors.secondary : colors.secondary25,
+            height: size,
+            borderRadius: const BorderRadius.all(Radius.circular(100)),
+            btnColor: s.isDark ? colors.accent : colors.accentSoft,
+            borderColor: s.isDark ? colors.accent : colors.accentSoft,
             child: Icon(
               Portfolio.theme,
-              color: Colors.white,
+              color: !s.isDark ? colors.accent : colors.accentSoft,
               size: size / 2,
             ),
           );
