@@ -26,7 +26,7 @@ class ExperienceSection extends StatelessWidget {
       spacing: 8,
       children: [
         SectionsTitleWidget(
-          index: 4,
+          index: 3,
           icon: Portfolio.work,
           title: Strings.experience.translate,
           key: GlobalKeys.experince,

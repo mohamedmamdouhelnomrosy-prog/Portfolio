@@ -23,7 +23,7 @@ class EducationSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionsTitleWidget(
-          index: 2,
+          index: 1,
           icon: Portfolio.education,
           title: Strings.education.translate,
         ),

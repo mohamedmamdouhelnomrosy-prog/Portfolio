@@ -25,7 +25,7 @@ class CertificationSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionsTitleWidget(
-          index: 6,
+          index: 5,
           icon: Portfolio.certification,
           title: Strings.certification.translate,
           key: GlobalKeys.certification,

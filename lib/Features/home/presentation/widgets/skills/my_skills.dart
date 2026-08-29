@@ -32,7 +32,7 @@ class SkillsSection extends StatelessWidget {
       spacing: 24,
       children: [
         SectionsTitleWidget(
-          index: 3,
+          index: 2,
           icon: Portfolio.skills,
           title: Strings.mySkill.translate,
           key: GlobalKeys.skill,

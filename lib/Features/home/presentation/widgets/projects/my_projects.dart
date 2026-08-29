@@ -51,7 +51,7 @@ class _MyProjectsWidgetState extends State<MyProjectsWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionsTitleWidget(
-          index: 5,
+          index: 4,
           icon: Portfolio.projects,
           key: GlobalKeys.projects,
           title: Strings.projects.translate,
