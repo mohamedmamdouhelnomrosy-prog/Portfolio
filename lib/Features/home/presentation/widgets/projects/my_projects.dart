@@ -55,7 +55,7 @@ class _MyProjectsWidgetState extends State<MyProjectsWidget> {
           icon: Portfolio.projects,
           key: GlobalKeys.projects,
           title: Strings.projects.translate,
-          subtitle: '${widget.projects.length} Usecases',
+          subtitle: '${widget.projects.length} Projects',
         ),
         Row(
           spacing: 16,

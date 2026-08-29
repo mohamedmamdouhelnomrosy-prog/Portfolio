@@ -18,11 +18,10 @@ class NameWidget extends StatelessWidget {
           final profile = state.data?.profile;
           return Row(
             mainAxisSize: MainAxisSize.min,
+            spacing: 2,
             children: [
               Text(
-                (profile?.firstName) == null
-                    ? ""
-                    : (profile!.firstName!).substring(0, 1),
+                (profile?.firstName) == null ? "" : (profile!.firstName!.trim()),
                 style: AppTextStyles.titleSmall(
                   context: context,
                   color: colors.text2,

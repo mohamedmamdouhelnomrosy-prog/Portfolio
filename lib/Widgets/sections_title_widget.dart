@@ -24,7 +24,7 @@ class SectionsTitleWidget extends StatelessWidget {
     return Row(
       children: [
         CardWithText(
-          text: 'TS-0$index',
+          text: '0$index',
           color: Colors.transparent,
           textColor: colors.text2,
           border: 4,
