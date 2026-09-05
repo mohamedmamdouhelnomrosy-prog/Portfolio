@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:portfolio/Utilities/extensions.dart';
@@ -14,8 +15,8 @@ class CustomCursorPage extends StatefulWidget {
 class _CustomCursorPageState extends State<CustomCursorPage>
     with SingleTickerProviderStateMixin {
   Offset _targetPosition = Offset.zero;
-  Offset _cursorPosition = Offset.zero;
-  bool _isVisible = false;
+  final ValueNotifier<Offset> _cursorPosition = ValueNotifier(Offset.zero);
+  final ValueNotifier<bool> _isVisible = ValueNotifier(false);
 
   late final Ticker _ticker;
 
@@ -27,14 +28,34 @@ class _CustomCursorPageState extends State<CustomCursorPage>
 
   void _onTick(Duration elapsed) {
     const double speed = 0.15;
-    setState(() {
-      _cursorPosition = Offset.lerp(_cursorPosition, _targetPosition, speed)!;
-    });
+    final current = _cursorPosition.value;
+    final target = _targetPosition;
+
+    // لو قرّب جداً من الهدف، وقف التحديث خالص (بدل setState بلا نهاية)
+    if ((current - target).distanceSquared < 0.01) {
+      return;
+    }
+
+    _cursorPosition.value = Offset.lerp(current, target, speed)!;
+  }
+
+  void _onHover(PointerHoverEvent event) {
+    _targetPosition = event.position;
+    if (!_isVisible.value) {
+      _cursorPosition.value = event.position;
+    }
+    _isVisible.value = true;
+  }
+
+  void _onExit(PointerExitEvent event) {
+    _isVisible.value = false;
   }
 
   @override
   void dispose() {
     _ticker.dispose();
+    _cursorPosition.dispose();
+    _isVisible.dispose();
     super.dispose();
   }
 
@@ -43,26 +64,33 @@ class _CustomCursorPageState extends State<CustomCursorPage>
     final colors = context.colors;
     return MouseRegion(
       cursor: SystemMouseCursors.none,
-      onHover: (event) {
-        _targetPosition = event.position;
-        if (!_isVisible) {
-          _cursorPosition = event.position;
-        }
-        setState(() => _isVisible = true);
-      },
-      onExit: (_) => setState(() => _isVisible = false),
+      onHover: _onHover,
+      onExit: _onExit,
       child: Stack(
         children: [
-          widget.child,
-          if (_isVisible)
-            Positioned(
-              left: _cursorPosition.dx - 10,
-              top: _cursorPosition.dy - 10,
-              child: CursorIconWidget(
-                size: 24,
-                basicColor: colors.accent,
-              ),
-            ),
+          // widget.child دلوقتي مش هيعمل rebuild خالص مع حركة الكيرسور
+          RepaintBoundary(child: widget.child),
+          ValueListenableBuilder<bool>(
+            valueListenable: _isVisible,
+            builder: (context, visible, _) {
+              if (!visible) return const SizedBox.shrink();
+              return ValueListenableBuilder<Offset>(
+                valueListenable: _cursorPosition,
+                builder: (context, position, _) {
+                  return Positioned(
+                    left: position.dx - 10,
+                    top: position.dy - 10,
+                    child: IgnorePointer(
+                      child: CursorIconWidget(
+                        size: 24,
+                        basicColor: colors.accent,
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+          ),
         ],
       ),
     );

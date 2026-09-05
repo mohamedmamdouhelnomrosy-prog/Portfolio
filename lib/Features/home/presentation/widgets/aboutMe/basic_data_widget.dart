@@ -31,7 +31,14 @@ class BasicDataWidget extends StatelessWidget {
           height: height,
           decoration: BoxDecoration(
             color: colors.surface,
-            border: Border.all(color: colors.accentSoft),
+            boxShadow: [
+              BoxShadow(
+                  color: colors.accentSoft.withValues(alpha: 0.8),
+                  blurRadius: 10,
+                  spreadRadius: 10,
+                  offset: Offset(0, 0))
+            ],
+            border: Border.all(color: colors.text3, width: 2),
             borderRadius: const BorderRadius.all(Radius.circular(cardRadius)),
           ),
           child: Column(

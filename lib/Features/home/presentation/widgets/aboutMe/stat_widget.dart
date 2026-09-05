@@ -9,8 +9,9 @@ import '../../../../../Widgets/Custom/animated_counter.dart';
 
 class StatsRow extends StatelessWidget {
   final List<Stat> items;
-  final TextStyle? numStyle, titleStyle;
-  const StatsRow({this.items = const [], this.numStyle, this.titleStyle});
+  const StatsRow({
+    this.items = const [],
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +21,6 @@ class StatsRow extends StatelessWidget {
       children: items
           .map((s) => StatItem(
                 item: s,
-                titleStyle: titleStyle,
-                numStyle: numStyle,
               ))
           .toList(),
     );
@@ -33,12 +32,9 @@ class StatsRow extends StatelessWidget {
 // ──────────────────────────────────────────
 class StatItem extends StatelessWidget {
   final Stat item;
-  final TextStyle? numStyle, titleStyle;
 
   const StatItem({
     required this.item,
-    this.numStyle,
-    this.titleStyle,
   });
 
   @override
@@ -57,15 +53,15 @@ class StatItem extends StatelessWidget {
           child: AnimatedCounter(
             targetNumber: item.value ?? 0,
             subtitle: item.subTitle,
-            style: (numStyle ?? AppTextStyles.medium32())
-                .copyWith(color: Colors.white),
+            style: AppTextStyles.summaryNumberLarge(
+                context: context, color: Colors.white),
           ),
         ),
         const SizedBox(height: 5),
         Text(
           item.name?.toUpperCase() ?? "",
-          style: (titleStyle ?? AppTextStyles.regular12())
-              .copyWith(color: colors.text2),
+          style: AppTextStyles.summaryNumberMedium(
+              context: context, color: colors.text2),
         ),
       ],
     );

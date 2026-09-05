@@ -68,7 +68,7 @@ abstract class HelperFunctions {
       backgroundColor: Colors.transparent,
       content: AwesomeSnackbarContent(
         title: message ?? "",
-        titleTextStyle: AppTextStyles.semiBold28().copyWith(
+        titleTextStyle: AppTextStyles.title(context: context).copyWith(
           color: Colors.white,
         ),
         message: "",

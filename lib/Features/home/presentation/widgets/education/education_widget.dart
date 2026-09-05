@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/Features/home/domain/entities/education_entity.dart';
 import 'package:portfolio/Utilities/extensions.dart';
+import 'package:portfolio/Widgets/Portfilio/animated_list.dart';
 
 import '../../../../../Utilities/Constants/global_keys.dart';
 import '../../../../../Utilities/Constants/strings.dart';
@@ -16,7 +17,6 @@ class EducationSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
     return Column(
       spacing: 16,
       key: GlobalKeys.education,
@@ -32,8 +32,12 @@ class EducationSection extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: education.length,
           itemBuilder: (context, index) {
-            return EducationCard(
-              item: education[index],
+            return CustomSlideAnimationWidget(
+              index: index,
+              key: ValueKey('Edu_$index'),
+              child: EducationCard(
+                item: education[index],
+              ),
             );
           },
         ),

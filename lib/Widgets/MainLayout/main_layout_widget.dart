@@ -33,7 +33,8 @@ class _MainLayoutWidgetState extends State<MainLayoutWidget> {
           backgroundColor: colors.background,
           appBar: PreferredSize(
               preferredSize: const Size.fromHeight(64),
-              child: context.isLarge ? AppBarWidget() : MenuButton()),
+              child:
+                  context.isLarge ? const AppBarWidget() : const MenuButton()),
           body: AnimatedScale(
             scale: scale,
             duration: const Duration(milliseconds: 400),

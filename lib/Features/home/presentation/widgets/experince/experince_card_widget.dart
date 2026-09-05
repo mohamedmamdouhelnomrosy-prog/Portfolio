@@ -3,7 +3,7 @@ import 'package:portfolio/Features/home/domain/entities/experince_entity.dart';
 import 'package:portfolio/Features/home/presentation/widgets/experince/experince_item_card.dart';
 import 'package:portfolio/Utilities/Constants/constants.dart';
 import 'package:portfolio/Utilities/extensions.dart';
-import 'package:portfolio/Widgets/Custom/animated_list.dart';
+import 'package:portfolio/Widgets/Portfilio/animated_list.dart';
 import 'package:portfolio/Widgets/sections_title_widget.dart';
 
 import '../../../../../Utilities/Constants/global_keys.dart';
@@ -31,11 +31,23 @@ class ExperienceSection extends StatelessWidget {
           title: Strings.experience.translate,
           key: GlobalKeys.experince,
         ),
-        AnimatedListView<ExperienceEntity>(
-            items: experiences,
-            buildChild: (e) => ExperienceCard(
-                  experience: experiences[e],
-                )),
+        Column(
+          children: List.generate(
+            experiences.length,
+            (index) => Padding(
+              padding: EdgeInsets.only(
+                bottom: index == experiences.length - 1 ? 0 : 24,
+              ),
+              child: CustomTimelineAnimationWidget(
+                key: ValueKey('experience-$index'),
+                index: index,
+                child: ExperienceCard(
+                  experience: experiences[index],
+                ),
+              ),
+            ),
+          ),
+        ),
       ],
     ).paddingSymmetric(horizontal: hozPadding);
   }

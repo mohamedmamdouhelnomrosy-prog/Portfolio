@@ -24,7 +24,7 @@ class ThemeButton extends StatelessWidget {
             },
             width: size,
             height: size,
-            borderRadius: const BorderRadius.all(Radius.circular(100)),
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
             btnColor: s.isDark ? colors.accent : colors.accentSoft,
             borderColor: s.isDark ? colors.accent : colors.accentSoft,
             child: Icon(

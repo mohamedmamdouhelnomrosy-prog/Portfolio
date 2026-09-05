@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:portfolio/Utilities/extensions.dart';
+import 'package:portfolio/Widgets/Portfilio/animated_list.dart';
 
 class AnimatedGridView<T> extends StatelessWidget {
   final int perRow;
   final double mainAxisExtent;
   final List<T> items;
   final Widget Function(int) buildChild;
-  const AnimatedGridView({super.key, required this.perRow, required this.mainAxisExtent, required this.items, required this.buildChild});
+  const AnimatedGridView(
+      {super.key,
+      required this.perRow,
+      required this.mainAxisExtent,
+      required this.items,
+      required this.buildChild});
 
   @override
   Widget build(BuildContext context) {
-    return           GridView.builder(
+    return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -21,27 +27,25 @@ class AnimatedGridView<T> extends StatelessWidget {
           mainAxisExtent: mainAxisExtent),
       itemCount: items.length,
       itemBuilder: (context, index) {
-        return AnimationConfiguration.staggeredList(
-            position: index,
-            duration: Duration(milliseconds: 1000),
-            child: SlideAnimation(
-                verticalOffset: 50.0,
-                child: FadeInAnimation(child: buildChild(index))));
+        return ScrollReveal(
+            key: ValueKey('item_${index}'), child: buildChild(index));
       },
     );
   }
 }
+
 class AnimatedListView<T> extends StatelessWidget {
   final List<T> items;
   final Widget Function(int) buildChild;
-  const AnimatedListView({super.key, required this.items, required this.buildChild});
+  const AnimatedListView(
+      {super.key, required this.items, required this.buildChild});
 
   @override
   Widget build(BuildContext context) {
-    return           ListView.separated(
+    return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      separatorBuilder: (c,i)=>20.0.heightBox,
+      separatorBuilder: (c, i) => 20.0.heightBox,
       itemCount: items.length,
       itemBuilder: (context, index) {
         return AnimationConfiguration.staggeredList(

@@ -7,7 +7,6 @@ import 'package:portfolio/Widgets/sections_title_widget.dart';
 
 import '../../../../../Utilities/Constants/global_keys.dart';
 import '../../../../../Utilities/Constants/strings.dart';
-import '../../../../../Widgets/Custom/animated_list.dart';
 import 'certification_card.dart';
 
 class CertificationSection extends StatelessWidget {
@@ -30,13 +29,21 @@ class CertificationSection extends StatelessWidget {
           title: Strings.certification.translate,
           key: GlobalKeys.certification,
         ),
-        AnimatedListView<CertificateEntity>(
-            items: data,
-            buildChild: (index) => CertificationCard(
-                  item: data[index],
-                  imageHeight: 40,
-                  imageWidth: 64,
-                )),
+        Column(
+          children: List.generate(
+            data.length,
+            (index) => Padding(
+              padding: EdgeInsets.only(
+                bottom: index == data.length - 1 ? 0 : 24,
+              ),
+              child: CertificationCard(
+                item: data[index],
+                imageHeight: 40,
+                imageWidth: 64,
+              ),
+            ),
+          ),
+        ),
       ],
     ).paddingSymmetric(horizontal: hozPadding);
   }
