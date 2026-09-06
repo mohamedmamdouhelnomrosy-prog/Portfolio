@@ -3,6 +3,7 @@ import 'package:portfolio/Features/home/domain/entities/certificate_entity.dart'
 import 'package:portfolio/Utilities/Constants/constants.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Utilities/portifilo_icons.dart';
+import 'package:portfolio/Widgets/Portfilio/animated_list.dart';
 import 'package:portfolio/Widgets/sections_title_widget.dart';
 
 import '../../../../../Utilities/Constants/global_keys.dart';
@@ -31,18 +32,21 @@ class CertificationSection extends StatelessWidget {
         ),
         Column(
           children: List.generate(
-            data.length,
-            (index) => Padding(
-              padding: EdgeInsets.only(
-                bottom: index == data.length - 1 ? 0 : 24,
-              ),
-              child: CertificationCard(
-                item: data[index],
-                imageHeight: 40,
-                imageWidth: 64,
-              ),
-            ),
-          ),
+              data.length,
+              (index) => CustomTimelineAnimationWidget(
+                    index: index,
+                    key: ValueKey("Certif-$index"),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        bottom: index == data.length - 1 ? 0 : 24,
+                      ),
+                      child: CertificationCard(
+                        item: data[index],
+                        imageHeight: 40,
+                        imageWidth: 64,
+                      ),
+                    ),
+                  )),
         ),
       ],
     ).paddingSymmetric(horizontal: hozPadding);

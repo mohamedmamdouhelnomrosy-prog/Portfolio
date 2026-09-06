@@ -32,7 +32,7 @@ class ProjectItemCard extends StatelessWidget {
             : context.isSmall
                 ? double.infinity
                 : 260,
-        height: context.isSmall ? null : 260,
+        height: context.isSmall ? null : 300,
         child: (i) => Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/Features/home/presentation/cubit/cubit.dart';
 import 'package:portfolio/Features/home/presentation/cubit/state.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../../Utilities/helper_function.dart';
 import '../../../../Utilities/portifilo_icons.dart';
@@ -18,6 +19,7 @@ class ContactWidget extends StatefulWidget {
 class _ContactWidgetState extends State<ContactWidget>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
+  bool _hasAnimated = false;
 
   @override
   void initState() {
@@ -25,7 +27,7 @@ class _ContactWidgetState extends State<ContactWidget>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 900),
-    )..forward();
+    );
   }
 
   @override
@@ -34,7 +36,13 @@ class _ContactWidgetState extends State<ContactWidget>
     super.dispose();
   }
 
-  // كل زرار له فترة ظهور مختلفة عشان يعمل تأثير "متتالي" (staggered)
+  void _onVisibilityChanged(VisibilityInfo info) {
+    if (!_hasAnimated && info.visibleFraction > 0.2) {
+      _hasAnimated = true;
+      _controller.forward();
+    }
+  }
+
   Animation<double> _fadeAnimation(int index, int totalCount) {
     final start = index / totalCount * 0.6;
     final end = start + 0.4;
@@ -49,6 +57,7 @@ class _ContactWidgetState extends State<ContactWidget>
     required int total,
     required VoidCallback onTap,
     required IconData icon,
+    required String title,
   }) {
     final animation = _fadeAnimation(index, total);
     return AnimatedBuilder(
@@ -68,73 +77,85 @@ class _ContactWidgetState extends State<ContactWidget>
       child: ContactButton(
         onTap: onTap,
         icon: icon,
+        title: title,
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PortfolioCubit, PortfolioState>(
-      buildWhen: (c, p) => c.data?.profile != p.data?.profile,
-      builder: (context, s) {
-        final buttons = <Widget>[
-          _animatedButton(
-            index: 0,
-            total: 5,
-            icon: Portfolio.email,
-            onTap: () async {
-              final Uri emailUri = Uri(
-                scheme: 'mailto',
-                path: s.data?.profile?.email ?? "",
-              );
-              if (await canLaunchUrl(emailUri)) {
-                await launchUrl(emailUri);
-              }
-            },
-          ),
-          _animatedButton(
-            index: 1,
-            total: 5,
-            icon: Portfolio.linkedin,
-            onTap: () {
-              HelperFunctions.openUrl(s.data?.profile?.linkedin ?? "", context);
-            },
-          ),
-          _animatedButton(
-            index: 2,
-            total: 5,
-            icon: Portfolio.github,
-            onTap: () {
-              HelperFunctions.openUrl(s.data?.profile?.github ?? "", context);
-            },
-          ),
-          _animatedButton(
-            index: 3,
-            total: 5,
-            icon: Portfolio.whatsapp,
-            onTap: () {
-              HelperFunctions.openWhatsApp(
-                phoneNumber: s.data?.profile?.phone ?? "",
-                message: 'Hello',
-              );
-            },
-          ),
-          _animatedButton(
-            index: 4,
-            total: 5,
-            icon: Portfolio.cv,
-            onTap: () {
-              HelperFunctions.openUrl(s.data?.profile?.cv ?? "", context);
-            },
-          ),
-        ];
+    return VisibilityDetector(
+      key: const Key('contact-widget-visibility'),
+      onVisibilityChanged: _onVisibilityChanged,
+      child: BlocBuilder<PortfolioCubit, PortfolioState>(
+        buildWhen: (c, p) => c.data?.profile != p.data?.profile,
+        builder: (context, s) {
+          final buttons = <Widget>[
+            _animatedButton(
+              index: 0,
+              total: 5,
+              title: 'Email',
+              icon: Portfolio.email,
+              onTap: () async {
+                final Uri emailUri = Uri(
+                  scheme: 'mailto',
+                  path: s.data?.profile?.email ?? "",
+                );
+                if (await canLaunchUrl(emailUri)) {
+                  await launchUrl(emailUri);
+                }
+              },
+            ),
+            _animatedButton(
+              index: 1,
+              total: 5,
+              title: 'LinkedIn',
+              icon: Portfolio.linkedin,
+              onTap: () {
+                HelperFunctions.openUrl(
+                    s.data?.profile?.linkedin ?? "", context);
+              },
+            ),
+            _animatedButton(
+              index: 2,
+              title: 'Github',
+              total: 5,
+              icon: Portfolio.github,
+              onTap: () {
+                HelperFunctions.openUrl(s.data?.profile?.github ?? "", context);
+              },
+            ),
+            _animatedButton(
+              index: 3,
+              total: 5,
+              title: 'Phone',
+              icon: Portfolio.whatsapp,
+              onTap: () {
+                HelperFunctions.openWhatsApp(
+                  phoneNumber: s.data?.profile?.phone ?? "",
+                  message: 'Hello',
+                );
+              },
+            ),
+            _animatedButton(
+              index: 4,
+              total: 5,
+              title: 'Resume',
+              icon: Portfolio.cv,
+              onTap: () {
+                HelperFunctions.openUrl(s.data?.profile?.cv ?? "", context);
+              },
+            ),
+          ];
 
-        return Row(
-          spacing: 16,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: buttons,
-        );
-      },
+          return Wrap(
+            spacing: 16,
+            runSpacing: 16,
+            alignment: WrapAlignment.center,
+            children: buttons,
+          );
+        },
+      ),
     );
   }
 }

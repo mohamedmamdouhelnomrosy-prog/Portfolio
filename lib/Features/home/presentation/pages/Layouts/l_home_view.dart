@@ -94,7 +94,7 @@ class LargeHomeView extends StatelessWidget {
                 return MyProjectsWidget(
                   projects: state.data?.projects ?? [],
                   hozPadding: desktopHozPadding,
-                  height: 256,
+                  height: 300,
                   countPerRow: 2,
                 );
               }),

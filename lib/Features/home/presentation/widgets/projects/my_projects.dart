@@ -17,7 +17,7 @@ class MyProjectsWidget extends StatefulWidget {
   final int countPerRow;
   const MyProjectsWidget({
     super.key,
-    this.height = 200,
+    this.height = 260,
     this.countPerRow = 4,
     this.projects = const [],
     this.hozPadding = desktopHozPadding,
