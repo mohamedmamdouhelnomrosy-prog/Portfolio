@@ -22,16 +22,13 @@ class ProjectItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-
+    final width =
+        context.matchedSize(large: 268, medium: 260, small: double.infinity);
     final color =
         HelperFunctions.convertStringToColor(project?.platform?.color ?? "");
     return AnimatedCardWidget(
         paddingVert: 0,
-        width: context.isLarge
-            ? 268
-            : context.isSmall
-                ? double.infinity
-                : 260,
+        width: width,
         height: context.isSmall ? null : 300,
         child: (i) => Column(
               mainAxisSize: MainAxisSize.min,
@@ -41,7 +38,7 @@ class ProjectItemCard extends StatelessWidget {
                 GradintDividerWidget(
                   color1: colors.accent,
                   color2: color ?? colors.accent,
-                  thickness: 2,
+                  thickness: 3,
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,

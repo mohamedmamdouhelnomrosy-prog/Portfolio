@@ -64,7 +64,7 @@ abstract class AppTextStyles extends ThemeExtension<AppTextStyles> {
         textBaseline: TextBaseline.alphabetic,
       );
   static TextStyle appbarTitle({Color? color, required BuildContext context}) =>
-      mainFont.copyWith(
+      secondaryFont.copyWith(
         fontSize: context.isLarge ? 14 : 12,
         fontWeight: FontWeight.w400,
         color: color ?? Colors.black,

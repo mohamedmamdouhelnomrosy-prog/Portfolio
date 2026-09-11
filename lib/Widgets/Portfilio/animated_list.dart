@@ -1,88 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:portfolio/Utilities/animation_configaration.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class ScrollReveal extends StatefulWidget {
   final Widget child;
   final double offset;
+  final Axis axis;
+  final int? index;
+  final Duration staggerStep;
+  final double visibilityThreshold;
 
   const ScrollReveal({
     super.key,
     required this.child,
     this.offset = 20,
+    this.axis = Axis.vertical,
+    this.index,
+    this.staggerStep = const Duration(milliseconds: 80),
+    this.visibilityThreshold = 0.15,
   });
 
   @override
   State<ScrollReveal> createState() => _ScrollRevealState();
 }
 
-class _ScrollRevealState extends State<ScrollReveal>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-
-  late final Animation<double> _opacity;
-  late final Animation<Offset> _slide;
-
+class _ScrollRevealState extends State<ScrollReveal> {
+  AnimationController? _controller;
   bool _hasAnimated = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(
-      vsync: this,
-    );
-
-    _opacity = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOutCubic,
-    );
-
-    _slide = Tween<Offset>(
-      begin: Offset(0, widget.offset / 100),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeOutCubic,
-      ),
-    );
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    _controller.duration = PortfolioAnimationConfig.duration(context);
-  }
+  late final Key _fallbackKey = UniqueKey(); // يتولد مرة واحدة بس
 
   void _handleVisibility(VisibilityInfo info) {
     if (_hasAnimated) return;
+    if (info.visibleFraction < widget.visibilityThreshold) return;
 
-    if (info.visibleFraction >= 0.15) {
-      _hasAnimated = true;
-      _controller.forward();
-    }
-  }
+    _hasAnimated = true;
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+    final delay = widget.index != null
+        ? widget.staggerStep * widget.index!
+        : Duration.zero;
+
+    Future.delayed(delay, () {
+      if (mounted) _controller?.forward();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final duration = PortfolioAnimationConfig.duration(context);
+    final slideOffset = widget.offset / 100;
+
     return VisibilityDetector(
-      key: widget.key ?? UniqueKey(),
+      key: widget.key ?? _fallbackKey, // مستقر عبر الـ rebuilds
       onVisibilityChanged: _handleVisibility,
-      child: FadeTransition(
-        opacity: _opacity,
-        child: SlideTransition(
-          position: _slide,
-          child: widget.child,
-        ),
-      ),
+      child: widget.child
+          .animate(
+            autoPlay: false,
+            onInit: (controller) => _controller = controller,
+          )
+          .fadeIn(duration: duration, curve: Curves.easeOutCubic)
+          .slide(
+            begin: widget.axis == Axis.vertical
+                ? Offset(0, slideOffset)
+                : Offset(slideOffset, 0),
+            end: Offset.zero,
+            duration: duration,
+            curve: Curves.easeOutCubic,
+          ),
     );
   }
 }
@@ -106,9 +90,7 @@ class AnimatedGridView<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+    return SliverGrid.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: perRow,
         mainAxisSpacing: vertSpace,
@@ -116,199 +98,15 @@ class AnimatedGridView<T> extends StatelessWidget {
         mainAxisExtent: mainAxisExtent,
       ),
       itemCount: items.length,
+      addRepaintBoundaries: true,
       itemBuilder: (context, index) {
         return ScrollReveal(
           offset: 20,
-          key: ValueKey('project-reveal-grid-$index'),
+          axis: Axis.vertical,
+          index: index,
           child: buildChild(index),
         );
       },
-    );
-  }
-}
-
-class CustomTimelineAnimationWidget extends StatefulWidget {
-  final Widget child;
-  final int index;
-
-  const CustomTimelineAnimationWidget({
-    super.key,
-    required this.child,
-    required this.index,
-  });
-
-  @override
-  State<CustomTimelineAnimationWidget> createState() =>
-      _CustomTimelineAnimationWidgetState();
-}
-
-class _CustomTimelineAnimationWidgetState
-    extends State<CustomTimelineAnimationWidget>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-
-  late final Animation<double> _opacity;
-  late final Animation<Offset> _slide;
-
-  bool _hasAnimated = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(
-      vsync: this,
-    );
-
-    _opacity = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOutCubic,
-    );
-
-    _slide = Tween<Offset>(
-      begin: const Offset(0.08, 0),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeOutCubic,
-      ),
-    );
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    _controller.duration = PortfolioAnimationConfig.duration(context);
-  }
-
-  void _onVisibilityChanged(VisibilityInfo info) {
-    if (_hasAnimated) return;
-
-    if (info.visibleFraction >= 0.1) {
-      _hasAnimated = true;
-
-      Future.delayed(
-        Duration(milliseconds: widget.index * 80),
-        () {
-          if (mounted) {
-            _controller.forward();
-          }
-        },
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return VisibilityDetector(
-      key: ValueKey(widget.key),
-      onVisibilityChanged: _onVisibilityChanged,
-      child: FadeTransition(
-        opacity: _opacity,
-        child: SlideTransition(
-          position: _slide,
-          child: widget.child,
-        ),
-      ),
-    );
-  }
-}
-
-class CustomSlideAnimationWidget extends StatefulWidget {
-  final Widget child;
-  final int index;
-
-  const CustomSlideAnimationWidget({
-    super.key,
-    required this.child,
-    required this.index,
-  });
-
-  @override
-  State<CustomSlideAnimationWidget> createState() =>
-      _CustomSlideAnimationWidgetState();
-}
-
-class _CustomSlideAnimationWidgetState extends State<CustomSlideAnimationWidget>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-
-  late final Animation<double> _opacity;
-  late final Animation<Offset> _slide;
-
-  bool _hasAnimated = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(
-      vsync: this,
-    );
-
-    final curve = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOutCubic,
-    );
-
-    _opacity = curve;
-
-    _slide = Tween<Offset>(
-      begin: const Offset(0, 0.08),
-      end: Offset.zero,
-    ).animate(curve);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    _controller.duration = PortfolioAnimationConfig.duration(context);
-  }
-
-  void _onVisibilityChanged(VisibilityInfo info) {
-    if (_hasAnimated) return;
-
-    if (info.visibleFraction >= 0.1) {
-      _hasAnimated = true;
-
-      Future.delayed(
-        Duration(milliseconds: widget.index * 80),
-        () {
-          if (mounted) {
-            _controller.forward();
-          }
-        },
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return VisibilityDetector(
-      key: ValueKey(widget.key),
-      onVisibilityChanged: _onVisibilityChanged,
-      child: FadeTransition(
-        opacity: _opacity,
-        child: SlideTransition(
-          position: _slide,
-          child: widget.child,
-        ),
-      ),
     );
   }
 }

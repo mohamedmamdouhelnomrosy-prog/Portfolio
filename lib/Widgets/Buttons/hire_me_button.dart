@@ -6,38 +6,67 @@ import 'package:portfolio/Utilities/portifilo_icons.dart';
 import 'package:portfolio/Widgets/Buttons/custom_button_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class CustomHireButton extends StatelessWidget {
+class CustomHireButton extends StatefulWidget {
   final String? email;
+
   const CustomHireButton({super.key, this.email});
 
   @override
+  State<CustomHireButton> createState() => _CustomHireButtonState();
+}
+
+class _CustomHireButtonState extends State<CustomHireButton> {
+  bool hover = false;
+  void hovering(bool h) => setState(() {
+        hover = h;
+      });
+  @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final size = context.matchedSize(
-        large: lThemeButtonSize,
-        medium: mThemeButtonSize,
-        small: sThemeButtonSize);
-    return CustomButtonWidget(
-        onPressed: () async {
-          final Uri emailUri = Uri(scheme: 'mailto', path: email ?? "");
-          if (await canLaunchUrl(emailUri)) {
-            await launchUrl(emailUri);
-          }
-        },
-        btnColor: colors.secondarySoft,
-        height: size,
-        width: 96,
-        borderRadiusValue: 8,
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 4,
-            children: [
-              Text(
-                'Hire Me',
-                style: AppTextStyles.buttonTitle(
-                    context: context, color: colors.secondary),
-              ),
-              Icon(Portfolio.email, size: 14, color: colors.secondary),
-            ]));
+    final size = context.isLarge
+        ? lThemeButtonSize
+        : context.isMedium
+            ? mThemeButtonSize
+            : sThemeButtonSize;
+
+    return MouseRegion(
+      onEnter: (_) => hovering(true),
+      onExit: (_) => hovering(false),
+      child: AnimatedScale(
+          scale: hover ? 1.02 : 1,
+          duration: const Duration(milliseconds: 250),
+          child: CustomButtonWidget(
+            borderRadiusValue: 8,
+            onPressed: () async {
+              final Uri emailUri =
+                  Uri(scheme: 'mailto', path: widget.email ?? "");
+              if (await canLaunchUrl(emailUri)) {
+                await launchUrl(emailUri);
+              }
+            },
+            btnColor: colors.secondarySoft,
+            borderColor: hover ? colors.secondary : Colors.transparent,
+            height: size,
+            child: Row(
+              spacing: 4,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Hire Me',
+                  style: AppTextStyles.buttonTitle(
+                    context: context,
+                    color: colors.secondary,
+                  ),
+                ),
+                Icon(
+                  Portfolio.email,
+                  color: colors.secondary,
+                  size: size / 2.5,
+                ),
+              ],
+            ),
+          )),
+    );
   }
 }

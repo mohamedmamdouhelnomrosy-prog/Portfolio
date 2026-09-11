@@ -40,12 +40,12 @@ class _ContactButtonState extends State<ContactButton> {
             : sThemeButtonSize;
 
     return MouseRegion(
-      onEnter: (_) => hovering(true),
-      onExit: (_) => hovering(false),
-      child: AnimatedScale(
-        scale: hover ? 1.02 : 1,
-        duration: const Duration(milliseconds: 250),
-        child: CustomButtonWidget(
+        onEnter: (_) => hovering(true),
+        onExit: (_) => hovering(false),
+        child: AnimatedScale(
+          scale: hover ? 1.02 : 1,
+          duration: const Duration(milliseconds: 250),
+          child: CustomButtonWidget(
             borderRadiusValue: widget.border,
             onPressed: widget.onTap,
             width: context.isLarge ? 120 : 80,
@@ -53,7 +53,7 @@ class _ContactButtonState extends State<ContactButton> {
             borderColor:
                 hover ? colors.accent : widget.borderColor ?? colors.text2,
             height: size,
-            child: Row(
+            child: (Row(
               spacing: 4,
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -74,7 +74,7 @@ class _ContactButtonState extends State<ContactButton> {
                 ),
               ],
             )),
-      ),
-    );
+          ),
+        ));
   }
 }

@@ -5,38 +5,68 @@ import 'package:portfolio/Features/home/presentation/cubit/cubit.dart';
 import 'package:portfolio/Utilities/Constants/constants.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Utilities/helper_function.dart';
+import 'package:portfolio/Utilities/portifilo_icons.dart';
 import 'package:portfolio/Widgets/Buttons/custom_button_widget.dart';
 
-class CustomResumeButton extends StatelessWidget {
-  const CustomResumeButton({super.key});
+class CustomResumeButton extends StatefulWidget {
+  final String? email;
 
+  const CustomResumeButton({super.key, this.email});
+
+  @override
+  State<CustomResumeButton> createState() => _CustomResumeButtonState();
+}
+
+class _CustomResumeButtonState extends State<CustomResumeButton> {
+  bool hover = false;
+  void hovering(bool h) => setState(() {
+        hover = h;
+      });
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final size = context.matchedSize(
-        large: largeButtonIcon,
-        medium: mediumButtonIcon,
-        small: smallButtonIcon);
-    return CustomButtonWidget.outLined(
-        onPressed: () {
-          final cv = context.read<PortfolioCubit>().state.data?.profile?.cv;
-          if (cv == null || cv.isEmpty) return;
-          HelperFunctions.openUrl(cv, context);
-        },
-        borderColor: colors.secondarySoft,
-        height: size,
-        width: 80,
-        borderRadiusValue: 8,
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 4,
-            children: [
-              Text(
-                'Resume',
-                style: AppTextStyles.buttonTitle(
-                    context: context, color: colors.secondary),
-              ),
-              Icon(Icons.arrow_downward, size: 14, color: colors.secondary),
-            ]));
+    final size = context.isLarge
+        ? lThemeButtonSize
+        : context.isMedium
+            ? mThemeButtonSize
+            : sThemeButtonSize;
+
+    return MouseRegion(
+      onEnter: (_) => hovering(true),
+      onExit: (_) => hovering(false),
+      child: AnimatedScale(
+          scale: hover ? 1.02 : 1,
+          duration: const Duration(milliseconds: 250),
+          child: CustomButtonWidget(
+            borderRadiusValue: 8,
+            onPressed: () {
+              final cv = context.read<PortfolioCubit>().state.data?.profile?.cv;
+              if (cv == null || cv.isEmpty) return;
+              HelperFunctions.openUrl(cv, context);
+            },
+            btnColor: !hover ? Colors.transparent : colors.secondary,
+            borderColor: colors.secondary,
+            height: size,
+            child: Row(
+              spacing: 4,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Resume',
+                  style: AppTextStyles.buttonTitle(
+                    context: context,
+                    color: hover ? Colors.white : colors.secondary,
+                  ),
+                ),
+                Icon(
+                  Portfolio.cv,
+                  color: hover ? Colors.white : colors.secondary,
+                  size: size / 2.5,
+                ),
+              ],
+            ),
+          )),
+    );
   }
 }

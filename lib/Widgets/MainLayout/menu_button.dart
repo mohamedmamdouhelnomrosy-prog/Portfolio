@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:portfolio/Widgets/MainLayout/AppBar/home_app_bar_item.dart';
 import 'package:portfolio/Widgets/MainLayout/AppBar/name_widget.dart';
 
@@ -70,7 +71,7 @@ class _MenuButtonState extends State<MenuButton>
       height: 220,
       width: double.infinity,
       child: Stack(
-        clipBehavior: Clip.none, // ← اتنقل لبره الـ Container
+        clipBehavior: Clip.none,
         children: [
           // ── AppBar ──
           Container(
@@ -82,16 +83,26 @@ class _MenuButtonState extends State<MenuButton>
               color: colors.surface,
               border: Border.all(color: colors.text3, width: 1),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                HamburgerBtn(
-                  isOpen: _isOpen,
-                  onTap: _toggle,
+            child: AnimationLimiter(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: AnimationConfiguration.toStaggeredList(
+                  duration: const Duration(milliseconds: 400),
+                  delay: const Duration(milliseconds: 100),
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                    verticalOffset: 24.0,
+                    child: FadeInAnimation(child: widget),
+                  ),
+                  children: [
+                    HamburgerBtn(
+                      isOpen: _isOpen,
+                      onTap: _toggle,
+                    ),
+                    const NameWidget(),
+                    const ThemeButton(),
+                  ],
                 ),
-                const NameWidget(),
-                const ThemeButton(),
-              ],
+              ),
             ),
           ),
 

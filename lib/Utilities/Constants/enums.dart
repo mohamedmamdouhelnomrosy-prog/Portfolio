@@ -18,3 +18,10 @@ enum HomeSection {
 enum LinkType { ios, android, web }
 
 enum TestingType { manual, automation }
+
+enum ProjectCategory {
+  eCommerce,
+  erp,
+  finTech,
+  other,
+}

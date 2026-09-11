@@ -6,94 +6,101 @@ import '../../../../../Core/Language/app_styles.dart';
 
 class ButtonWidget extends StatefulWidget {
   final String title;
-  final double width;
   final int index;
   final bool selected;
   final Function(int index) onTap;
 
-  const ButtonWidget(
-      {super.key,
-      this.selected = false,
-      required this.title,
-      this.width = 140,
-      required this.index,
-      required this.onTap});
+  const ButtonWidget({
+    super.key,
+    required this.title,
+    required this.index,
+    required this.onTap,
+    this.selected = false,
+  });
 
   @override
   State<ButtonWidget> createState() => _ButtonWidgetState();
 }
 
-class _ButtonWidgetState extends State<ButtonWidget>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _tapController;
-  late Animation<double> _scaleAnimation;
+class _ButtonWidgetState extends State<ButtonWidget> {
+  bool _isPressed = false;
+  bool _isHovered = false;
 
-  static const Duration _colorDuration = Duration(milliseconds: 250);
+  void _setPressed(bool value) {
+    if (_isPressed == value) return;
 
-  @override
-  void initState() {
-    super.initState();
-    _tapController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 100),
-    );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.94).animate(
-      CurvedAnimation(parent: _tapController, curve: Curves.easeOut),
-    );
+    setState(() {
+      _isPressed = value;
+    });
   }
 
-  @override
-  void dispose() {
-    _tapController.dispose();
-    super.dispose();
-  }
+  void _setHovered(bool value) {
+    if (_isHovered == value) return;
 
-  void _onTapDown(TapDownDetails _) => _tapController.forward();
-  void _onTapUp(TapUpDetails _) => _tapController.reverse();
-  void _onTapCancel() => _tapController.reverse();
+    setState(() {
+      _isHovered = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
 
-    final targetTextColor = widget.selected ? colors.accent : colors.text2;
-    final targetBorderColor = widget.selected ? colors.accent : colors.text3;
-    final targetBgColor = widget.selected ? colors.accentSoft : colors.surface;
+    final textColor = widget.selected ? colors.accent : colors.text2;
+
+    final borderColor = widget.selected ? colors.accent : colors.text3;
+
+    final backgroundColor =
+        widget.selected ? colors.accentSoft : colors.surface;
+
+// Press has priority over hover.
+    final scale = _isPressed
+        ? 0.94
+        : _isHovered
+            ? 1.02
+            : 1.0;
 
     return GestureDetector(
-      onTapDown: _onTapDown,
-      onTapUp: _onTapUp,
-      onTapCancel: _onTapCancel,
+      behavior: HitTestBehavior.opaque,
+      onTapDown: (_) => _setPressed(true),
+      onTapUp: (_) => _setPressed(false),
+      onTapCancel: () => _setPressed(false),
       onTap: () => widget.onTap(widget.index),
-      child: AnimatedBuilder(
-        animation: _scaleAnimation,
-        builder: (context, child) => Transform.scale(
-          scale: _scaleAnimation.value,
-          child: child,
-        ),
+      child: AnimatedScale(
+        scale: scale,
+        duration: const Duration(milliseconds: 180),
+        curve: Curves.easeOutCubic,
         child: TweenAnimationBuilder<Color?>(
-          tween: ColorTween(end: targetBorderColor),
-          duration: _colorDuration,
-          curve: Curves.easeOut,
-          builder: (context, borderColor, _) {
+          tween: ColorTween(
+            end: backgroundColor,
+          ),
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOutCubic,
+          builder: (context, bgColor, _) {
             return TweenAnimationBuilder<Color?>(
-              tween: ColorTween(end: targetBgColor),
-              duration: _colorDuration,
-              curve: Curves.easeOut,
-              builder: (context, bgColor, _) {
+              tween: ColorTween(
+                end: borderColor,
+              ),
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeOutCubic,
+              builder: (context, currentBorderColor, _) {
                 return TweenAnimationBuilder<Color?>(
-                  tween: ColorTween(end: targetTextColor),
-                  duration: _colorDuration,
-                  curve: Curves.easeOut,
-                  builder: (context, textColor, _) {
+                  tween: ColorTween(
+                    end: textColor,
+                  ),
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.easeOutCubic,
+                  builder: (context, currentTextColor, _) {
                     return CardWithText(
                       text: widget.title,
+                      vertPadding: 8,
+                      hozPadding: 20,
                       style: AppTextStyles.buttonTitle(
                         context: context,
-                        color: textColor ?? targetTextColor,
+                        color: currentTextColor ?? textColor,
                       ),
-                      borderColor: borderColor ?? targetBorderColor,
-                      color: bgColor ?? targetBgColor,
+                      borderColor: currentBorderColor ?? borderColor,
+                      color: bgColor ?? backgroundColor,
                       border: 8,
                     );
                   },

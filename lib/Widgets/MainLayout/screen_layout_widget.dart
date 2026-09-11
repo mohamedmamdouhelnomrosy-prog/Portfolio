@@ -41,6 +41,7 @@ class _ScreenLayoutWidgetState extends State<ScreenLayoutWidget> {
       HomeSection.skills: GlobalKeys.skill,
       HomeSection.experience: GlobalKeys.experince,
       HomeSection.projects: GlobalKeys.projects,
+      HomeSection.certifications: GlobalKeys.certification,
       HomeSection.contact: GlobalKeys.contactMe,
     };
 
@@ -49,9 +50,12 @@ class _ScreenLayoutWidgetState extends State<ScreenLayoutWidget> {
 
       if (ctx == null) continue;
 
-      final box = ctx.findRenderObject() as RenderBox;
+      final renderObject = ctx.findRenderObject();
 
-      final position = box.localToGlobal(Offset.zero).dy;
+      if (renderObject == null) continue;
+
+      final transform = renderObject.getTransformTo(null);
+      final position = MatrixUtils.transformPoint(transform, Offset.zero).dy;
 
       if (position > 0 && position < 250) {
         cubit.changeSection(entry.key);

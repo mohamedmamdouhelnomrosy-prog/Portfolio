@@ -7,10 +7,10 @@ import 'package:portfolio/Widgets/Custom/card_with_text.dart';
 import '../../../../../Widgets/Custom/card_with_animation.dart';
 
 class EducationCard extends StatelessWidget {
-  final EducationEntity item;
+  final EducationEntity? item;
 
   const EducationCard({
-    required this.item,
+    this.item,
   });
 
   @override
@@ -25,14 +25,14 @@ class EducationCard extends StatelessWidget {
           spacing: 16,
           children: [
             Text(
-              item.degree ?? "",
+              item?.degree ?? "",
               style: AppTextStyles.titleCardLarge(
                 context: context,
                 color: colors.text1,
               ),
             ).expand,
             CardWithText(
-              text: item.duration ?? "",
+              text: item?.duration ?? "",
               style: AppTextStyles.titleCardSmall(
                 context: context,
                 color: colors.secondary,
@@ -44,21 +44,21 @@ class EducationCard extends StatelessWidget {
           ],
         ),
         Text(
-          item.university ?? "",
+          item?.university ?? "",
           style: AppTextStyles.subtitleCard(
             context: context,
             color: colors.accent,
           ),
         ),
         Text(
-          'Grade: ${item.grade ?? ""}',
+          'Grade: ${item?.grade ?? ""}',
           style: AppTextStyles.body(
             context: context,
             color: colors.text2,
           ),
         ),
         Text(
-          (item.gradProjectTitle ?? ""),
+          (item?.gradProjectTitle ?? ""),
           style: AppTextStyles.body(
             context: context,
             color: colors.text2,
@@ -69,11 +69,11 @@ class EducationCard extends StatelessWidget {
           runSpacing: 16,
           children: [
             ...List.generate(
-              item.gradProjectTech.length,
+              item?.gradProjectTech.length ?? 0,
               (i) => CardWithText(
                 borderColor: Colors.transparent,
                 color: colors.accentSoft,
-                text: item.gradProjectTech[i],
+                text: item?.gradProjectTech[i] ?? "",
                 border: 4,
                 style: AppTextStyles.titleCardSmall(
                   context: context,

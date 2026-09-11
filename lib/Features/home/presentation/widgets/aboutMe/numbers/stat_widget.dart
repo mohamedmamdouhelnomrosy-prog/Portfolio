@@ -3,9 +3,9 @@
 // ──────────────────────────────────────────
 import 'package:flutter/material.dart';
 
-import '../../../../../Core/Language/app_styles.dart';
-import '../../../../../Utilities/extensions.dart';
-import '../../../../../Widgets/Custom/animated_counter.dart';
+import '../../../../../../Core/Language/app_styles.dart';
+import '../../../../../../Utilities/extensions.dart';
+import '../../../../../../Widgets/Custom/animated_counter.dart';
 
 class StatsRow extends StatelessWidget {
   final List<Stat> items;

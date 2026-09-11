@@ -21,7 +21,9 @@ class NameWidget extends StatelessWidget {
             spacing: 2,
             children: [
               Text(
-                (profile?.firstName) == null ? "" : (profile!.firstName!.trim()),
+                (profile?.firstName) == null
+                    ? ""
+                    : (profile!.firstName!.trim()),
                 style: AppTextStyles.titleSmall(
                   context: context,
                   color: colors.text2,
@@ -29,7 +31,7 @@ class NameWidget extends StatelessWidget {
               ),
               CircleAvatar(
                 radius: 2,
-                backgroundColor: colors.accent,
+                backgroundColor: colors.secondary,
               ).paddingOnly(top: 4),
               Text(
                 (profile?.lastName ?? "").split(" ").last,

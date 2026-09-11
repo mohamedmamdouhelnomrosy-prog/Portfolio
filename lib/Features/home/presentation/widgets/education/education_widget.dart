@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/Features/home/domain/entities/education_entity.dart';
+import 'package:portfolio/Features/home/presentation/cubit/cubit.dart';
+import 'package:portfolio/Features/home/presentation/cubit/state.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Widgets/Portfilio/animated_list.dart';
 
@@ -10,38 +13,37 @@ import '../../../../../Widgets/sections_title_widget.dart';
 import 'education_card.dart';
 
 class EducationSection extends StatelessWidget {
-  final List<EducationEntity> education;
   final double padding;
   const EducationSection(
-      {super.key, this.padding = 20, this.education = const []});
+      {super.key, this.padding = 20,});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      spacing: 16,
-      key: GlobalKeys.education,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SectionsTitleWidget(
-          index: 1,
-          icon: Portfolio.education,
-          title: Strings.education.translate,
-        ),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: education.length,
-          itemBuilder: (context, index) {
-            return CustomSlideAnimationWidget(
-              index: index,
-              key: ValueKey('Edu_$index'),
-              child: EducationCard(
-                item: education[index],
-              ),
-            );
-          },
-        ),
-      ],
-    ).paddingOnly(start: padding, end: padding);
+    final space = context.matchedSize(large: 32, medium: 24, small: 20);
+    return SliverPadding(
+        key: GlobalKeys.education,
+        padding: EdgeInsetsGeometry.symmetric(horizontal: padding),
+        sliver: SliverMainAxisGroup(
+          slivers: [
+            SliverToBoxAdapter(
+                child: SectionsTitleWidget(
+              index: 1,
+              icon: Portfolio.education,
+              title: Strings.education.translate,
+            )),
+            SliverToBoxAdapter(child: space.heightBox),
+            SliverToBoxAdapter(
+                child: BlocSelector<PortfolioCubit, PortfolioState, EducationEntity?>(
+              selector: (state) => state.data?.education.firstOrNull,
+              builder: (context, education) => ScrollReveal(
+                  index: 0,
+                  offset: 20,
+                  axis: Axis.horizontal,
+                  child: EducationCard(
+                    item: education,
+                  )),
+            ))
+          ],
+        ));
   }
 }

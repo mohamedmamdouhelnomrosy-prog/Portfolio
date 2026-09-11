@@ -36,4 +36,14 @@ class PortfolioCubit extends HydratedCubit<PortfolioState> {
       ),
     );
   }
+
+  void changeCategory(ProjectCategory cat) {
+    if (state.projectCategory == cat) return;
+
+    emit(
+      state.copyWith(
+        projectCategory: cat,
+      ),
+    );
+  }
 }

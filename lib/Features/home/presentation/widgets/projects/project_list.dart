@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/Features/home/domain/entities/project_entity.dart';
 import 'package:portfolio/Features/home/presentation/widgets/projects/project_card.dart';
-
-import '../../../../../Widgets/Custom/animated_list.dart';
+import 'package:portfolio/Widgets/Portfilio/animated_list.dart';
 
 class ProjectsList extends StatelessWidget {
   final List<ProjectEntity> projects;
