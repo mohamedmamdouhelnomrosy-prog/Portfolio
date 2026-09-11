@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/Features/home/presentation/widgets/aboutMe/home_summary_widget.dart';
-import 'package:portfolio/Features/home/presentation/widgets/contact_me.dart';
+import 'package:portfolio/Features/home/presentation/widgets/contact/contact_me.dart';
 import 'package:portfolio/Utilities/Constants/constants.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Widgets/MainLayout/screen_layout_widget.dart';

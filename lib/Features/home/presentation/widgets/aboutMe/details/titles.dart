@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/Core/Language/app_styles.dart';
 import 'package:portfolio/Features/home/presentation/cubit/cubit.dart';
 import 'package:portfolio/Features/home/presentation/cubit/state.dart';
+import 'package:portfolio/Utilities/Constants/global_keys.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 
 class MainTitle extends StatelessWidget {
@@ -16,6 +17,7 @@ class MainTitle extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Text(
         'Ensuring Quality,',
+        key: GlobalKeys.aboutMe,
         style: AppTextStyles.headline(context: context, color: colors.text1),
       ).animate().fadeIn(duration: duration, curve: Curves.easeOutCubic).slideX(
             begin: -0.15,

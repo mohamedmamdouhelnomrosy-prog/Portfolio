@@ -79,12 +79,13 @@ class _MyProjectsContent extends StatelessWidget {
           ),
           BlocBuilder<PortfolioCubit, PortfolioState>(
             buildWhen: (previous, current) =>
-                previous.projectCategory != current.projectCategory,
+                previous.projectCategory != current.projectCategory ||
+                previous.data != current.data,
             builder: (context, state) {
               return ProjectsList(
-                key: ValueKey(state.projectCategory),
                 projects: state.currentProjects,
                 height: height,
+                category: state.projectCategory.name,
                 countPerRow: countPerRow,
               );
             },

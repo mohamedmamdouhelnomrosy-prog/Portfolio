@@ -6,6 +6,7 @@ import 'package:portfolio/Widgets/Portfilio/animated_list.dart';
 class ProjectsList extends StatelessWidget {
   final List<ProjectEntity> projects;
   final double height;
+  final String category;
   final int countPerRow;
 
   const ProjectsList({
@@ -13,17 +14,20 @@ class ProjectsList extends StatelessWidget {
     this.countPerRow = 3,
     this.height = 200,
     this.projects = const [],
+    this.category = '',
   });
 
   @override
   Widget build(BuildContext context) {
     return AnimatedGridView<ProjectEntity>(
-      perRow: countPerRow,
-      items: projects,
-      mainAxisExtent: height,
-      buildChild: (u) => ProjectItemCard(
-        project: projects[u],
-      ),
-    );
+        perRow: countPerRow,
+        items: projects,
+        getKey: (u) => ValueKey(projects[u].title),
+        mainAxisExtent: height,
+        buildChild: (u) {
+          return ProjectItemCard(
+            project: projects[u],
+          );
+        });
   }
 }

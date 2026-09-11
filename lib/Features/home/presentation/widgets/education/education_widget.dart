@@ -14,26 +14,29 @@ import 'education_card.dart';
 
 class EducationSection extends StatelessWidget {
   final double padding;
-  const EducationSection(
-      {super.key, this.padding = 20,});
+  const EducationSection({
+    super.key,
+    this.padding = 20,
+  });
 
   @override
   Widget build(BuildContext context) {
     final space = context.matchedSize(large: 32, medium: 24, small: 20);
     return SliverPadding(
-        key: GlobalKeys.education,
         padding: EdgeInsetsGeometry.symmetric(horizontal: padding),
         sliver: SliverMainAxisGroup(
           slivers: [
             SliverToBoxAdapter(
                 child: SectionsTitleWidget(
+              key: GlobalKeys.education,
               index: 1,
               icon: Portfolio.education,
               title: Strings.education.translate,
             )),
             SliverToBoxAdapter(child: space.heightBox),
             SliverToBoxAdapter(
-                child: BlocSelector<PortfolioCubit, PortfolioState, EducationEntity?>(
+                child: BlocSelector<PortfolioCubit, PortfolioState,
+                    EducationEntity?>(
               selector: (state) => state.data?.education.firstOrNull,
               builder: (context, education) => ScrollReveal(
                   index: 0,

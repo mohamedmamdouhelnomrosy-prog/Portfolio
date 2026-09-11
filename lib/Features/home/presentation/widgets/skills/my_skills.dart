@@ -49,6 +49,7 @@ class SkillsSection extends StatelessWidget {
               builder: (c, skills) => AnimatedGridView(
                     perRow: countPerRow,
                     mainAxisExtent: height,
+                    getKey: (u) => ValueKey('${skills[u].id ?? 'skill-${u}'}'),
                     buildChild: (u) => SkillCard(
                       skill: skills[u],
                       iconSize: iconSize,

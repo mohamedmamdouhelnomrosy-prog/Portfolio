@@ -76,6 +76,7 @@ class AnimatedGridView<T> extends StatelessWidget {
   final double hozSpace, vertSpace;
   final double mainAxisExtent;
   final List<T> items;
+  final ValueKey Function(int i) getKey;
   final Widget Function(int) buildChild;
 
   const AnimatedGridView({
@@ -85,6 +86,7 @@ class AnimatedGridView<T> extends StatelessWidget {
     required this.items,
     this.hozSpace = 8,
     this.vertSpace = 8,
+    required this.getKey,
     required this.buildChild,
   });
 
@@ -102,6 +104,7 @@ class AnimatedGridView<T> extends StatelessWidget {
       itemBuilder: (context, index) {
         return ScrollReveal(
           offset: 20,
+          key: getKey(index),
           axis: Axis.vertical,
           index: index,
           child: buildChild(index),

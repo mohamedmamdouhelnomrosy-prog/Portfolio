@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:portfolio/Core/Error/failures.dart';
 import 'package:portfolio/Core/Network/custom_either.dart';
 import 'package:portfolio/Core/Network/error_message_model.dart';
@@ -28,7 +27,6 @@ class RemoteDataSourceImp implements RemoteDataSource {
       return Either.left(ServerFailure(ErrorMessageModel.local(
           statusMessage: 'No Data Found', errorMessage: 'No Data Found')));
     } else {
-      if (kDebugMode) print('data :: ${response['projects'][0]}');
       return Either.right(PortfolioModel.fromJson(response));
     }
   }

@@ -5,9 +5,9 @@ import 'package:portfolio/Features/home/presentation/cubit/state.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../../../Utilities/helper_function.dart';
-import '../../../../Utilities/portifilo_icons.dart';
-import 'contact/contact_button.dart';
+import '../../../../../Utilities/helper_function.dart';
+import '../../../../../Utilities/portifilo_icons.dart';
+import 'contact_button.dart';
 
 class ContactWidget extends StatefulWidget {
   const ContactWidget({super.key});

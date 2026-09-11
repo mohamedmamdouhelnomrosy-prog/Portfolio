@@ -25,12 +25,12 @@ class CertificationSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final space = context.matchedSize(large: 32, medium: 24, small: 20);
     return SliverPadding(
-      key: GlobalKeys.certification,
       padding: EdgeInsetsGeometry.symmetric(horizontal: hozPadding),
       sliver: SliverMainAxisGroup(
         slivers: [
           SliverToBoxAdapter(
               child: SectionsTitleWidget(
+            key: GlobalKeys.certification,
             index: 5,
             icon: Portfolio.certification,
             title: Strings.certification.translate,
