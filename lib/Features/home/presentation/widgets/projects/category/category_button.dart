@@ -19,15 +19,13 @@ class CategoryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-        child: SizedBox(
-            width: 160,
-            child: ButtonWidget(
-              title: title,
-              selected: selected,
-              index: category.index,
-              onTap: (_) {
-                context.read<PortfolioCubit>().changeCategory(category);
-              },
-            ).paddingOnly(end: 8)));
+        child: ButtonWidget(
+      title: title,
+      selected: selected,
+      index: category.index,
+      onTap: (_) {
+        context.read<PortfolioCubit>().changeCategory(category);
+      },
+    ).paddingOnly(end: 8));
   }
 }

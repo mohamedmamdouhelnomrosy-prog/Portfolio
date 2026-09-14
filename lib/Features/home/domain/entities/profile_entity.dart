@@ -13,7 +13,9 @@ class ProfileEntity extends Equatable {
   final String? currentCompany;
   final String? summary;
   final String? github;
+  final String? shortSummary;
   final String? linkedin;
+  final double? experience;
   final bool militaryService;
 
   ProfileEntity({
@@ -31,6 +33,8 @@ class ProfileEntity extends Equatable {
     this.image,
     this.currentCompany,
     this.cv,
+    this.experience,
+    this.shortSummary,
   });
 
   @override
@@ -45,8 +49,10 @@ class ProfileEntity extends Equatable {
         summary,
         github,
         linkedin,
+        experience,
         militaryService,
         cv,
+        shortSummary,
         image,
         currentCompany
       ];

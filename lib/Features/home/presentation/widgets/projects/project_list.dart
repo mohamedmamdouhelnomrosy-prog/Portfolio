@@ -24,9 +24,13 @@ class ProjectsList extends StatelessWidget {
         items: projects,
         getKey: (u) => ValueKey(projects[u].title),
         mainAxisExtent: height,
+        vertSpace: 0,
+        hozSpace: 0,
         buildChild: (u) {
           return ProjectItemCard(
             project: projects[u],
+            height: height,
+            index: u,
           );
         });
   }

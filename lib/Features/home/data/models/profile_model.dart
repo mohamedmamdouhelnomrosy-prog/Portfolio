@@ -15,7 +15,8 @@ class ProfileModel {
   final String? cv;
   final String? currentCompany;
   final bool militaryService;
-
+  final double? experience;
+  final String? shortSummary;
   ProfileModel({
     this.id,
     this.firstName,
@@ -29,8 +30,10 @@ class ProfileModel {
     this.linkedin,
     this.militaryService = false,
     this.image,
+    this.experience,
     this.currentCompany,
     this.cv,
+    this.shortSummary,
   });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(
@@ -47,6 +50,8 @@ class ProfileModel {
       currentCompany: json['currentCompany'],
       image: json['image'],
       militaryService: json['military_service'] ?? false,
+      experience: json['experience'],
+      shortSummary: json['shortSummary'],
       cv: json['cv']);
 
   static ProfileModel toModel(ProfileEntity? entity) => ProfileModel(
@@ -60,6 +65,8 @@ class ProfileModel {
       summary: entity?.summary,
       github: entity?.github,
       linkedin: entity?.linkedin,
+      shortSummary: entity?.shortSummary,
+      experience: entity?.experience,
       militaryService: entity?.militaryService ?? true,
       image: entity?.image,
       currentCompany: entity?.currentCompany,
@@ -72,6 +79,8 @@ class ProfileModel {
         email: email,
         phone: phone,
         cv: cv,
+        shortSummary: shortSummary,
+        experience: experience,
         currentCompany: currentCompany,
         location: location,
         summary: summary,
@@ -89,6 +98,7 @@ class ProfileModel {
         "email": email,
         "phone": phone,
         "location": location,
+        "shortSummary": shortSummary,
         "summary": summary,
         "github": github,
         "linkedin": linkedin,
@@ -96,5 +106,6 @@ class ProfileModel {
         "cv": cv,
         "currentCompany": currentCompany,
         "militaryService": militaryService,
+        "experience": experience,
       };
 }

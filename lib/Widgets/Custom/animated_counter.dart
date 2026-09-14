@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
 class AnimatedCounter extends StatefulWidget {
-  final int targetNumber;
+  final double targetNumber;
   final String? subtitle;
   final Duration duration;
   final TextStyle? style;
+  final int? decimalPlaces;
 
   const AnimatedCounter({
     super.key,
     required this.targetNumber,
     this.duration = const Duration(milliseconds: 1500),
-    this.style, this.subtitle,
+    this.style,
+    this.subtitle,
+    this.decimalPlaces,
   });
 
   @override
@@ -52,7 +55,7 @@ class _AnimatedCounterState extends State<AnimatedCounter>
     return AnimatedBuilder(
       animation: _animation,
       builder: (_, __) => Text(
-        "${_animation.value.toInt()} ${widget.subtitle??""}",
+        "${_animation.value.toStringAsFixed(widget.decimalPlaces ?? 0)} ${widget.subtitle ?? ""}",
         style: widget.style,
       ),
     );

@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:portfolio/Widgets/MainLayout/AppBar/home_app_bar_item.dart';
-import 'package:portfolio/Widgets/MainLayout/AppBar/name_widget.dart';
+import 'package:portfolio/Widgets/MainLayout/AppBar/sections.dart';
 
-import '../../Features/home/presentation/cubit/cubit.dart';
-import '../../Features/home/presentation/cubit/state.dart';
 import '../../Utilities/Constants/constants.dart';
-import '../../Utilities/Constants/enums.dart';
-import '../../Utilities/Constants/global_keys.dart';
-import '../../Utilities/Constants/strings.dart';
 import '../../Utilities/extensions.dart';
-import '../../Utilities/portifilo_icons.dart';
 import '../Buttons/theme_button.dart';
 import 'menu_button_item.dart';
 
@@ -98,8 +90,7 @@ class _MenuButtonState extends State<MenuButton>
                       isOpen: _isOpen,
                       onTap: _toggle,
                     ),
-                    const NameWidget(),
-                    const ThemeButton(),
+                    const TestThemeToggleButton(),
                   ],
                 ),
               ),
@@ -123,7 +114,9 @@ class _MenuButtonState extends State<MenuButton>
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                   child: Column(
                     spacing: 12,
-                    children: paths,
+                    children: SectionModel.paths
+                        .map((e) => SectionsWidget(section: e))
+                        .toList(),
                   ),
                 ),
               ),
@@ -133,69 +126,4 @@ class _MenuButtonState extends State<MenuButton>
       ),
     );
   }
-
-  List<Widget> get paths => [
-        sectionsWidget(
-          section: HomeSection.about,
-          icon: Portfolio.summary,
-          key: GlobalKeys.aboutMe,
-          title: Strings.aboutMe.translate,
-        ),
-        sectionsWidget(
-          section: HomeSection.education,
-          icon: Portfolio.education,
-          key: GlobalKeys.education,
-          title: Strings.education.translate,
-        ),
-        sectionsWidget(
-          section: HomeSection.skills,
-          icon: Portfolio.skills,
-          key: GlobalKeys.skill,
-          title: Strings.mySkill.translate,
-        ),
-        sectionsWidget(
-          section: HomeSection.experience,
-          icon: Portfolio.work,
-          key: GlobalKeys.experince,
-          title: Strings.experience.translate,
-        ),
-        sectionsWidget(
-          section: HomeSection.projects,
-          icon: Portfolio.projects,
-          key: GlobalKeys.projects,
-          title: Strings.projects.translate,
-        ),
-        sectionsWidget(
-          section: HomeSection.certifications,
-          icon: Portfolio.certification,
-          key: GlobalKeys.certification,
-          title: Strings.certification.translate,
-        ),
-      ];
-
-  Widget sectionsWidget({
-    required IconData icon,
-    required HomeSection section,
-    required GlobalKey key,
-    required String title,
-  }) =>
-      BlocBuilder<PortfolioCubit, PortfolioState>(
-          buildWhen: (c, p) => c.section != p.section,
-          builder: (context, state) {
-            return HomeAppBarItem(
-              icon: icon,
-              onTap: () {
-                context.read<PortfolioCubit>().changeSection(
-                      section,
-                    );
-                Scrollable.ensureVisible(
-                  key.currentContext!,
-                  duration: const Duration(seconds: 1),
-                  curve: Curves.easeInOut,
-                );
-              },
-              selected: state.section == section,
-              title: title,
-            );
-          });
 }

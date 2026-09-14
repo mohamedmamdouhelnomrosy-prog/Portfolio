@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:universal_html/html.dart' as html;
 
-import '../Features/Splash/presentation/pages/splash_view.dart';
 import '../Features/home/presentation/pages/home_view.dart';
 import '../Widgets/MainLayout/main_layout_widget.dart';
 import '../sco_helper.dart';
@@ -45,24 +44,24 @@ class GoRouterConfig {
   static GoRouter get router => _router;
   static final GoRouter _router = GoRouter(
     routes: <RouteBase>[
-      GoRoute(
-        path: SplashScreen.routeName,
-        pageBuilder: (_, GoRouterState state) {
-          return getCustomTransitionPage(
-            state: state,
-            child: const SplashScreen(),
-          );
-        },
-        redirect: (_, state) {
-          SeoHelper.setMetaTags(
-            title: 'محمد النمرسي | Mohamed El-Nomrosy',
-            description:
-                'My Portfolio Page As SoftWare Testing Engineer , Manual and Automation Testing ',
-          );
-          return null;
-        },
-        routes: const <RouteBase>[],
-      ),
+      // GoRoute(
+      //   path: SplashScreen.routeName,
+      //   pageBuilder: (_, GoRouterState state) {
+      //     return getCustomTransitionPage(
+      //       state: state,
+      //       child: const SplashScreen(),
+      //     );
+      //   },
+      //   redirect: (_, state) {
+      //     SeoHelper.setMetaTags(
+      //       title: 'محمد النمرسي | Mohamed El-Nomrosy',
+      //       description:
+      //           'My Portfolio Page As SoftWare Testing Engineer , Manual and Automation Testing ',
+      //     );
+      //     return null;
+      //   },
+      //   routes: const <RouteBase>[],
+      // ),
       ShellRoute(
           builder: (context, state, child) {
             return MainLayoutWidget(
@@ -74,7 +73,7 @@ class GoRouterConfig {
             //// --------------------------  Home --------------------------
             GoRoute(
               name: HomeView.routeName,
-              path: "/${HomeView.routeName}",
+              path: HomeView.routeName,
               redirect: (_, state) {
                 SeoHelper.setMetaTags(
                   title: 'محمد النمرسي | Mohamed El-Nomrosy',

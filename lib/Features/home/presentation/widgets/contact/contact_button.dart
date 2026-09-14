@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/Core/Language/app_styles.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 
-import '../../../../../Utilities/Constants/constants.dart';
-import '../../../../../Widgets/Buttons/custom_button_widget.dart';
-
 class ContactButton extends StatefulWidget {
   final double border;
-  final Function() onTap;
+  final Function()? onTap;
   final IconData icon;
-  final String title;
+  final String title, value;
   final Color? backgroundColor, borderColor, iconColor;
   const ContactButton(
       {super.key,
@@ -19,6 +16,7 @@ class ContactButton extends StatefulWidget {
       this.backgroundColor,
       this.borderColor,
       this.iconColor,
+      required this.value,
       required this.title});
 
   @override
@@ -33,48 +31,42 @@ class _ContactButtonState extends State<ContactButton> {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final size = context.isLarge
-        ? lThemeButtonSize
-        : context.isMedium
-            ? mThemeButtonSize
-            : sThemeButtonSize;
 
-    return MouseRegion(
-        onEnter: (_) => hovering(true),
-        onExit: (_) => hovering(false),
-        child: AnimatedScale(
-          scale: hover ? 1.02 : 1,
-          duration: const Duration(milliseconds: 250),
-          child: CustomButtonWidget(
-            borderRadiusValue: widget.border,
-            onPressed: widget.onTap,
-            width: context.isLarge ? 120 : 80,
-            btnColor: widget.backgroundColor ?? Colors.transparent,
-            borderColor:
-                hover ? colors.accent : widget.borderColor ?? colors.text2,
-            height: size,
-            child: (Row(
-              spacing: 4,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  widget.icon,
-                  color:
-                      hover ? colors.accent : widget.iconColor ?? colors.text2,
-                  size: size / 2,
+    return Container(
+      padding: EdgeInsets.symmetric(
+          horizontal: context.isSmall ? 8 : 24, vertical: 16),
+      decoration:
+          BoxDecoration(border: Border.all(color: colors.border, width: 0.4)),
+      child: MouseRegion(
+          onEnter: (_) => hovering(true),
+          onExit: (_) => hovering(false),
+          child: Column(
+            spacing: 4,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                widget.title,
+                style: AppTextStyles.summaryNumberMedium(
+                  context: context,
+                  color: widget.iconColor ?? colors.text2,
                 ),
-                Text(
-                  widget.title,
+              ),
+              GestureDetector(
+                onTap: widget.onTap,
+                child: Text(
+                  widget.value,
                   style: AppTextStyles.buttonTitle(
                     context: context,
-                    color: hover
-                        ? colors.accent
-                        : widget.iconColor ?? colors.text2,
-                  ),
+                    color: hover ? colors.accent : colors.text1,
+                  ).copyWith(
+                      decorationColor:
+                          hover ? colors.accent : Colors.transparent,
+                      decoration: hover ? TextDecoration.underline : null),
                 ),
-              ],
-            )),
-          ),
-        ));
+              )
+            ],
+          )),
+    );
   }
 }

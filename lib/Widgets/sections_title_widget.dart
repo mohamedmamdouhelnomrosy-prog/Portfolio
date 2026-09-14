@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Widgets/Custom/card_with_text.dart';
+import 'package:portfolio/Widgets/Portfilio/divider.dart';
 
 import '../Core/Language/app_styles.dart';
 
@@ -23,16 +24,24 @@ class SectionsTitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
 
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 32,
       children: [
-        CardWithText(
-          text: '0$index',
-          color: Colors.transparent,
-          textColor: colors.text2,
-          border: 4,
-          hozPadding: 4,
-          vertPadding: 2,
-          borderColor: colors.text3,
+        Row(
+          spacing: 8,
+          children: [
+            CardWithText(
+              text: 'SECTION 0$index',
+              color: Colors.transparent,
+              textColor: colors.secondary,
+              border: 0,
+              hozPadding: 4,
+              vertPadding: 2,
+              borderColor: colors.border,
+            ),
+            const DividerWidget().expand
+          ],
         )
             .animate()
             .fadeIn(
@@ -45,15 +54,13 @@ class SectionsTitleWidget extends StatelessWidget {
               duration: 350.ms,
               curve: Curves.easeOutCubic,
             ),
-        8.0.widthBox,
         Text(
-          title,
+          title.toUpperCase(),
           style: AppTextStyles.sectionTitle(
             context: context,
             color: colors.text1,
           ),
         )
-            .expand
             .animate(delay: 100.ms)
             .fadeIn(
               duration: 450.ms,
@@ -73,7 +80,7 @@ class SectionsTitleWidget extends StatelessWidget {
             color: colors.secondarySoft,
             hozPadding: 4,
             vertPadding: 4,
-            border: 4,
+            border: 0,
             borderColor: colors.secondary,
             style: AppTextStyles.titleCardSmall(
               context: context,

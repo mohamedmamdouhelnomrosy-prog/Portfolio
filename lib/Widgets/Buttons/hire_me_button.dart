@@ -36,7 +36,7 @@ class _CustomHireButtonState extends State<CustomHireButton> {
           scale: hover ? 1.02 : 1,
           duration: const Duration(milliseconds: 250),
           child: CustomButtonWidget(
-            borderRadiusValue: 8,
+            borderRadiusValue: 0,
             onPressed: () async {
               final Uri emailUri =
                   Uri(scheme: 'mailto', path: widget.email ?? "");
@@ -44,9 +44,11 @@ class _CustomHireButtonState extends State<CustomHireButton> {
                 await launchUrl(emailUri);
               }
             },
-            btnColor: colors.secondarySoft,
-            borderColor: hover ? colors.secondary : Colors.transparent,
+            btnColor: hover
+                ? colors.secondary.withValues(alpha: 0.9)
+                : colors.secondary,
             height: size,
+            width: double.infinity,
             child: Row(
               spacing: 4,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -56,12 +58,12 @@ class _CustomHireButtonState extends State<CustomHireButton> {
                   'Hire Me',
                   style: AppTextStyles.buttonTitle(
                     context: context,
-                    color: colors.secondary,
+                    color: Colors.white,
                   ),
                 ),
                 Icon(
                   Portfolio.email,
-                  color: colors.secondary,
+                  color: Colors.white,
                   size: size / 2.5,
                 ),
               ],

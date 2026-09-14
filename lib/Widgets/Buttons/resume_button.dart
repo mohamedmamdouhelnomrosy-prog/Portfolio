@@ -5,7 +5,6 @@ import 'package:portfolio/Features/home/presentation/cubit/cubit.dart';
 import 'package:portfolio/Utilities/Constants/constants.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Utilities/helper_function.dart';
-import 'package:portfolio/Utilities/portifilo_icons.dart';
 import 'package:portfolio/Widgets/Buttons/custom_button_widget.dart';
 
 class CustomResumeButton extends StatefulWidget {
@@ -38,14 +37,14 @@ class _CustomResumeButtonState extends State<CustomResumeButton> {
           scale: hover ? 1.02 : 1,
           duration: const Duration(milliseconds: 250),
           child: CustomButtonWidget(
-            borderRadiusValue: 8,
+            borderRadiusValue: 0,
             onPressed: () {
               final cv = context.read<PortfolioCubit>().state.data?.profile?.cv;
               if (cv == null || cv.isEmpty) return;
               HelperFunctions.openUrl(cv, context);
             },
-            btnColor: !hover ? Colors.transparent : colors.secondary,
-            borderColor: colors.secondary,
+            btnColor: !hover ? Colors.transparent : colors.accentSoft,
+            borderColor: colors.border,
             height: size,
             child: Row(
               spacing: 4,
@@ -56,12 +55,12 @@ class _CustomResumeButtonState extends State<CustomResumeButton> {
                   'Resume',
                   style: AppTextStyles.buttonTitle(
                     context: context,
-                    color: hover ? Colors.white : colors.secondary,
+                    color: colors.accent,
                   ),
                 ),
                 Icon(
-                  Portfolio.cv,
-                  color: hover ? Colors.white : colors.secondary,
+                  Icons.arrow_downward_outlined,
+                  color: colors.accent,
                   size: size / 2.5,
                 ),
               ],

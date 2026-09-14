@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/Core/Language/app_styles.dart';
 import 'package:portfolio/Features/home/domain/entities/certificate_entity.dart';
-import 'package:portfolio/Utilities/Constants/constants.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Utilities/helper_function.dart';
-import 'package:portfolio/Widgets/Custom/card_with_text.dart';
+import 'package:portfolio/Widgets/Custom/card_with_animation.dart';
 import 'package:portfolio/Widgets/rounded_image_widget.dart';
 
 class CertificationCard extends StatefulWidget {
@@ -23,10 +22,6 @@ class CertificationCard extends StatefulWidget {
 }
 
 class _CertificationCardState extends State<CertificationCard> {
-  bool hover = false;
-  void hovering(bool h) => setState(() {
-        hover = h;
-      });
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
@@ -37,84 +32,54 @@ class _CertificationCardState extends State<CertificationCard> {
             HelperFunctions.openUrl(widget.item.certificateImageUrl!, context);
           }
         },
-        child: MouseRegion(
-          onEnter: (_) => hovering(true),
-          onExit: (_) => hovering(false),
-          child: AnimatedScale(
-            duration: const Duration(microseconds: 400),
-            scale: hover ? 0.99 : 1,
-            child: AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(cardRadius),
+        child: InteractiveCard(
+          child: (h) => AnimatedScale(
+              scale: h ? 1.03 : 1,
+              duration: const Duration(milliseconds: 300),
+              child: Column(
+                children: [
+                  RoundedImage(
+                    width: widget.imageWidth,
+                    height: widget.imageHeight,
+                    imagePath: widget.item.certificateImageUrl,
+                    radiusValue: 0,
+                    fit: BoxFit.fill,
+                    borderColor: colors.accentSoft,
+                    borderWidth: 4,
+                    padding: 8,
                   ),
-                  border: Border.all(
-                    color: hover ? colors.accent : colors.text3,
-                    width: 1,
-                  ),
-                  boxShadow: hover
-                      ? [
-                          BoxShadow(
-                              color: colors.text3,
-                              spreadRadius: 2,
-                              blurRadius: 2,
-                              offset: const Offset(0, 4))
-                        ]
-                      : null,
-                  color: (colors.surface),
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                child: Column(
-                  spacing: 8,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      spacing: 16,
+                  Container(
+                    height: 72,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    width: widget.imageWidth,
+                    color: colors.accentSoft,
+                    child: Column(
+                      spacing: 4,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        RoundedImage(
-                          imagePath: widget.item.certificateImageUrl,
-                          width: widget.imageWidth,
-                          height: widget.imageHeight,
-                          radiusValue: 4,
-                          borderColor: colors.secondary,
-                        ),
-                        const Spacer(),
-                        CardWithText(
-                          text: widget.item.issueDate ?? "",
-                          style: AppTextStyles.titleCardSmall(
+                        Text(
+                          widget.item.courseName ?? "",
+                          style: AppTextStyles.subtitleCard(
                             context: context,
-                            color: colors.secondary,
+                            color: colors.text1,
                           ),
-                          border: 4,
-                          color: colors.secondarySoft,
-                          borderColor: Colors.transparent,
+                          maxLines: 2,
                         ),
-                        Icon(
-                          Icons.arrow_right_alt_rounded,
-                          size: 20,
-                          color: colors.text3,
+                        Text(
+                          (widget.item.provider ?? "") +
+                              ". ${widget.item.issueDate ?? ""}",
+                          style: AppTextStyles.body(
+                            context: context,
+                            color: colors.text3,
+                          ),
                         ),
                       ],
                     ),
-                    Text(
-                      widget.item.courseName ?? "",
-                      style: AppTextStyles.titleCardLarge(
-                        context: context,
-                        color: colors.text1,
-                      ),
-                    ),
-                    Text(
-                      widget.item.provider ?? "",
-                      style: AppTextStyles.subtitleCard(
-                        context: context,
-                        color: colors.accent,
-                      ),
-                    ),
-                  ],
-                )),
-          ),
+                  ),
+                ],
+              )),
         ));
   }
 }

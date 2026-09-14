@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:portfolio/Features/home/presentation/widgets/aboutMe/details/titles.dart';
+import 'package:portfolio/Features/home/presentation/widgets/hero/details/titles.dart';
 
 class HeadlineWidget extends StatelessWidget {
   const HeadlineWidget({super.key});
@@ -12,7 +12,10 @@ class HeadlineWidget extends StatelessWidget {
       slivers: [
         MainTitle(duration: _duration),
         SecondaryTitle(duration: _duration),
-        SummaryWidget(duration: _duration),
+        SliverToBoxAdapter(child: SizedBox(height: 8)),
+        JobTitle(duration: _duration),
+        SliverToBoxAdapter(child: SizedBox(height: 20)),
+        HeroSummaryWidget(duration: _duration),
       ],
     );
   }

@@ -1,0 +1,12 @@
+flutter_native_splash:
+  color: "#F2F6FA"              # لون الخلفية
+  image: assets/images/logo.png # لوجو أو صورة السبلاش (اختياري)
+
+  # لازم تفعّل الويب صراحةً
+  web: true
+
+  web_image_mode: center   # أو contain / stretch / cover
+
+  # لو عايز دارك مود مختلف
+  color_dark: "#070d15"
+  image_dark: assets/images/logo.png # لوجو أو صورة السبلاش (اختياري)

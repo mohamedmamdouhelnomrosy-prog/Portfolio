@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/Features/home/presentation/cubit/cubit.dart';
 import 'package:portfolio/Features/home/presentation/cubit/state.dart';
+import 'package:portfolio/Utilities/extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -55,9 +56,10 @@ class _ContactWidgetState extends State<ContactWidget>
   Widget _animatedButton({
     required int index,
     required int total,
-    required VoidCallback onTap,
+    VoidCallback? onTap,
     required IconData icon,
     required String title,
+    required String value,
   }) {
     final animation = _fadeAnimation(index, total);
     return AnimatedBuilder(
@@ -78,6 +80,7 @@ class _ContactWidgetState extends State<ContactWidget>
         onTap: onTap,
         icon: icon,
         title: title,
+        value: value,
       ),
     );
   }
@@ -90,11 +93,14 @@ class _ContactWidgetState extends State<ContactWidget>
       child: BlocBuilder<PortfolioCubit, PortfolioState>(
         buildWhen: (c, p) => c.data?.profile != p.data?.profile,
         builder: (context, s) {
+          final name =
+              "${s.data?.profile?.firstName ?? ""}${s.data?.profile?.lastName?.split(" ").firstOrNull ?? ""}";
           final buttons = <Widget>[
             _animatedButton(
               index: 0,
-              total: 5,
+              total: 6,
               title: 'Email',
+              value: s.data?.profile?.email ?? "",
               icon: Portfolio.email,
               onTap: () async {
                 final Uri emailUri = Uri(
@@ -107,28 +113,10 @@ class _ContactWidgetState extends State<ContactWidget>
               },
             ),
             _animatedButton(
-              index: 1,
-              total: 5,
-              title: 'LinkedIn',
-              icon: Portfolio.linkedin,
-              onTap: () {
-                HelperFunctions.openUrl(
-                    s.data?.profile?.linkedin ?? "", context);
-              },
-            ),
-            _animatedButton(
-              index: 2,
-              title: 'Github',
-              total: 5,
-              icon: Portfolio.github,
-              onTap: () {
-                HelperFunctions.openUrl(s.data?.profile?.github ?? "", context);
-              },
-            ),
-            _animatedButton(
               index: 3,
-              total: 5,
+              total: 6,
               title: 'Phone',
+              value: s.data?.profile?.phone ?? "",
               icon: Portfolio.whatsapp,
               onTap: () {
                 HelperFunctions.openWhatsApp(
@@ -138,20 +126,75 @@ class _ContactWidgetState extends State<ContactWidget>
               },
             ),
             _animatedButton(
+              index: 1,
+              total: 6,
+              title: 'LinkedIn',
+              value: 'Linkedin/$name',
+              icon: Portfolio.linkedin,
+              onTap: () {
+                HelperFunctions.openUrl(
+                    s.data?.profile?.linkedin ?? "", context);
+              },
+            ),
+            _animatedButton(
+              index: 2,
+              title: 'Github',
+              total: 6,
+              value: 'Github/${name}',
+              icon: Portfolio.github,
+              onTap: () {
+                HelperFunctions.openUrl(s.data?.profile?.github ?? "", context);
+              },
+            ),
+            _animatedButton(
               index: 4,
-              total: 5,
+              total: 6,
+              value: 'Download',
               title: 'Resume',
               icon: Portfolio.cv,
               onTap: () {
                 HelperFunctions.openUrl(s.data?.profile?.cv ?? "", context);
               },
             ),
+            _animatedButton(
+              index: 5,
+              total: 6,
+              title: 'Location',
+              value: s.data?.profile?.location ?? "",
+              icon: Portfolio.cv,
+            ),
           ];
 
+          if (context.isSmall) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    buttons[0].expandFlex(3),
+                    buttons[1].expandFlex(2),
+                  ],
+                ),
+                Row(
+                  children: [
+                    buttons[2].expand,
+                    buttons[3].expand,
+                  ],
+                ),
+                Row(
+                  children: [
+                    buttons[4].expand,
+                    buttons[5].expand,
+                  ],
+                )
+              ],
+            );
+          }
           return Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            alignment: WrapAlignment.center,
+            spacing: 0,
+            runSpacing: 0,
+            alignment:
+                context.isLarge ? WrapAlignment.center : WrapAlignment.start,
             children: buttons,
           );
         },

@@ -15,10 +15,14 @@ class PointText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 4,
       children: [
-        Icon(
-          Icons.check,
-          color: colors.accent,
-          size: 14,
+        CircleAvatar(
+          radius: context.isSmall ? 6 : 8,
+          backgroundColor: colors.secondarySoft,
+          child: Icon(
+            Icons.check,
+            color: colors.secondary,
+            size: context.isSmall ? 8 : 10,
+          ),
         ),
         Text(point,
                 maxLines: 2,

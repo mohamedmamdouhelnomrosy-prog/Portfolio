@@ -13,10 +13,14 @@ import '../../../../../Core/Language/app_styles.dart';
 
 class ProjectItemCard extends StatelessWidget {
   final ProjectEntity? project;
+  final int index;
+  final double height;
 
   const ProjectItemCard({
     super.key,
     this.project,
+    required this.height,
+    required this.index,
   });
 
   @override
@@ -26,110 +30,115 @@ class ProjectItemCard extends StatelessWidget {
         context.matchedSize(large: 268, medium: 260, small: double.infinity);
     final color =
         HelperFunctions.convertStringToColor(project?.platform?.color ?? "");
-    return AnimatedCardWidget(
-        paddingVert: 0,
+    return Row(children: [
+      if (index % 2 == 0)
+        VertGradintDividerWidget(
+          color1: colors.accent,
+          color2: color ?? colors.accent,
+          thickness: 3,
+          height: height,
+        ),
+      AnimatedCardWidget(
+        paddingVert: 24,
         width: width,
-        height: context.isSmall ? null : 300,
+        paddingHoz: 24,
+        height: height,
         child: (i) => Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 8,
+          children: [
+            Row(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 8,
               children: [
-                GradintDividerWidget(
-                  color1: colors.accent,
-                  color2: color ?? colors.accent,
-                  thickness: 3,
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 8,
-                  children: [
-                    Text(
-                      project?.title ?? "",
-                      style: AppTextStyles.titleCardLarge(
-                          context: context, color: colors.text1),
-                      maxLines: 2,
-                    ).expand,
-                    CardWithText(
-                      text: project?.isManual == true ? 'Manual' : "Automation",
+                Text(
+                  project?.title ?? "",
+                  style: AppTextStyles.subtitleCard(
+                      context: context, color: colors.text1),
+                  maxLines: 2,
+                ).expand,
+                CardWithText(
+                  text: project?.isManual == true ? 'Manual' : "Automation",
+                  color: project?.isManual == true
+                      ? colors.accentSoft
+                      : colors.secondarySoft,
+                  borderColor: Colors.transparent,
+                  maxLine: 2,
+                  border: 0,
+                  style: AppTextStyles.titleCardSmall(
+                      context: context,
                       color: project?.isManual == true
-                          ? colors.accentSoft
-                          : colors.secondarySoft,
-                      borderColor: Colors.transparent,
-                      maxLine: 2,
-                      border: 4,
-                      style: AppTextStyles.titleCardSmall(
-                          context: context,
-                          color: project?.isManual == true
-                              ? colors.accent
-                              : colors.secondary),
-                    )
-                  ],
-                ),
-                Text('Verified'.toUpperCase(),
-                    style: AppTextStyles.titleCardSmall(
-                        context: context, color: colors.accent)),
-                ...List.generate(
-                  project?.keyTasks.length ?? 0,
-                  (i) => PointText(
-                    point: project?.keyTasks[i] ?? "",
-                  ),
-                ),
-                if (project?.links != null && project!.links.isNotEmpty)
-                  const DividerWidget(
-                    thickness: 0.4,
-                  ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 4,
-                  children: [
-                    ...?project?.links.map((e) {
-                      final type = LinkType.values.firstWhere((i) {
-                        return i.name == e.linkType?.type;
-                      });
-                      return CustomButtonWidget(
-                        height: 24,
-                        btnColor: type == LinkType.android
-                            ? colors.secondarySoft
-                            : type == LinkType.ios
-                                ? colors.accentSoft
-                                : colors.text3,
-                        borderRadiusValue: 4,
-                        child: Row(
-                          spacing: 4,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              type == LinkType.android
-                                  ? Icons.android_outlined
-                                  : type == LinkType.ios
-                                      ? Icons.apple_outlined
-                                      : Icons.language_outlined,
-                              size: 12,
-                              color: type == LinkType.android
-                                  ? colors.secondary
-                                  : type == LinkType.ios
-                                      ? colors.accent
-                                      : colors.text1,
-                            ),
-                            Text(
-                              e.name ?? '',
-                              style: AppTextStyles.titleCardSmall(
-                                context: context,
-                                color: type == LinkType.android
-                                    ? colors.secondary
-                                    : type == LinkType.ios
-                                        ? colors.accent
-                                        : colors.text1,
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    })
-                  ],
+                          ? colors.accent
+                          : colors.secondary),
                 )
               ],
-            ));
+            ),
+            Column(
+              spacing: 4,
+              children: List.generate(
+                project?.keyTasks.length ?? 0,
+                (i) => PointText(
+                  point: project?.keyTasks[i] ?? "",
+                ),
+              ),
+            ).expand,
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 6,
+              children: [
+                ...?project?.links.map((e) {
+                  final type = LinkType.values.firstWhere((i) {
+                    return i.name == e.linkType?.type;
+                  });
+                  return CustomButtonWidget.outLined(
+                    height: 24,
+                    borderColor: colors.border,
+                    borderRadiusValue: 0,
+                    child: Row(
+                      spacing: 4,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          type == LinkType.android
+                              ? Icons.android_outlined
+                              : type == LinkType.ios
+                                  ? Icons.apple_outlined
+                                  : Icons.language_outlined,
+                          size: 12,
+                          color: type == LinkType.android
+                              ? colors.secondary
+                              : type == LinkType.ios
+                                  ? colors.accent
+                                  : colors.text1,
+                        ),
+                        Text(
+                          e.name ?? '',
+                          style: AppTextStyles.titleCardSmall(
+                            context: context,
+                            color: type == LinkType.android
+                                ? colors.secondary
+                                : type == LinkType.ios
+                                    ? colors.accent
+                                    : colors.text1,
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                })
+              ],
+            )
+          ],
+        ),
+      ).expand,
+      if (index % 2 != 0)
+        VertGradintDividerWidget(
+          color1: colors.accent,
+          color2: color ?? colors.accent,
+          thickness: 3,
+          height: height,
+        ),
+    ]);
   }
 }

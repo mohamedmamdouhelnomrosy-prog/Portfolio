@@ -43,6 +43,7 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   visibility_detector: ^0.4.0+2
   flutter_animate: ^4.5.2
+  flutter_native_splash: ^2.4.8
 
 
 dev_dependencies:
@@ -60,7 +61,7 @@ flutter:
     - assets/Languages/
     - assets/icons/
   fonts:
-    - family: portfolio
+    - family: AppIcons
       fonts:
-        - asset: assets/icons/portfolio.ttf
+        - asset: assets/icons/AppIcons.ttf
 

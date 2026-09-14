@@ -12,7 +12,7 @@ class CategoryButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = context.matchedSize(
-        large: context.width * 0.33,
+        large: context.width * 0.30,
         medium: context.width * 0.8,
         small: context.width);
     return BlocSelector<PortfolioCubit, PortfolioState, ProjectCategory>(
@@ -22,26 +22,34 @@ class CategoryButtons extends StatelessWidget {
             maxExtent: width,
             sliver: SliverCrossAxisGroup(
               slivers: [
-                CategoryButton(
-                  title: 'E-commerce',
-                  category: ProjectCategory.eCommerce,
-                  selected: category == ProjectCategory.eCommerce,
-                ),
-                CategoryButton(
-                  title: 'ERP',
-                  category: ProjectCategory.erp,
-                  selected: category == ProjectCategory.erp,
-                ),
-                CategoryButton(
-                  title: 'FinTech',
-                  category: ProjectCategory.finTech,
-                  selected: category == ProjectCategory.finTech,
-                ),
-                CategoryButton(
-                  title: 'Other',
-                  category: ProjectCategory.other,
-                  selected: category == ProjectCategory.other,
-                ),
+                SliverCrossAxisExpanded(
+                    flex: 3,
+                    sliver: CategoryButton(
+                      title: 'E-commerce',
+                      category: ProjectCategory.eCommerce,
+                      selected: category == ProjectCategory.eCommerce,
+                    )),
+                SliverCrossAxisExpanded(
+                    flex: 2,
+                    sliver: CategoryButton(
+                      title: 'ERP',
+                      category: ProjectCategory.erp,
+                      selected: category == ProjectCategory.erp,
+                    )),
+                SliverCrossAxisExpanded(
+                    flex: 2,
+                    sliver: CategoryButton(
+                      title: 'FinTech',
+                      category: ProjectCategory.finTech,
+                      selected: category == ProjectCategory.finTech,
+                    )),
+                SliverCrossAxisExpanded(
+                    flex: 2,
+                    sliver: CategoryButton(
+                      title: 'Other',
+                      category: ProjectCategory.other,
+                      selected: category == ProjectCategory.other,
+                    )),
               ],
             ));
       },

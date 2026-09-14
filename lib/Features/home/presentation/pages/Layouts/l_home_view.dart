@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/Features/home/presentation/widgets/aboutMe/home_summary_widget.dart';
 import 'package:portfolio/Features/home/presentation/widgets/contact/contact_me.dart';
+import 'package:portfolio/Features/home/presentation/widgets/hero/hero_widget.dart';
+import 'package:portfolio/Features/home/presentation/widgets/summary/summery_widget.dart';
 import 'package:portfolio/Utilities/Constants/constants.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Widgets/MainLayout/screen_layout_widget.dart';
@@ -20,9 +21,19 @@ class LargeHomeView extends StatelessWidget {
     return ScreenLayoutWidget(
       children: [
         /// Summary
-
         const HomeSummarySection(
           hozPadding: desktopHozPadding,
+          size: 120,
+        ),
+        SliverToBoxAdapter(
+          child: largeSpacing.heightBox,
+        ),
+
+        const SummarySection(
+          hozPadding: desktopHozPadding,
+        ),
+        SliverToBoxAdapter(
+          child: smallSpacing.heightBox,
         ),
         const SliverToBoxAdapter(
           child: DividerWidget(),
@@ -31,8 +42,15 @@ class LargeHomeView extends StatelessWidget {
           child: largeSpacing.heightBox,
         ),
 
-        const EducationSection(
+        /// Experince
+        const ExperienceSection(
           padding: desktopHozPadding,
+        ),
+        SliverToBoxAdapter(
+          child: smallSpacing.heightBox,
+        ),
+        const SliverToBoxAdapter(
+          child: DividerWidget(),
         ),
         SliverToBoxAdapter(
           child: largeSpacing.heightBox,
@@ -41,27 +59,39 @@ class LargeHomeView extends StatelessWidget {
         /// Skills
         const SkillsSection(
           iconSize: 22,
-          countPerRow: 3,
-          height: 144,
+          height: 100,
         ),
-
+        SliverToBoxAdapter(
+          child: smallSpacing.heightBox,
+        ),
+        const SliverToBoxAdapter(
+          child: DividerWidget(),
+        ),
         SliverToBoxAdapter(
           child: largeSpacing.heightBox,
         ),
-
-        /// Experince
-        const ExperienceSection(
-          padding: desktopHozPadding,
-        ),
-
-        SliverToBoxAdapter(
-          child: largeSpacing.heightBox,
-        ),
-
         const MyProjectsWidget(
           hozPadding: desktopHozPadding,
-          height: 300,
+          height: 260,
           countPerRow: 2,
+        ),
+        SliverToBoxAdapter(
+          child: smallSpacing.heightBox,
+        ),
+        const SliverToBoxAdapter(
+          child: DividerWidget(),
+        ),
+        SliverToBoxAdapter(
+          child: largeSpacing.heightBox,
+        ),
+        const EducationSection(
+          padding: desktopHozPadding,
+        ),
+        SliverToBoxAdapter(
+          child: smallSpacing.heightBox,
+        ),
+        const SliverToBoxAdapter(
+          child: DividerWidget(),
         ),
         SliverToBoxAdapter(
           child: largeSpacing.heightBox,
@@ -71,12 +101,15 @@ class LargeHomeView extends StatelessWidget {
           hozPadding: desktopHozPadding,
         ),
         SliverToBoxAdapter(
-          child: largeSpacing.heightBox,
+          child: smallSpacing.heightBox,
         ),
-        const SliverToBoxAdapter(child: DividerWidget()),
+        const SliverToBoxAdapter(
+          child: DividerWidget(),
+        ),
         SliverToBoxAdapter(
           child: largeSpacing.heightBox,
         ),
+
         const SliverToBoxAdapter(child: ContactWidget()),
         const SliverToBoxAdapter(
             child: SizedBox(

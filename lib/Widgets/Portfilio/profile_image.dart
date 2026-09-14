@@ -34,11 +34,11 @@ class _ProfileImageState extends State<ProfileImage> {
       width: widget.width,
       duration: const Duration(microseconds: 500),
       decoration: BoxDecoration(
-        color: colors.accent.withValues(alpha: 0.35),
+        color: colors.secondary.withValues(alpha: 0.35),
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: colors.accent.withValues(alpha: 0.08),
+            color: colors.secondarySoft.withValues(alpha: 0.08),
             blurRadius: 40,
             spreadRadius: 4,
           ),
@@ -61,7 +61,7 @@ class _ProfileImageState extends State<ProfileImage> {
               height: widget.height,
               width: widget.width,
               padding: 0,
-              borderColor: colors.accent,
+              borderColor: colors.secondary,
             )
           ],
         ));

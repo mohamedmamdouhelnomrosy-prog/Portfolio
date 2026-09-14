@@ -7,21 +7,20 @@ import 'package:portfolio/Widgets/Custom/card_with_text.dart';
 
 class SkillCard extends StatelessWidget {
   final TechnicalSkillEntity? skill;
-  final double iconSize, width, height;
+  final double iconSize, width;
 
-  const SkillCard(
-      {super.key,
-      required this.skill,
-      this.iconSize = 40,
-      this.width = 260,
-      this.height = 240});
+  const SkillCard({
+    super.key,
+    required this.skill,
+    this.iconSize = 40,
+    this.width = 260,
+  });
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
     return AnimatedCardWidget(
       width: width,
-      borderColor: colors.text3,
       child: (h) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -32,13 +31,13 @@ class SkillCard extends StatelessWidget {
             children: [
               Text(
                 skill?.category ?? "",
-                style: (AppTextStyles.titleCardLarge(
+                style: (AppTextStyles.subtitleCard(
                   context: context,
-                  color: colors.text1,
+                  color: colors.accent,
                 )),
               ).expand,
               Text(
-                "( ${skill?.skills.length?.toString() ?? "0"} )",
+                "( ${skill?.skills.length.toString() ?? "0"} )",
                 style: (AppTextStyles.titleCardSmall(
                   context: context,
                   color: colors.text2,
@@ -52,16 +51,17 @@ class SkillCard extends StatelessWidget {
             children: [
               ...List.generate(
                   skill?.skills.length ?? 0,
-                  (i) => CardWithText(
+                  (i) => HoverdCardWithText(
                         text: (skill?.skills[i].skillName ?? ""),
                         style: AppTextStyles.label(
                             context: context, color: colors.text2),
                         maxLine: 3,
-                        border: 4,
+                        border: 0,
                         hozPadding: 8,
-                        color: colors.text3.withValues(alpha: 0.4),
-                        borderColor: colors.text3,
+                        color: Colors.transparent,
+                        borderColor: colors.border,
                         textColor: colors.text2,
+                        hoverColor: colors.secondary,
                       ))
             ],
           )

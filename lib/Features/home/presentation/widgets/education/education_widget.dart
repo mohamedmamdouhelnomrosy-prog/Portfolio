@@ -29,7 +29,7 @@ class EducationSection extends StatelessWidget {
             SliverToBoxAdapter(
                 child: SectionsTitleWidget(
               key: GlobalKeys.education,
-              index: 1,
+              index: 4,
               icon: Portfolio.education,
               title: Strings.education.translate,
             )),

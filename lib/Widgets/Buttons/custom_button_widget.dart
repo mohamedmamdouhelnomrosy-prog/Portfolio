@@ -73,7 +73,8 @@ class CustomButtonWidget extends StatelessWidget {
               borderRadius ?? BorderRadius.circular(borderRadiusValue ?? 100.0),
           color: btnColor ?? colors.accent,
           boxShadow: boxShadow == null ? null : [boxShadow!],
-          border: Border.all(color: borderColor ?? Colors.transparent),
+          border:
+              Border.all(color: borderColor ?? Colors.transparent, width: 0.4),
         ),
         child: isLoading
             ? Center(

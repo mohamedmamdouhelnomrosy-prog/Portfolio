@@ -2,6 +2,66 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/Utilities/Constants/constants.dart';
 import 'package:portfolio/Utilities/extensions.dart';
 
+class AnimatedPostionedCardWidget extends StatelessWidget {
+  final Color? cardColor, borderColor, shadowColor;
+  final Widget Function(bool hover) child;
+  final double paddingHoz, paddingVert, border;
+  final double? width, height;
+
+  const AnimatedPostionedCardWidget({
+    super.key,
+    this.cardColor,
+    this.borderColor,
+    required this.child,
+    this.paddingHoz = 16,
+    this.paddingVert = 12,
+    this.width,
+    this.border = cardRadius,
+    this.shadowColor,
+    this.height,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    return InteractiveCard(
+      child: (_isHovered) => AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeOut,
+        width: width,
+        height: height,
+        transform: Matrix4.translationValues(
+          0,
+          _isHovered ? -3 : 0,
+          0,
+        ),
+        transformAlignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(border),
+          ),
+          border: Border.all(
+            color: _isHovered ? colors.accent : (borderColor ?? colors.border),
+            width: 0.2,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: _isHovered ? colors.border : Colors.transparent,
+              spreadRadius: _isHovered ? 2 : 0,
+              blurRadius: _isHovered ? 4 : 0,
+              offset: const Offset(0, 4),
+            ),
+          ],
+          color: (cardColor ?? colors.surface),
+        ),
+        padding:
+            EdgeInsets.symmetric(horizontal: paddingHoz, vertical: paddingVert),
+        child: child(_isHovered),
+      ),
+    );
+  }
+}
+
 class AnimatedCardWidget extends StatelessWidget {
   final Color? cardColor, borderColor, shadowColor;
   final Widget Function(bool hover) child;
@@ -25,7 +85,7 @@ class AnimatedCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     return InteractiveCard(
-        child: (_isHovered) => AnimatedContainer(
+        child: (h) => AnimatedContainer(
               duration: const Duration(milliseconds: 250),
               width: width,
               height: height,
@@ -34,34 +94,34 @@ class AnimatedCardWidget extends StatelessWidget {
                   Radius.circular(border),
                 ),
                 border: Border.all(
-                  color: _isHovered
-                      ? colors.accent
-                      : (borderColor ?? colors.text3),
-                  width: 1,
+                  color: (borderColor ?? colors.border),
+                  width: 0.2,
                 ),
-                boxShadow: _isHovered
+                boxShadow: h
                     ? [
                         BoxShadow(
-                            color: colors.text3,
+                            color: colors.border,
                             spreadRadius: 2,
                             blurRadius: 2,
                             offset: const Offset(0, 4))
                       ]
                     : null,
-                color: (cardColor ?? colors.surface),
+                color: (cardColor ?? colors.background),
               ),
               padding: EdgeInsets.symmetric(
                   horizontal: paddingHoz, vertical: paddingVert),
-              child: child(_isHovered),
+              child: child(h),
             ));
   }
 }
 
 class SideAnimatedCard extends StatefulWidget {
   final Widget child;
+  final double? width;
 
   const SideAnimatedCard({
     super.key,
+    this.width,
     required this.child,
   });
 
@@ -76,19 +136,13 @@ class _SideAnimatedCardState extends State<SideAnimatedCard> {
 
     return InteractiveCard(
       child: (h) => AnimatedContainer(
+        width: widget.width,
         duration: const Duration(milliseconds: 250),
         decoration: BoxDecoration(
-          border: Border(
-            left: BorderSide(
-              color: h ? colors.accent : colors.text3,
-              width: h ? 3 : 1,
-            ),
-            bottom: BorderSide(
-              color: h ? colors.accent : colors.text3,
-              width: h ? 3 : 1,
-            ),
+          border: Border.all(
+            color: h ? colors.accent : colors.border,
+            width: h ? 1 : 0.4,
           ),
-          color: colors.surface,
           borderRadius: BorderRadius.circular(cardRadius),
         ),
         padding: const EdgeInsets.all(16),
@@ -243,7 +297,7 @@ class _AnimatedDotState extends State<AnimatedDot>
         width: 8,
         height: 8,
         decoration: BoxDecoration(
-          color: colors.accent,
+          color: colors.secondary,
           shape: BoxShape.circle,
         ),
       ),

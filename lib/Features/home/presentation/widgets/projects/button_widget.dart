@@ -101,7 +101,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                       ),
                       borderColor: currentBorderColor ?? borderColor,
                       color: bgColor ?? backgroundColor,
-                      border: 8,
+                      border: 0,
                     );
                   },
                 );

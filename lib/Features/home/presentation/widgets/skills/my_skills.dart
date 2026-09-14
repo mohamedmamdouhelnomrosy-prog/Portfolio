@@ -19,10 +19,10 @@ class SkillsSection extends StatelessWidget {
   final int countPerRow;
   const SkillsSection({
     super.key,
-    this.height = 120,
+    this.height = 100,
     this.hozPadding = desktopHozPadding,
     this.iconSize = 40,
-    this.countPerRow = 4,
+    this.countPerRow = 2,
   });
 
   @override
@@ -34,7 +34,7 @@ class SkillsSection extends StatelessWidget {
         slivers: [
           SliverToBoxAdapter(
             child: SectionsTitleWidget(
-              index: 2,
+              index: 3,
               icon: Portfolio.skills,
               title: Strings.mySkill.translate,
               key: GlobalKeys.skill,
@@ -49,6 +49,8 @@ class SkillsSection extends StatelessWidget {
               builder: (c, skills) => AnimatedGridView(
                     perRow: countPerRow,
                     mainAxisExtent: height,
+                    vertSpace: 0,
+                    hozSpace: 0,
                     getKey: (u) => ValueKey('${skills[u].id ?? 'skill-${u}'}'),
                     buildChild: (u) => SkillCard(
                       skill: skills[u],

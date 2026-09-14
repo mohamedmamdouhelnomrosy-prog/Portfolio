@@ -8,6 +8,7 @@ class EducationEntity extends Equatable {
   final String? grade;
   final String? duration;
   final String? gradProjectTitle;
+  final String? graduationProjectDesc;
   final List<String> gradProjectTech;
 
   EducationEntity({
@@ -18,6 +19,7 @@ class EducationEntity extends Equatable {
     this.grade,
     this.duration,
     this.gradProjectTitle,
+    this.graduationProjectDesc,
     this.gradProjectTech = const [],
   });
 
@@ -31,6 +33,7 @@ class EducationEntity extends Equatable {
         grade,
         duration,
         gradProjectTitle,
+        graduationProjectDesc,
         gradProjectTech,
       ];
 }

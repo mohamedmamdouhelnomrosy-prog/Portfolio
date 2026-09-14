@@ -15,10 +15,12 @@ import '../../../../../Utilities/Constants/strings.dart';
 
 class CertificationSection extends StatelessWidget {
   final double hozPadding;
+  final int perRow;
 
   const CertificationSection({
     super.key,
     this.hozPadding = desktopHozPadding,
+    this.perRow = 4,
   });
 
   @override
@@ -39,20 +41,21 @@ class CertificationSection extends StatelessWidget {
           BlocSelector<PortfolioCubit, PortfolioState, List<CertificateEntity>>(
               selector: (state) => state.data?.certificates ?? [],
               builder: (context, certificates) {
-                return SliverList.separated(
-                  addRepaintBoundaries: true,
-                  itemCount: certificates.length,
-                  separatorBuilder: (ctx, index) => SizedBox(
-                    height: index == certificates.length - 1 ? 0 : 24,
-                  ),
-                  itemBuilder: (ctx, index) => ScrollReveal(
+                return AnimatedGridView<CertificateEntity>(
+                  perRow: perRow,
+                  items: certificates,
+                  getKey: (index) => ValueKey(certificates[index].id),
+                  mainAxisExtent: 272,
+                  hozSpace: 0,
+                  vertSpace: 0,
+                  buildChild: (index) => ScrollReveal(
                     axis: Axis.horizontal,
                     index: index,
                     offset: 8,
                     child: CertificationCard(
                       item: certificates[index],
-                      imageHeight: 40,
-                      imageWidth: 64,
+                      imageHeight: 200,
+                      imageWidth: 320,
                     ),
                   ),
                 );

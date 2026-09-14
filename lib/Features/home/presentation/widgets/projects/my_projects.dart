@@ -19,7 +19,7 @@ class MyProjectsWidget extends StatelessWidget {
 
   const MyProjectsWidget({
     super.key,
-    this.height = 260,
+    this.height = 220,
     this.countPerRow = 4,
     this.hozPadding = desktopHozPadding,
   });
@@ -48,7 +48,7 @@ class _MyProjectsContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final space = context.matchedSize(
-      large: 32,
+      large: 40,
       medium: 24,
       small: 20,
     );
@@ -67,7 +67,6 @@ class _MyProjectsContent extends StatelessWidget {
                       icon: Portfolio.projects,
                       key: GlobalKeys.projects,
                       title: Strings.projects.translate,
-                      subtitle: '$totalProjects Projects',
                     )),
           ),
           SliverToBoxAdapter(

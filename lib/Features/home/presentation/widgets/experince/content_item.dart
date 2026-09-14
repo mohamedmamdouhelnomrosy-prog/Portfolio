@@ -15,14 +15,6 @@ class ContentItem extends StatelessWidget {
       spacing: 4,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(item.title ?? "",
-            style: AppTextStyles.body(context: context, color: colors.text1)
-                .copyWith(
-                    decorationThickness: 0.5,
-                    fontWeight: FontWeight.w500,
-                    decoration: TextDecoration.underline,
-                    decorationStyle: TextDecorationStyle.dashed,
-                    decorationColor: colors.text1)),
         ...item.keys.map(
           (e) => PointText(
               point: e,
