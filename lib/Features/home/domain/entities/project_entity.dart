@@ -43,7 +43,7 @@ class ProjectPlatformEntity extends Equatable {
   List<Object?> get props => [id, name, color];
 }
 
-class LinkTypeEntity {
+class LinkTypeEntity extends Equatable {
   final String? id;
   final String? type;
 
@@ -51,9 +51,14 @@ class LinkTypeEntity {
     this.id,
     this.type,
   });
+
+  List<Object?> get props => [
+        id,
+        type,
+      ];
 }
 
-class ProjectLinkEntity {
+class ProjectLinkEntity extends Equatable {
   final String? id;
   final String? url;
   final String? name;
@@ -65,4 +70,11 @@ class ProjectLinkEntity {
     this.url,
     this.linkType,
   });
+
+  List<Object?> get props => [
+        id,
+        name,
+        url,
+        linkType,
+      ];
 }

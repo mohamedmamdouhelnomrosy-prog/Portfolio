@@ -28,6 +28,6 @@ class CertificateEntity extends Equatable {
         provider,
         issueDate,
         credentialUrl,
-        credentialUrl
+        certificateImageUrl,
       ];
 }

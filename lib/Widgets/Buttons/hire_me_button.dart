@@ -44,9 +44,8 @@ class _CustomHireButtonState extends State<CustomHireButton> {
                 await launchUrl(emailUri);
               }
             },
-            btnColor: hover
-                ? colors.secondary.withValues(alpha: 0.9)
-                : colors.secondary,
+            btnColor:
+                hover ? colors.accent.withValues(alpha: 0.9) : colors.accent,
             height: size,
             width: double.infinity,
             child: Row(

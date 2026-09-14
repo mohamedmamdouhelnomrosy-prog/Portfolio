@@ -22,14 +22,6 @@ class PortfolioState extends Equatable {
   factory PortfolioState.init() => const PortfolioState();
 
   // ----------------------------
-  // Portfolio getters
-  // ----------------------------
-
-  int get projectLen => data?.projects.length ?? 0;
-
-  int get certificationLen => data?.certificates.length ?? 0;
-
-  // ----------------------------
   // Projects
   // ----------------------------
 
@@ -90,8 +82,6 @@ class PortfolioState extends Equatable {
   List<Object?> get props => [
         data,
         loading,
-        certificationLen,
-        projectLen,
         section,
         projectCategory,
       ];

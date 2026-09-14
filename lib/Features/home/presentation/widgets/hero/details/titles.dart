@@ -10,7 +10,9 @@ import 'package:portfolio/Utilities/portifilo_icons.dart';
 
 class MainTitle extends StatelessWidget {
   final Duration duration;
-  const MainTitle({super.key, required this.duration});
+  final Duration delay;
+  const MainTitle(
+      {super.key, required this.duration, this.delay = Duration.zero});
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +22,11 @@ class MainTitle extends StatelessWidget {
       selector: (state) => state.data?.profile,
       builder: (c, profile) => Text(
         "${profile?.firstName ?? ""}",
-        style: AppTextStyles.headline(
-          context: context,
-          color: colors.text1,
-        ),
-      ).animate().fadeIn(duration: duration, curve: Curves.easeOutCubic).slideX(
+        style: AppTextStyles.headline(context: context, color: colors.text1),
+      )
+          .animate(delay: delay)
+          .fadeIn(duration: duration, curve: Curves.easeOutCubic)
+          .slideX(
             begin: -0.15,
             end: 0,
             duration: duration,
@@ -36,7 +38,9 @@ class MainTitle extends StatelessWidget {
 
 class SecondaryTitle extends StatelessWidget {
   final Duration duration;
-  const SecondaryTitle({super.key, required this.duration});
+  final Duration delay;
+  const SecondaryTitle(
+      {super.key, required this.duration, this.delay = Duration.zero});
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +51,9 @@ class SecondaryTitle extends StatelessWidget {
             builder: (c, profile) => Text(
                   "${profile?.lastName ?? ""}",
                   style: AppTextStyles.headline(
-                    context: context,
-                    color: colors.text1,
-                  ),
+                      context: context, color: colors.text1),
                 )
-                    .animate(delay: 200.ms)
+                    .animate(delay: delay)
                     .fadeIn(duration: duration, curve: Curves.easeOutCubic)
                     .scale(
                       begin: const Offset(0.9, 0.9),
@@ -60,17 +62,18 @@ class SecondaryTitle extends StatelessWidget {
                       curve: Curves.easeOutBack,
                     )
                     .blurXY(
-                      begin: 6,
-                      end: 0,
-                      duration: duration,
-                      curve: Curves.easeOut,
-                    )));
+                        begin: 6,
+                        end: 0,
+                        duration: duration,
+                        curve: Curves.easeOut)));
   }
 }
 
 class JobTitle extends StatelessWidget {
   final Duration duration;
-  const JobTitle({super.key, required this.duration});
+  final Duration delay;
+  const JobTitle(
+      {super.key, required this.duration, this.delay = Duration.zero});
 
   @override
   Widget build(BuildContext context) {
@@ -84,17 +87,12 @@ class JobTitle extends StatelessWidget {
                     Text(
                       (profile?.jobTitle ?? "").toUpperCase(),
                       style: AppTextStyles.basicDataSubTitle(
-                        context: context,
-                        color: colors.secondary,
-                      ),
+                          context: context, color: colors.secondary),
                     ),
-                    Icon(
-                      Portfolio.magniferBug,
-                      color: colors.secondary,
-                    ),
+                    Icon(Portfolio.magniferBug, color: colors.secondary),
                   ],
                 )
-                    .animate(delay: 200.ms)
+                    .animate(delay: delay)
                     .fadeIn(duration: duration, curve: Curves.easeOutCubic)
                     .scale(
                       begin: const Offset(0.9, 0.9),
@@ -103,17 +101,18 @@ class JobTitle extends StatelessWidget {
                       curve: Curves.easeOutBack,
                     )
                     .blurXY(
-                      begin: 6,
-                      end: 0,
-                      duration: duration,
-                      curve: Curves.easeOut,
-                    )));
+                        begin: 6,
+                        end: 0,
+                        duration: duration,
+                        curve: Curves.easeOut)));
   }
 }
 
 class HeroSummaryWidget extends StatelessWidget {
   final Duration duration;
-  const HeroSummaryWidget({super.key, required this.duration});
+  final Duration delay;
+  const HeroSummaryWidget(
+      {super.key, required this.duration, this.delay = Duration.zero});
 
   @override
   Widget build(BuildContext context) {
@@ -125,11 +124,9 @@ class HeroSummaryWidget extends StatelessWidget {
           return Text(
             summary,
             style: AppTextStyles.summaryBody(
-              context: context,
-              color: colors.text2,
-            ),
+                context: context, color: colors.text2),
           )
-              .animate(delay: 450.ms)
+              .animate(delay: delay)
               .fadeIn(duration: duration, curve: Curves.easeOut)
               .blurXY(
                 begin: 8,
@@ -145,7 +142,9 @@ class HeroSummaryWidget extends StatelessWidget {
 
 class SummaryWidget extends StatelessWidget {
   final Duration duration;
-  const SummaryWidget({super.key, required this.duration});
+  final Duration delay;
+  const SummaryWidget(
+      {super.key, required this.duration, this.delay = Duration.zero});
 
   @override
   Widget build(BuildContext context) {
@@ -157,11 +156,9 @@ class SummaryWidget extends StatelessWidget {
           return Text(
             summary,
             style: AppTextStyles.summaryBody(
-              context: context,
-              color: colors.text2,
-            ),
+                context: context, color: colors.text2),
           )
-              .animate(delay: 450.ms)
+              .animate(delay: delay)
               .fadeIn(duration: duration, curve: Curves.easeOut)
               .blurXY(
                 begin: 8,

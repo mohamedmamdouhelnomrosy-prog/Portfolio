@@ -43,7 +43,7 @@ class _CustomResumeButtonState extends State<CustomResumeButton> {
               if (cv == null || cv.isEmpty) return;
               HelperFunctions.openUrl(cv, context);
             },
-            btnColor: !hover ? Colors.transparent : colors.accentSoft,
+            btnColor: !hover ? Colors.transparent : colors.secondarySoft,
             borderColor: colors.border,
             height: size,
             child: Row(
@@ -55,12 +55,12 @@ class _CustomResumeButtonState extends State<CustomResumeButton> {
                   'Resume',
                   style: AppTextStyles.buttonTitle(
                     context: context,
-                    color: colors.accent,
+                    color: colors.secondary,
                   ),
                 ),
                 Icon(
                   Icons.arrow_downward_outlined,
-                  color: colors.accent,
+                  color: colors.secondary,
                   size: size / 2.5,
                 ),
               ],

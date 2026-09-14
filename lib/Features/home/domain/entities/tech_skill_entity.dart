@@ -3,18 +3,19 @@ import 'package:equatable/equatable.dart';
 class TechnicalSkillEntity extends Equatable {
   final String? category;
   final List<SkillEntity> skills;
-  final int ?id;
+  final int? id;
 
   const TechnicalSkillEntity({
     this.category,
-    this.skills = const [],  this.id,
+    this.skills = const [],
+    this.id,
   });
 
   @override
   // TODO: implement props
   List<Object?> get props => [
         category,
-    id,
+        id,
         skills,
       ];
 }

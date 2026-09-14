@@ -31,7 +31,8 @@ class ExperienceEntity extends Equatable {
         location,
         startDate,
         content,
-        status
+        status,
+        endDate,
       ];
 }
 

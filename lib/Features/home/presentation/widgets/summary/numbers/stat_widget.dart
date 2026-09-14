@@ -2,6 +2,7 @@
 //  STATS ROW
 // ──────────────────────────────────────────
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:portfolio/Widgets/Custom/card_with_animation.dart';
 import 'package:portfolio/Widgets/Portfilio/animated_list.dart';
 
@@ -11,9 +12,12 @@ import '../../../../../../Widgets/Custom/animated_counter.dart';
 
 class StatsWidget extends StatelessWidget {
   final List<Stat> items;
+  final Duration duration, delay;
   const StatsWidget({
     super.key,
     this.items = const [],
+    required this.delay,
+    required this.duration,
   });
 
   @override
@@ -26,7 +30,14 @@ class StatsWidget extends StatelessWidget {
       getKey: (i) => ValueKey('State$i'),
       mainAxisExtent: 140,
       buildChild: (index) => StatItem(item: items[index]),
-    );
+    )..animate(delay: delay)
+        .fadeOut(duration: duration, curve: Curves.easeOut)
+        .blurXY(
+          begin: 8,
+          end: 0,
+          duration: duration,
+          curve: Curves.easeOut,
+        );
   }
 }
 
