@@ -14,6 +14,7 @@ class TestThemeToggleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final size = context.matchedSize(large: 120, medium: 120, small: 108);
     return BlocSelector<ThemeCubit, ThemeState, bool>(
         selector: (c) => c.isDark,
         builder: (context, isDark) {
@@ -25,7 +26,7 @@ class TestThemeToggleButton extends StatelessWidget {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeInOut,
-              width: context.isLarge ? 120 : 108,
+              width: size,
               height: 32,
               padding: const EdgeInsets.symmetric(horizontal: 4),
               decoration: BoxDecoration(

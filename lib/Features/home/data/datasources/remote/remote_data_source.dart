@@ -3,5 +3,6 @@ import 'package:portfolio/Core/Network/custom_either.dart';
 import 'package:portfolio/Features/home/data/models/portfilio_model.dart';
 
 abstract class RemoteDataSource {
-  Future<Either<Failure, PortfolioModel>> getData();
+  Future<Either<Failure, PortfolioModel>> getData(
+      {bool Function()? isCancelled});
 }

@@ -59,6 +59,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         : _isHovered
             ? 1.02
             : 1.0;
+    final padding = context.matchedSize(large: 20, medium: 20, small: 8);
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -94,7 +95,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                     return CardWithText(
                       text: widget.title,
                       vertPadding: 8,
-                      hozPadding: 20,
+                      hozPadding: padding,
                       style: AppTextStyles.buttonTitle(
                         context: context,
                         color: currentTextColor ?? textColor,

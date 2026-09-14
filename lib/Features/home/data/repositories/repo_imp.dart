@@ -8,8 +8,9 @@ import '../../../../Core/Network/custom_either.dart';
 class RepoImp implements Repo {
   final RemoteDataSource dataSource;
   const RepoImp(this.dataSource);
-  Future<Either<Failure, PortfolioEntity>> getData() async {
-    final res = await dataSource.getData();
+  Future<Either<Failure, PortfolioEntity>> getData(
+      {bool Function()? isCancelled}) async {
+    final res = await dataSource.getData(isCancelled: isCancelled);
     return res.fold((l) => Either.left(l), (r) => Either.right(r.fromModel()));
   }
 }

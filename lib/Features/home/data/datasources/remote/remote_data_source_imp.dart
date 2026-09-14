@@ -7,11 +7,16 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RemoteDataSourceImp implements RemoteDataSource {
   @override
-  Future<Either<Failure, PortfolioModel>> getData() async {
+  Future<Either<Failure, PortfolioModel>> getData({bool Function()? isCancelled}) async {
     final supabase = Supabase.instance.client;
 
     final profileData =
-        await supabase.from('profiles').select('id').limit(1).maybeSingle();
+    await supabase.from('profiles').select('id').limit(1).maybeSingle();
+
+    if (isCancelled?.call() ?? false) {
+      return Either.left(ServerFailure(ErrorMessageModel.local(
+          statusMessage: 'Cancelled', errorMessage: 'Cancelled')));
+    }
 
     if (profileData == null) {
       return Either.left(ServerFailure(ErrorMessageModel.local(
@@ -23,6 +28,12 @@ class RemoteDataSourceImp implements RemoteDataSource {
       'get_portfolio_by_id',
       params: {'p_id': firstId},
     );
+
+    if (isCancelled?.call() ?? false) {
+      return Either.left(ServerFailure(ErrorMessageModel.local(
+          statusMessage: 'Cancelled', errorMessage: 'Cancelled')));
+    }
+
     if (response == null) {
       return Either.left(ServerFailure(ErrorMessageModel.local(
           statusMessage: 'No Data Found', errorMessage: 'No Data Found')));
@@ -30,4 +41,5 @@ class RemoteDataSourceImp implements RemoteDataSource {
       return Either.right(PortfolioModel.fromJson(response));
     }
   }
+
 }
