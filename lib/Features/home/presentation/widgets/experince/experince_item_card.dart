@@ -74,6 +74,7 @@ class _ExperienceCardState extends State<ExperienceCard>
                     style: AppTextStyles.subtitleCard(
                         context: context, color: colors.secondary)),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // ── Header ──
 
@@ -103,10 +104,18 @@ class _ExperienceCardState extends State<ExperienceCard>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       spacing: 16,
                       children: [
-                        Text("${widget.experience.companyName ?? ""} — ${widget.experience.location ?? ""}",
-                                style: AppTextStyles.subtitleCard(
-                                    context: context, color: colors.text3))
-                            .expand,
+                        Row(
+                          children: [
+                            Text("${widget.experience.companyName ?? ""}",
+                                    style: AppTextStyles.subtitleCard(
+                                        context: context, color: colors.text3))
+                                .expand,
+                            if (context.isLarge)
+                              Text(" — ${widget.experience.location ?? ""}",
+                                  style: AppTextStyles.subtitleCard(
+                                      context: context, color: colors.text3))
+                          ],
+                        ).expand,
                         if (widget.experience.status)
                           const AnimatedDot(
                             active: true,
@@ -122,6 +131,11 @@ class _ExperienceCardState extends State<ExperienceCard>
                         ),
                       ],
                     ),
+                    if (!context.isLarge) ...[
+                      Text("${widget.experience.location ?? ""}",
+                          style: AppTextStyles.subtitleCard(
+                              context: context, color: colors.text3)),
+                    ],
 
                     16.0.heightBox,
                     // ── Expandable bullet points ──

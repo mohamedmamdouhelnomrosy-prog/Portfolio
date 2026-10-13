@@ -3,13 +3,13 @@ import 'package:portfolio/Utilities/extensions.dart';
 
 import '../../../Core/Language/app_styles.dart';
 
-class HomeAppBarItem extends StatefulWidget {
+class MenuHomeAppBarItem extends StatefulWidget {
   final Function() onTap;
   final String? title;
   final IconData? icon;
   final bool selected;
 
-  const HomeAppBarItem({
+  const MenuHomeAppBarItem({
     super.key,
     required this.onTap,
     required this.title,
@@ -18,10 +18,10 @@ class HomeAppBarItem extends StatefulWidget {
   });
 
   @override
-  State<HomeAppBarItem> createState() => _HomeAppBarItemState();
+  State<MenuHomeAppBarItem> createState() => _MenuHomeAppBarItemState();
 }
 
-class _HomeAppBarItemState extends State<HomeAppBarItem> {
+class _MenuHomeAppBarItemState extends State<MenuHomeAppBarItem> {
   bool _isHovered = false;
 
   static const _duration = Duration(milliseconds: 250);
@@ -36,7 +36,7 @@ class _HomeAppBarItemState extends State<HomeAppBarItem> {
             ? 20.0
             : 0.0;
 
-    final showIcon = widget.icon != null && widget.selected;
+    final showIcon = widget.icon != null && (widget.selected);
     final color = active ? colors.secondary : colors.text2;
 
     return GestureDetector(
@@ -93,5 +93,58 @@ class _HomeAppBarItemState extends State<HomeAppBarItem> {
         ),
       ),
     ).paddingOnly(end: padding);
+  }
+}
+
+class HomeNavigatorItem extends StatefulWidget {
+  final Function() onTap;
+  final String? title;
+  final IconData? icon;
+  final bool selected;
+
+  const HomeNavigatorItem({
+    super.key,
+    required this.onTap,
+    required this.title,
+    required this.icon,
+    this.selected = false,
+  });
+
+  @override
+  State<HomeNavigatorItem> createState() => _HomeNavigatorItemState();
+}
+
+class _HomeNavigatorItemState extends State<HomeNavigatorItem> {
+  bool _isHovered = false;
+
+  static const _duration = Duration(milliseconds: 250);
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    bool active = widget.selected || _isHovered;
+    final iconColor = active ? colors.secondarySoft : colors.text2;
+
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: MouseRegion(
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        child: AnimatedContainer(
+            duration: _duration,
+            curve: Curves.easeOut,
+            height: 40,
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: active ? colors.secondary : Colors.transparent,
+            ),
+            child: Icon(
+              widget.icon,
+              size: 20,
+              color: iconColor,
+            )),
+      ),
+    );
   }
 }

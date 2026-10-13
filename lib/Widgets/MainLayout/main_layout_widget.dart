@@ -31,15 +31,15 @@ class _MainLayoutWidgetState extends State<MainLayoutWidget> {
       child: Scaffold(
           key: GlobalKeys.scaffoldKey,
           backgroundColor: colors.background,
-          appBar: PreferredSize(
-              preferredSize: const Size.fromHeight(64),
-              child:
-                  context.isLarge ? const AppBarWidget() : const MenuButton()),
+          appBar: context.isLarge
+              ? const PreferredSize(
+                  preferredSize: Size.fromHeight(64), child: AppBarWidget())
+              : null,
+          bottomNavigationBar: context.isLarge ? null : const AppNavigator(),
           body: AnimatedScale(
-            scale: scale,
-            duration: const Duration(milliseconds: 400),
-            child: widget.child,
-          )),
+              scale: scale,
+              duration: const Duration(milliseconds: 400),
+              child: widget.child)),
     );
   }
 }

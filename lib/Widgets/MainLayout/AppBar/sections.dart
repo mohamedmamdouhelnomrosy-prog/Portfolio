@@ -5,6 +5,7 @@ import 'package:portfolio/Features/home/presentation/cubit/state.dart';
 import 'package:portfolio/Utilities/Constants/enums.dart';
 import 'package:portfolio/Utilities/Constants/global_keys.dart';
 import 'package:portfolio/Utilities/Constants/strings.dart';
+import 'package:portfolio/Utilities/extensions.dart';
 import 'package:portfolio/Utilities/portifilo_icons.dart';
 import 'package:portfolio/Widgets/MainLayout/AppBar/home_app_bar_item.dart';
 
@@ -17,23 +18,43 @@ class SectionsWidget extends StatelessWidget {
     return BlocSelector<PortfolioCubit, PortfolioState, HomeSection>(
         selector: (c) => c.section,
         builder: (context, activeSection) {
-          return HomeAppBarItem(
-            icon: section?.icon,
-            onTap: () {
-              if (section.section == null) return;
-              if (section.key == null) return;
-              context.read<PortfolioCubit>().changeSection(
-                    section.section!,
-                  );
-              Scrollable.ensureVisible(
-                section.key!.currentContext!,
-                duration: const Duration(seconds: 1),
-                curve: Curves.easeInOut,
-              );
-            },
-            selected: activeSection == section.section,
-            title: section.title,
-          );
+          if (context.isLarge) {
+            return MenuHomeAppBarItem(
+              icon: section.icon,
+              onTap: () {
+                if (section.section == null) return;
+                if (section.key == null) return;
+                context.read<PortfolioCubit>().changeSection(
+                      section.section!,
+                    );
+                Scrollable.ensureVisible(
+                  section.key!.currentContext!,
+                  duration: const Duration(seconds: 1),
+                  curve: Curves.easeInOut,
+                );
+              },
+              selected: activeSection == section.section,
+              title: section.title,
+            );
+          } else {
+            return HomeNavigatorItem(
+              icon: section.icon,
+              onTap: () {
+                if (section.section == null) return;
+                if (section.key == null) return;
+                context.read<PortfolioCubit>().changeSection(
+                      section.section!,
+                    );
+                Scrollable.ensureVisible(
+                  section.key!.currentContext!,
+                  duration: const Duration(seconds: 1),
+                  curve: Curves.easeInOut,
+                );
+              },
+              selected: activeSection == section.section,
+              title: section.title,
+            );
+          }
         });
   }
 }

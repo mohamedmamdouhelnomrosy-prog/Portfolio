@@ -7,122 +7,64 @@ import '../../Utilities/extensions.dart';
 import '../Buttons/theme_button.dart';
 import 'menu_button_item.dart';
 
-class MenuButton extends StatefulWidget {
-  const MenuButton({
-    super.key,
-  });
-
-  @override
-  State<MenuButton> createState() => _MenuButtonState();
-}
-
-class _MenuButtonState extends State<MenuButton>
-    with SingleTickerProviderStateMixin {
-  bool _isOpen = false;
-  late AnimationController _ctrl;
-  late Animation<double> _fadeAnim;
-  late Animation<double> _scaleAnim;
-
-  @override
-  void initState() {
-    super.initState();
-    _ctrl = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 250),
-    );
-    _fadeAnim = CurvedAnimation(parent: _ctrl, curve: Curves.easeInOut);
-    _scaleAnim = Tween<double>(begin: 0.95, end: 1.0)
-        .animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeInOut));
-
-    _ctrl.addStatusListener((status) {
-      if (status == AnimationStatus.dismissed) {
-        setState(() => _isOpen = false);
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _ctrl.dispose();
-    super.dispose();
-  }
-
-  void _toggle() {
-    if (_isOpen) {
-      _ctrl.reverse();
-    } else {
-      setState(() => _isOpen = true);
-      _ctrl.forward();
-    }
-  }
+class AppNavigator extends StatelessWidget {
+  const AppNavigator({super.key});
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    return SizedBox(
-      height: 220,
-      width: double.infinity,
-      child: Stack(
-        clipBehavior: Clip.none,
+    return Container(
+      height: 64,
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      color: colors.surface,
+      child: Row(
+        spacing: 8,
         children: [
-          // ── AppBar ──
-          Container(
-            height: 64,
-            width: double.infinity,
-            padding: const EdgeInsetsDirectional.symmetric(
-                horizontal: mobileHozPadding),
-            decoration: BoxDecoration(
-              color: colors.surface,
-              border: Border.all(color: colors.text3, width: 1),
-            ),
-            child: AnimationLimiter(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: AnimationConfiguration.toStaggeredList(
-                  duration: const Duration(milliseconds: 400),
-                  delay: const Duration(milliseconds: 100),
-                  childAnimationBuilder: (widget) => SlideAnimation(
-                    verticalOffset: 24.0,
-                    child: FadeInAnimation(child: widget),
-                  ),
-                  children: [
-                    HamburgerBtn(
-                      isOpen: _isOpen,
-                      onTap: _toggle,
-                    ),
-                    const TestThemeToggleButton(),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-          Positioned(
-            left: 0,
-            right: 0,
-            top: 64,
-            child: FadeTransition(
-              opacity: _fadeAnim,
-              child: ScaleTransition(
-                scale: _scaleAnim,
-                alignment: Alignment.topCenter,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: colors.surface,
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  child: Column(
-                    spacing: 12,
-                    children: SectionModel.paths
-                        .map((e) => SectionsWidget(section: e))
-                        .toList(),
-                  ),
-                ),
-              ),
-            ),
+          ...SectionModel.paths.map(
+            (e) => SectionsWidget(
+              section: e,
+            ).expand,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class MenuButton extends StatelessWidget {
+  const MenuButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    return Container(
+      height: 64,
+      width: double.infinity,
+      padding:
+          const EdgeInsetsDirectional.symmetric(horizontal: mobileHozPadding),
+      decoration: BoxDecoration(
+        color: colors.surface,
+        border: Border.all(color: colors.text3, width: 1),
+      ),
+      child: AnimationLimiter(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: AnimationConfiguration.toStaggeredList(
+            duration: const Duration(milliseconds: 400),
+            delay: const Duration(milliseconds: 100),
+            childAnimationBuilder: (widget) => SlideAnimation(
+              verticalOffset: 24.0,
+              child: FadeInAnimation(child: widget),
+            ),
+            children: [
+              HamburgerBtn(
+                isOpen: false, // مبقاش محتاجينها تتابع حالة مفتوح/مقفول
+                onTap: () => Scaffold.of(context).openDrawer(),
+              ),
+              const TestThemeToggleButton(),
+            ],
+          ),
+        ),
       ),
     );
   }

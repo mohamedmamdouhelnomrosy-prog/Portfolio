@@ -31,7 +31,6 @@ class _CustomCursorPageState extends State<CustomCursorPage>
     final current = _cursorPosition.value;
     final target = _targetPosition;
 
-    // لو قرّب جداً من الهدف، وقف التحديث خالص (بدل setState بلا نهاية)
     if ((current - target).distanceSquared < 0.01) {
       return;
     }
@@ -68,7 +67,6 @@ class _CustomCursorPageState extends State<CustomCursorPage>
       onExit: _onExit,
       child: Stack(
         children: [
-          // widget.child دلوقتي مش هيعمل rebuild خالص مع حركة الكيرسور
           RepaintBoundary(child: widget.child),
           ValueListenableBuilder<bool>(
             valueListenable: _isVisible,
